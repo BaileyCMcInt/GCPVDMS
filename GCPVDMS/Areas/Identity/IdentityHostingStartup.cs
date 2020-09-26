@@ -1,5 +1,6 @@
 ﻿using System;
 using GCPVDMS.Data;
+using GCPVDMS.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -19,8 +20,8 @@ namespace GCPVDMS.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("GCPVDMSContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<GCPVDMSContext>();
+                //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    //.AddEntityFrameworkStores<GCPVDMSContext>();
             });
         }
     }
