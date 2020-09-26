@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GCPVDMS.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GCPVDMS.Data
 {
-    public class GCPVDMSContext : IdentityDbContext<IdentityUser>
+    public class GCPVDMSContext : IdentityDbContext<ApplicationUser>
     {
         public GCPVDMSContext(DbContextOptions<GCPVDMSContext> options)
             : base(options)
@@ -19,7 +20,7 @@ namespace GCPVDMS.Data
         {
             base.OnModelCreating(builder);
             builder.HasDefaultSchema("Identity");//This line sets a schema to our database 
-            builder.Entity<IdentityUser>(entity =>
+            builder.Entity<ApplicationUser>(entity =>
             {
                 entity.ToTable(name: "User");//Renaming tables from "ASPNet user" to "user", same concept below
             });
