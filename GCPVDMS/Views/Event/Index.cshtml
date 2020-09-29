@@ -1,0 +1,100 @@
+﻿@*
+    Page to Create Events
+*@
+
+@{
+    Layout = "_Layout";
+}
+
+
+<!DOCTYPE html>
+<!---Until a layout is created which will be referenced at the top of the page-->
+
+<head>
+    <style>
+        #location, #appt {
+            position: fixed;
+            
+            left: 180px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1> Event Form </h1>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col px-md-5">
+
+                <form>
+
+                    <select name="Location" id="Location">
+                        <option value="location">Location</option>
+                        <option value="MLK">MLK Elementary</option>
+                        <option value="mandarin">Mandarin</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <br />
+                    <br />
+
+                    <div>
+                        <label>Time: </label>
+                        <input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <div>
+                        <label>Tasks: </label>
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <div>
+                        <label for="quantity">Number of Volunteers Needed: </label>
+                        <input type="number" id="quantity" name="quantity" min="1">
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <div>
+                        <label for="title">Event Title: </label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <div>
+                        <label for="description">Description: </label>
+
+                        <textarea rows="4" cols="50" name="comment" form="usrform"></textarea>
+
+                        <!--   <input type="text" id="description" name="description" required> -->
+                    </div>
+
+                    <br />
+
+                    <input type="submit" value="Add Event"> <input type="reset">
+
+                </form>
+
+            </div>
+
+            <div class="col col-md-3">
+
+                <h2>Tasks</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
