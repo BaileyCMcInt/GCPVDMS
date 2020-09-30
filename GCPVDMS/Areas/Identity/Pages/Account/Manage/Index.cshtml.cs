@@ -33,30 +33,39 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
 
         public class InputModel //these are all the attributes for the user profile
         {
-                [Display(Name = "First Name")]
-                public string FirstName { get; set; }
-                [Display(Name = "Last Name")]
-                public string LastName { get; set; }
-                [Display(Name = "Username")]
-                public string Username { get; set; }
-                [Phone]
-                [Display(Name = "Phone number")]
-                public string PhoneNumber { get; set; }
-        }
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+            [Display(Name = "Availability")]
+            public string Availability { get; set; }
+            [Display(Name = "Location Preference")]
+            public string LocationPreference { get; set; }
 
+        }
+  
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var firstName = user.FirstName;
             var lastName = user.LastName;
+            var availabity = user.Availablity;
+            var locationPreference = user.LocationPreference;
             Username = userName;
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
                 Username = userName,
                 FirstName = firstName,
-                LastName = lastName
+                LastName = lastName,
+                Availability = availabity,
+                LocationPreference = locationPreference
             };
         }
 
@@ -77,6 +86,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             var firstName = user.FirstName;
             var lastName = user.LastName;
+            var availability = user.Availablity;
+            var locationPreference = user.LocationPreference;
             if (Input.FirstName != firstName)
             {
                 user.FirstName = Input.FirstName;
@@ -96,6 +107,16 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             {
                 await LoadAsync(user);
                 return Page();
+            }
+            if (Input.Availability != availability)
+            {
+                user.Availablity = Input.Availability;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.LocationPreference != locationPreference)
+            {
+                user.LocationPreference= Input.LocationPreference;
+                await _userManager.UpdateAsync(user);
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
