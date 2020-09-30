@@ -11,6 +11,7 @@ namespace GCPVDMS.Models
         public string LastName { get; set; }
         public string LocationPreference {get; set; }
         public string Availablity { get; set; }
+        public string Interests { get; set; }
     }
 
 }

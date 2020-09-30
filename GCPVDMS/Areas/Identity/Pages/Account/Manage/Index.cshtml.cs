@@ -46,6 +46,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             public string Availability { get; set; }
             [Display(Name = "Location Preference")]
             public string LocationPreference { get; set; }
+            [Display(Name = "Volunteer Interests")]
+            public string Interests { get; set; }
 
         }
   
@@ -57,6 +59,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var lastName = user.LastName;
             var availabity = user.Availablity;
             var locationPreference = user.LocationPreference;
+            var interests = user.Interests;
             Username = userName;
             Input = new InputModel
             {
@@ -65,7 +68,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 FirstName = firstName,
                 LastName = lastName,
                 Availability = availabity,
-                LocationPreference = locationPreference
+                LocationPreference = locationPreference,
+                Interests = interests
             };
         }
 
@@ -88,6 +92,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var lastName = user.LastName;
             var availability = user.Availablity;
             var locationPreference = user.LocationPreference;
+            var interests = user.Interests;
             if (Input.FirstName != firstName)
             {
                 user.FirstName = Input.FirstName;
@@ -96,6 +101,11 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             if (Input.LastName != lastName)
             {
                 user.LastName = Input.LastName;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.Interests !=interests)
+            {
+                user.Interests = Input.Interests;
                 await _userManager.UpdateAsync(user);
             }
             if (user == null)
