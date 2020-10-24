@@ -45,7 +45,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
         public class InputModel
         {//with identity, the username and email is the same by default so users can log in with both
             [Required]
-            [Display(Name = "Email / Username")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
             [Required]
             [DataType(DataType.Password)]
