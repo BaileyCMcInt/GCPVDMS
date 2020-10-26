@@ -1,4 +1,6 @@
-﻿@{
+﻿<link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+@{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
     {
         Layout = (string)parentLayout;
@@ -11,18 +13,14 @@
 
 <h2>Manage your account</h2>
 
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <div class="row">
         <div class="col-md-3">
             <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
+        </div></br>
+
+    <div class="col-md-9">
+        @RenderBody()
     </div>
-</div>
+
 
 @section Scripts {
     @RenderSection("Scripts", required: false)
