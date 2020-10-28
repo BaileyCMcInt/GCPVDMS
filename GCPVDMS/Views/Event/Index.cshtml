@@ -21,7 +21,7 @@
 </head>
 <body>
 
-    <h1> Event Form </h1>
+    <h1> Create Event </h1>
 
     <div class="container">
         <div class="row">
@@ -29,6 +29,17 @@
             <div class="col px-md-5">
 
                 <form>
+
+
+                    <select name="County" id="County">
+                        <option value="county">County</option>
+                        <option value="Duval">Duval</option>
+                        <option value="Palm Beach">Palm Beach</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <br />
+                    <br />
 
                     <select name="Location" id="Location">
                         <option value="location">Location</option>
@@ -41,18 +52,13 @@
                     <br />
 
                     <div>
-                        <label>Time: </label>
-                        <input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
+                        <label>Start Time: </label>
+                        <input type="time" id="startTime" name="startTime" min="09:00" max="18:00" required>
+                        <br />
+                        <label>End Time: </label>
+                        <input type="time" id="endTime" name="endTime" min="09:00" max="18:00" required>
                     </div>
 
-                    <br />
-                    <br />
-
-                    <div>
-                        <label>Tasks: </label>
-                    </div>
-
-                    <br />
                     <br />
 
                     <div>
@@ -60,7 +66,6 @@
                         <input type="number" id="quantity" name="quantity" min="1">
                     </div>
 
-                    <br />
                     <br />
 
                     <div>
@@ -79,6 +84,34 @@
                         <!--   <input type="text" id="description" name="description" required> -->
                     </div>
 
+                    <h4> Point of Contact </h4>
+
+                    <div>
+                        <label for="pocName">Name: </label>
+                        <input type="text" id="pocName" name="pocName" required>
+
+                        <br />
+
+                        <label for="pocPhone">Phone: </label>
+                        <input type="tel" id="pocPhone" name="pocPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+
+                        <br />
+
+                        <label for="pocEmail">Email: </label>
+                        <input type="email" id="pocEmail" name="pocEmail">
+                    </div>
+
+                    <br />
+
+                    <input type="checkbox" id="activeEvent" name="activeEvent" value="active">
+                    <label for="activeEvent">Event Active</label>
+                    
+                    <br />
+                    
+                    <input type="checkbox" id="visible" name="visible" value="yes">
+                    <label for="visible">Visible to Admin Only</label>
+                    
+                    <br />  
                     <br />
 
                     <input type="submit" value="Add Event"> <input type="reset">
