@@ -12,5 +12,10 @@ namespace GCPVDMS.Controllers
         {
             return View();
         }
+
+        public IActionResult EventList()
+        {
+            return View();
+        }
     }
 }
