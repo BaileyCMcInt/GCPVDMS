@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+
+<!DOCTYPE html>
+
+<head>
+  
+</head>
+
+<body>
+
+    <div class="text-center">
+        <button class="btn btn-light">Create New Event</button>
+    </div>
+
+    <br />
+
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th class="text-left">Title</th>
+            <th>Location</th>
+            <th class="text-left">Contact</th>
+            <th class="text-left">Date</th>
+            <th class="text-center">Actions</th>
+        </tr>
+
+        
+        <tr>
+            <td class="text-left">Morning Session</td>
+            <td>MLK Elementary</td>
+            <td class="text-left">Linda</td>
+            <td>11/1/2020</td>
+            <td class="text-center">
+                <form method="post">
+                    <button class="btn btn-sm btn-light">
+                        View
+                    </button>
+                    <input type="hidden" name="ProductID" value=" " />
+                    <button type="submit" class="btn btn-light btn-sm">
+                        Update
+                    </button>
+                </form>
+            </td>
+        </tr>
+        
+    </table>
+
+</body>
