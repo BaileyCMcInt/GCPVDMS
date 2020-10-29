@@ -19,7 +19,7 @@
             @foreach (ApplicationUser user in Model.NonMembers)
             {
                 <tr>
-                    <td>@user.UserName</td>
+                    <td>@user.UserName, @user.LastName</td>
                     <td>
                         <input type="checkbox" name="AddIds" value="@user.Id">
                     </td>
