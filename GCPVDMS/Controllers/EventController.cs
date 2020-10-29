@@ -17,5 +17,10 @@ namespace GCPVDMS.Controllers
         {
             return View();
         }
+
+        public IActionResult EventSignUp()
+        {
+            return View();
+        }
     }
 }
