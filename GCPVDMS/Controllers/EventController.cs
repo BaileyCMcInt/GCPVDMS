@@ -8,19 +8,18 @@ namespace GCPVDMS.Controllers
 {
     public class EventController : Controller
     {
+
         public IActionResult Index()
         {
-            return View();
+            return View("~/Views/Event/Admin/Index.cshtml");
         }
-
         public IActionResult EventList()
         {
-            return View();
+            return View("~/Views/Event/Admin/EventList.cshtml");
         }
-
         public IActionResult EventSignUp()
         {
-            return View();
+            return View("~/Views/Event/Volunteer/EventSignUp.cshtml");
         }
     }
 }
