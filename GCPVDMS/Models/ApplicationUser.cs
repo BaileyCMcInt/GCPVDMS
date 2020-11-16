@@ -12,6 +12,7 @@ namespace GCPVDMS.Models
         //public string LocationPreference {get; set; }
         //public string Availablity { get; set; }
         //public string Interests { get; set; }
+        //commenting these out because they are no longer needed in the profile. 
     }
 
 }
