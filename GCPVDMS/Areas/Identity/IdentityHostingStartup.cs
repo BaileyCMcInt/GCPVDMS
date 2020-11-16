@@ -20,8 +20,8 @@ namespace GCPVDMS.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("GCPVDMSContextConnection")));
 
-                //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    //.AddEntityFrameworkStores<GCPVDMSContext>();
+               // services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                   // .AddEntityFrameworkStores<GCPVDMSContext>();
             });
         }
     }

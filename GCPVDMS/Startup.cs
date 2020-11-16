@@ -18,9 +18,11 @@ namespace GCPVDMS
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+       public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            Configuration = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json").Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -29,12 +31,16 @@ namespace GCPVDMS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<GCPVDMSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GCPVDMSContextConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GCPVDMSContextConnection")));
+            services.AddTransient<IDriveRepository, EFDriveRepository>();
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<GCPVDMSContext>()
                     .AddDefaultUI()
                     .AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,12 +67,15 @@ namespace GCPVDMS
 
             app.UseEndpoints(endpoints =>
             {
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapRazorPages();
             });
+
+       
         }
     }
 }
