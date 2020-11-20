@@ -11,5 +11,10 @@ namespace GCPVDMS.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
         base(options) { }
         public DbSet<Drive> Drives { get; set; }
+
+        public DbSet<County> Counties { get; set; }
+
+        public DbSet<Location> Locations { get; set; }
+
     }
 }

@@ -4,14 +4,16 @@ using GCPVDMS.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GCPVDMS.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201120180808_rcook_counties")]
+    partial class rcook_counties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,21 +55,6 @@ namespace GCPVDMS.Migrations.ApplicationDb
                     b.HasKey("DriveID");
 
                     b.ToTable("Drives");
-                });
-
-            modelBuilder.Entity("GCPVDMS.Models.Location", b =>
-                {
-                    b.Property<int>("LocationID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("LocationName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LocationID");
-
-                    b.ToTable("Locations");
                 });
 #pragma warning restore 612, 618
         }
