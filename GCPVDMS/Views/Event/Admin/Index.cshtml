@@ -12,11 +12,16 @@
 
 <head>
     <style>
-        #location, #startTime, #endTime {
+        #location {
             position: fixed;
             
             left: 180px;
         }
+
+        label, textarea{
+            display: block;
+        }
+
     </style>
 </head>
 <body>
@@ -78,11 +83,10 @@
 
                     <div>
                         <label for="description">Description: </label>
-
-                        <textarea rows="4" cols="50" name="comment" form="usrform"></textarea>
-
-                        <!--   <input type="text" id="description" name="description" required> -->
+                        <textarea rows="4" cols="50" name="description" form="usrform"></textarea>
                     </div>
+
+                    <br />
 
                     <h4> Point of Contact </h4>
 
@@ -107,10 +111,11 @@
                     <label for="activeEvent">Event Active</label>
                     
                     <br />
-                    
+                    @* TEAM DECIDED TO NOT HAVE "VISIBLE TO ADMIN ONLY" OPTION AS EVENT ACTIVE TAKES CARE
+                        OF THIS
                     <input type="checkbox" id="visible" name="visible" value="yes">
                     <label for="visible">Visible to Admin Only</label>
-                    
+                    *@
                     <br />  
                     <br />
 
