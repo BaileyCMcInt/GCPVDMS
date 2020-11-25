@@ -42,12 +42,12 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
-            //[Display(Name = "Availability")]
-            //public string Availability { get; set; }
-            //[Display(Name = "Location Preference")]
-            //public string LocationPreference { get; set; }
-            //[Display(Name = "Volunteer Interests")]
-            //public string Interests { get; set; }
+            [Display(Name = "Preferred method of Contact")]
+            public string PreferredContact{ get; set; }
+            [Display(Name = "County Affiliation")]
+            public string County { get; set; }
+            [Display(Name = "Account Type")]
+            public string AccountType { get; set; }
 
         }
   
@@ -57,9 +57,9 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var firstName = user.FirstName;
             var lastName = user.LastName;
-            //var availabity = user.Availablity;
-            //var locationPreference = user.LocationPreference;
-            //var interests = user.Interests;
+            var preferredContact = user.PreferredContact;
+            var county = user.County;
+            var accountType = user.AccountType;
             Username = userName;
             Input = new InputModel
             {
@@ -67,9 +67,9 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 Username = userName,
                 FirstName = firstName,
                 LastName = lastName,
-                //Availability = availabity,
-                //LocationPreference = locationPreference,
-                //Interests = interests
+                PreferredContact = preferredContact,
+                County = county,
+                AccountType = accountType
             };
         }
 
@@ -90,9 +90,9 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             var firstName = user.FirstName;
             var lastName = user.LastName;
-            //var availability = user.Availablity;
-            //var locationPreference = user.LocationPreference;
-            //var interests = user.Interests;
+            var preferredContact = user.PreferredContact;
+            var county = user.County;
+            var accountType = user.AccountType;
             if (Input.FirstName != firstName)
             {
                 user.FirstName = Input.FirstName;
@@ -103,11 +103,11 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 user.LastName = Input.LastName;
                 await _userManager.UpdateAsync(user);
             }
-            //if (Input.Interests !=interests)
-            //{
-            //    user.Interests = Input.Interests;
-            //    await _userManager.UpdateAsync(user);
-            //}
+            if (Input.PreferredContact != preferredContact)
+            {
+                user.PreferredContact = Input.PreferredContact;
+                await _userManager.UpdateAsync(user);
+            }
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -118,16 +118,16 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-            //if (Input.Availability != availability)
-            //{
-            //    user.Availablity = Input.Availability;
-            //    await _userManager.UpdateAsync(user);
-            //}
-            //if (Input.LocationPreference != locationPreference)
-            //{
-            //    user.LocationPreference= Input.LocationPreference;
-            //    await _userManager.UpdateAsync(user);
-            //}
+            if (Input.AccountType != accountType)
+            {
+                user.AccountType = Input.AccountType;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.County != county)
+            {
+                user.County = Input.County;
+                await _userManager.UpdateAsync(user);
+            }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
