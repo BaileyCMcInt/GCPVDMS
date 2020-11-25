@@ -2,37 +2,44 @@
     Layout = "_Layout";
 }
 
+@*Script for JavaScript DataTables*@
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
 
-<!DOCTYPE html>
 
-<head>
-  
-</head>
+<div class="text-center">
+    <button class="btn btn-light">Create New Event</button>
+    <button class="btn btn-light">Export Data</button>
+    <button class="btn btn-light">Tasks</button>
+</div>
 
-<body>
 
-    <div class="text-center">
-        <button class="btn btn-light">Create New Event</button>
-    </div>
+<br />
 
-    <br />
-
-    <table class="table table-striped table-bordered table-condensed">
+<table id="myTable" class="display">
+    <thead>
         <tr>
-            <th class="text-left">Title</th>
+            <th>Title</th>
             <th>Location</th>
-            <th class="text-left">Contact</th>
-            <th class="text-left">Date</th>
-            <th class="text-center">Actions</th>
+            <th>Contact</th>
+            <th>Date</th>
+            <th>Spots available</th>
+            <th>Actions</th>
         </tr>
-
-        
+    </thead>
+    <tbody>
         <tr>
-            <td class="text-left">Morning Session</td>
+            <td>Morning Session</td>
             <td>MLK Elementary</td>
-            <td class="text-left">Linda</td>
-            <td>11/1/2020</td>
-            <td class="text-center">
+            <td>Linda</td>
+            <td>1/2/2021</td>
+            <td>2</td>
+            <td>
                 <form method="post">
                     <button class="btn btn-sm btn-light">
                         View
@@ -44,7 +51,24 @@
                 </form>
             </td>
         </tr>
-        
-    </table>
+        <tr>
+            <td>Afternoon Session</td>
+            <td>Mandarin</td>
+            <td>Toya</td>
+            <td>1/3/2021</td>
+            <td>3</td>
+            <td>
+                <form method="post">
+                    <button class="btn btn-sm btn-light">
+                        View
+                    </button>
+                    <input type="hidden" name="ProductID" value=" " />
+                    <button type="submit" class="btn btn-light btn-sm">
+                        Update
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-</body>
