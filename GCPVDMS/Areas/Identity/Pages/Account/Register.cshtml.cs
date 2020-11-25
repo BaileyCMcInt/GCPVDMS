@@ -69,6 +69,12 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
+
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Account Type")]
+            public string AccountType { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -85,7 +91,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,
                     FirstName = Input.FirstName,//this is where we are assigning registration input to the database if input is valid
-                    LastName = Input.LastName
+                    LastName = Input.LastName,
+                    AccountType = Input.AccountType
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
