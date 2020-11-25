@@ -18,7 +18,6 @@ namespace GCPVDMS
         {
            CreateHostBuilder(args).Build().Run();
 
-          
 
         }
 
