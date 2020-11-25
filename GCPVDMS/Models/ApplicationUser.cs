@@ -14,7 +14,8 @@ namespace GCPVDMS.Models
 
         public string County { get; set; }
 
-        public string AccountType { get; set; }
+        public bool isVolunteer { get; set; }
+        public bool isDonor { get; set; }
     }
 
 }
