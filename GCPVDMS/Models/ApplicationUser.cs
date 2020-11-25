@@ -9,10 +9,12 @@ namespace GCPVDMS.Models
     public class ApplicationUser : IdentityUser
     { public string FirstName { get; set; }
         public string LastName { get; set; }
-        //public string LocationPreference {get; set; }
-        //public string Availablity { get; set; }
-        //public string Interests { get; set; }
-        //commenting these out because they are no longer needed in the profile. 
+
+        public string PreferredContact { get; set; }
+
+        public string County { get; set; }
+
+        public string AccountType { get; set; }
     }
 
 }
