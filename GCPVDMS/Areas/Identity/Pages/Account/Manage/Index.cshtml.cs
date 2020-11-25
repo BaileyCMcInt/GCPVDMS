@@ -46,8 +46,10 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             public string PreferredContact{ get; set; }
             [Display(Name = "County Affiliation")]
             public string County { get; set; }
-            [Display(Name = "Account Type")]
-            public string AccountType { get; set; }
+            [Display(Name = "Donor")]
+            public bool isDonor { get; set; }
+            [Display(Name = "Volunteer")]
+            public bool isVolunteer { get; set; }
 
         }
   
@@ -59,7 +61,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var lastName = user.LastName;
             var preferredContact = user.PreferredContact;
             var county = user.County;
-            var accountType = user.AccountType;
+            var IsVolunteer = user.isVolunteer;
+            var IsDonor = user.isDonor;
             Username = userName;
             Input = new InputModel
             {
@@ -69,7 +72,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 LastName = lastName,
                 PreferredContact = preferredContact,
                 County = county,
-                AccountType = accountType
+                isVolunteer = IsVolunteer,
+                isDonor = IsDonor
             };
         }
 
@@ -92,7 +96,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var lastName = user.LastName;
             var preferredContact = user.PreferredContact;
             var county = user.County;
-            var accountType = user.AccountType;
+            var IsVolunteer = user.isVolunteer;
+            var IsDonor= user.isDonor;
             if (Input.FirstName != firstName)
             {
                 user.FirstName = Input.FirstName;
@@ -118,9 +123,14 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-            if (Input.AccountType != accountType)
+            if (Input.isVolunteer != IsVolunteer)
             {
-                user.AccountType = Input.AccountType;
+                user.isVolunteer = Input.isVolunteer;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.isDonor != IsDonor)
+            {
+                user.isVolunteer = Input.isDonor;
                 await _userManager.UpdateAsync(user);
             }
             if (Input.County != county)
