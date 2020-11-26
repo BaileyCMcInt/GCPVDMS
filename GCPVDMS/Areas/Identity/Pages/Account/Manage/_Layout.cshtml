@@ -1,5 +1,4 @@
-﻿<link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
+﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
     {
@@ -13,13 +12,13 @@
 
 <h2>Manage your account</h2>
 
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div></br>
+<div class="col-md-3">
+    <partial name="_ManageNav" />
+</div></br>
 
-    <div class="col-md-9">
-        @RenderBody()
-    </div>
+<div class="col-md-9">
+    @RenderBody()
+</div>
 
 
 @section Scripts {
