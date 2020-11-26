@@ -1,4 +1,8 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GCPVDMS</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/site.css" />
 
 
@@ -21,31 +26,83 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-light box-shadow">
-            @*<a class="navbar-brand gcplogo" href="/">
-                <img src="/assets/images/LogoRound.png" alt="The Giving Closet Project" />
-            </a>*@
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <!--Navbar -->
+        <nav class="mb-1 navbar navbar-expand-lg navbar-light default-color">
+            <a class="navbar-brand" href="#">LOGO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+                    aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-                <ul class="navbar-nav">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Event" asp-action="EventSignUp">Volunteer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
 
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Donate</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Referral</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Programs</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Event" asp-action="EventSignUp">Volunteer</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">About</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Locations</a></li>
+                <ul class="navbar-nav nav-flex-icons">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
 
-                    <partial name="_LoginPartial.cshtml" />
+                                <a id="manage" class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Account</a>
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button id="logout" type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item" id="register" asp-area="Identity" asp-page="/Account/Register">Create Account</a>
+                                <a class="dropdown-item" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+
+                            }
+                        </div>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="https://twitter.com/gcpjax" target="_blank"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="https://www.facebook.com/givingclosetproject.org/" target="_blank"><i class="fa fa-facebook"></i></a>
+                    
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="https://www.instagram.com/gcpjax/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a>
+                    </li>
                 </ul>
 
             </div>
         </nav>
+   
+   
 
-       
+
     </header>
     <div class="container">
         <div class="col-md-3">
@@ -61,7 +118,6 @@
         <div class="container">
             &copy; 2020 - The Giving Closet Project. All Rights Reserved.  <a asp-area="" asp-controller="Home" asp-action="Index">Contact Us</a>
             <a asp-area="" asp-controller="Home" asp-action="Index">Donate</a>
-            <a asp-area="" asp-controller="Home" asp-action="Index">Referral</a>
             <a asp-area="" asp-controller="Home" asp-action="Index">Volunteer</a>
             <a asp-area="" asp-controller="Home" asp-action="Index">Locations</a>
 
@@ -70,3 +126,6 @@
 </body>
 </html>
 
+<!--Navbar -->
+
+<!--/.Navbar -->
