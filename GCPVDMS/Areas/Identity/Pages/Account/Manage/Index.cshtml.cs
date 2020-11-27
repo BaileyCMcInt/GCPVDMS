@@ -37,7 +37,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             public string FirstName { get; set; }
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
-            [Display(Name = "Username")]
+            [Display(Name = "Email")]
             public string Username { get; set; }
             [Phone]
             [Display(Name = "Phone number")]

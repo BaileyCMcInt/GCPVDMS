@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Drive\Admin\" />
     <Folder Include="Views\Drive\Volunteer\" />
   </ItemGroup>
