@@ -16,5 +16,7 @@ namespace GCPVDMS.Models
 
         public DbSet<Location> Locations { get; set; }
 
+        public DbSet<Event> Events { get; set; }
+
     }
 }
