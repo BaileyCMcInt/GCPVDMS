@@ -44,12 +44,15 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
             [Display(Name = "Preferred method of Contact")]
             public string PreferredContact{ get; set; }
+
             [Display(Name = "County Affiliation")]
             public string County { get; set; }
             [Display(Name = "Donor")]
             public bool isDonor { get; set; }
             [Display(Name = "Volunteer")]
             public bool isVolunteer { get; set; }
+
+           
 
         }
   
@@ -130,7 +133,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             }
             if (Input.isDonor != IsDonor)
             {
-                user.isVolunteer = Input.isDonor;
+                user.isDonor = Input.isDonor;
                 await _userManager.UpdateAsync(user);
             }
             if (Input.County != county)

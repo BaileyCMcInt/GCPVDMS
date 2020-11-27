@@ -30,24 +30,35 @@
                         <input asp-for="Input.LastName" class="form-control" />
                         <span asp-validation-for="Input.LastName" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Input.County"></label>
-                        <input asp-for="Input.County" class="form-control" />
-                        <span asp-validation-for="Input.County" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Input.PreferredContact"></label>
-                        <input asp-for="Input.PreferredContact" class="form-control" />
-                        <span asp-validation-for="Input.PreferredContact" class="text-danger"></span>
-                    </div>
+                    @*<div class="form-group">
+            <label asp-for="Input.County"></label>
+            <input asp-for="Input.County" class="form-control" />
+            <span asp-validation-for="Input.County" class="text-danger"></span>
+        </div>*@
+                    <label asp-for="Input.County"></label>
+                    <select class="form-control" asp-for="Input.County">
+                        <option value="">Please select a County</option>
+                        <option value="Duval">Duval</option>
+                        <option value="West Palm">West Palm</option>
+                    </select>
+
+                    <label asp-for="Input.PreferredContact"></label>
+                    <select class="form-control" asp-for="Input.PreferredContact">
+                        <option value="">Please select an option</option>
+                        <option value="Email">Email</option>
+                        <option value="Phone">Phone</option>
+                    </select>
+
+                    @*<label asp-for="Input.PreferredContact"></label>
+                    <input asp-for="Input.PreferredContact" class="form-control" />
+                    <span asp-validation-for="Input.PreferredContact" class="text-danger"></span>*@
+
                     <div class="form-group">
                         <label asp-for="Input.isVolunteer"></label>
-                        <input asp-for="Input.isVolunteer" class="form-control" />
+                        <input asp-for="Input.isVolunteer" class="custom-checkbox" />
                         <span asp-validation-for="Input.isVolunteer" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
                         <label asp-for="Input.isDonor"></label>
-                        <input asp-for="Input.isDonor" class="form-control" />
+                        <input asp-for="Input.isDonor" class="custom-checkbox" />
                         <span asp-validation-for="Input.isDonor" class="text-danger"></span>
                     </div>
                     <button id="update-profile-button" type="submit" class="btn btn-outline-secondary">Save</button>

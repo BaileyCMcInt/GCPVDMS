@@ -2,11 +2,11 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Login to GCP";
 }
 
     <center>
-        <h1>@ViewData["Title"]</h1>
+      
         <section>
             <div class="row d-flex justify-content-center col-12">
                 <div class="col-4 border border-secondary rounded m-20">
@@ -14,12 +14,13 @@
                         <div class="d-flex justify-content-center">
                             <i class="icon-map-marker icon-4x text-success"></i>
                         </div>
+                        <h3>@ViewData["Title"]</h3>
                         <div class="d-flex justify-content-center">
-                            <h1 class="h3 mb-3 font-weight-normal">LOGO IMAGE HERE</h1>
+                            <img src="http://a.mktgcdn.com/p/a7_dnX-x6IMTbmKYR86l9X__EBN55STZo2n1EF4UYKw/960x960.jpg" width="185" height="185" />
                             <div asp-validation-summary="All" class="text-danger"></div>
                         </div></br>
                         <div class="form-group ">
-                            <input asp-for="Input.Email" class="form-control" placeholder="Email address" required  />
+                            <input asp-for="Input.Email" class="form-control" placeholder="Email address" required />
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
                         <div class="form-group ">
