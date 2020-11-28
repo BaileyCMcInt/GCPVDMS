@@ -73,6 +73,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
             [Display(Name = "Volunteer")]
             public bool isVolunteer { get; set; }
             [Display(Name = "Donor")]
+
             public bool isDonor { get; set; }
 
         }
