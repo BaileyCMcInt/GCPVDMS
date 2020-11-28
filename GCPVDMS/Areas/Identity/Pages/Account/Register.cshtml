@@ -2,7 +2,21 @@
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
-}
+}Hide   Copy Code
+<script type="text/javascript" src="../../Scripts/jquery-1.7.1.min.js">
+
+</script>
+<script type="text/javascript">
+    function CheckBox() {
+
+        if ($("#chk1").get(0).checked || $("#chk2").get(0).checked)
+            return true;
+        else {
+            alert("You must select an account type.");
+            return false;
+        }
+    }
+</script>
 
 <h1>Create an Account</h1>
 <img src="http://a.mktgcdn.com/p/a7_dnX-x6IMTbmKYR86l9X__EBN55STZo2n1EF4UYKw/960x960.jpg" width="475" height="475" style="float:right" />
@@ -39,22 +53,28 @@
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
                     <label>Select Account Type:</label><br />
+                    <p id="error"></p>
                     <div class="form-group">
-                        <label asp-for="Input.isVolunteer"></label>
-                        <input asp-for="Input.isVolunteer" class="custom-checkbox" />
-                        <span asp-validation-for="Input.isVolunteer" class="text-danger"></span>
-                        <label asp-for="Input.isDonor"></label>
-                        <input asp-for="Input.isDonor" class="custom-checkbox" />
-                        <span asp-validation-for="Input.isDonor" class="text-danger"></span>
+                        <asp:CheckBoxList ID="chkFruits" runat="server">
+                            <label asp-for="Input.isVolunteer"></label>
+                            <input asp-for="Input.isVolunteer" class="custom-checkbox" type="checkbox" id="chk2" />
+                            <span asp-validation-for="Input.isVolunteer" class="text-danger"></span>
+                            <label asp-for="Input.isDonor"></label>
+                            <input asp-for="Input.isDonor" class="custom-checkbox" type="checkbox" id="chk1" />
+                            <span asp-validation-for="Input.isDonor" class="text-danger"></span>
                     </div>
 
-                    <button type="submit" class="btn btn-outline-secondary">Register</button><br /><br />
+
+                    <button type="submit" value="Submit" class="btn btn-outline-secondary" onclick="return CheckBox();">Register</button><br /><br />
                 </center>
             </form>
         </div>
     </div>
 
 </div>
+
+
+
 
 
 @section Scripts {
