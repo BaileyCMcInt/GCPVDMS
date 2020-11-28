@@ -1,39 +1,37 @@
-﻿@*
-    Page to Create Events
-*@
+﻿@model Event
 
 @{
+    ViewBag.Title = "Edit Event";
     Layout = "_Layout";
 }
 
 
 <!DOCTYPE html>
-<!---Until a layout is created which will be referenced at the top of the page-->
+
 
 <head>
     <style>
         #location {
             position: fixed;
-            
             left: 180px;
         }
 
-        label, textarea{
+        label, textarea {
             display: block;
         }
-
     </style>
 </head>
 <body>
 
-    <h1> Create Event </h1>
+    <h1> Event </h1>
 
     <div class="container">
         <div class="row">
 
             <div class="col px-md-5">
 
-                <form>
+                <form asp-action="Index" method="post">
+                    <input type="hidden" asp-for="EventID" />
 
 
                     <select name="County" id="County">
@@ -56,74 +54,91 @@
                     <br />
                     <br />
 
-                    <div>
-                        <label>Start Time: </label>
-                        <input type="time" id="startTime" name="startTime" min="09:00" max="18:00" required>
-                        <br />
-                        <label>End Time: </label>
-                        <input type="time" id="endTime" name="endTime" min="09:00" max="18:00" required>
+
+                    <div class="form-group">
+                        <label asp-for="EventDate">Event Date: </label>
+                        <input asp-for="EventDate" type="date" class="form-control">
                     </div>
 
                     <br />
 
-                    <div>
-                        <label for="quantity">Number of Volunteers Needed: </label>
-                        <input type="number" id="quantity" name="quantity" min="1">
+                    <div class="form-group">
+                        <label asp-for="StartTime">Start Time: </label>
+                        <input asp-for="StartTime" type="time" min="09:00" max="18:00" class="form-control">
                     </div>
 
                     <br />
 
-                    <div>
-                        <label for="title">Event Title: </label>
-                        <input type="text" id="title" name="title" required>
+                    <div class="form-group">
+                        <label asp-for="EndTime">End Time: </label>
+                        <input asp-for="EndTime" type="time" min="09:00" max="18:00" class="form-control">
+                    </div>
+
+                    <br />
+
+
+                    <div class="form-group">
+                        <label asp-for="NumVolunteersNeeded">Number of Volunteers Needed: </label>
+                        <input asp-for="NumVolunteersNeeded" min="1" class="form-control">
+                    </div>
+
+                    <br />
+
+                    <div class="form-group">
+                        <label asp-for="EventTitle">Event Title: </label>
+                        <input asp-for="EventTitle" class="form-control">
                     </div>
 
                     <br />
                     <br />
 
-                    <div>
-                        <label for="description">Description: </label>
-                        <textarea rows="4" cols="50" name="description" form="usrform"></textarea>
+                    <div class="form-group">
+                        <label asp-for="EventDescription">Description: </label>
+                        <textarea rows="4" cols="50" asp-for="EventDescription" class="form-control"></textarea>
                     </div>
 
                     <br />
 
                     <h4> Point of Contact </h4>
 
-                    <div>
-                        <label for="pocName">Name: </label>
-                        <input type="text" id="pocName" name="pocName" required>
-
-                        <br />
-
-                        <label for="pocPhone">Phone: </label>
-                        <input type="tel" id="pocPhone" name="pocPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-
-                        <br />
-
-                        <label for="pocEmail">Email: </label>
-                        <input type="email" id="pocEmail" name="pocEmail">
+                    <div class="form-group">
+                        <label asp-for="POCName">Name: </label>
+                        <input asp-for="POCName" class="form-control">
                     </div>
 
                     <br />
 
-                    <input type="checkbox" id="activeEvent" name="activeEvent" value="active">
-                    <label for="activeEvent">Event Active</label>
-                    
+                    <div class="form-group">
+                        <label asp-for="POCPhone">Phone: </label>
+                        <input asp-for="POCPhone" class="form-control">
+                    </div>
+
                     <br />
+                    <div class="form-group">
+                        <label asp-for="POCEmail">Email: </label>
+                        <input asp-for="POCEmail" class="form-control">
+                    </div>
+
+                    <br />
+
+                    <div class="form-group">
+                        <label asp-for="isEventActive">Event Active</label>
+                        <input asp-for="isEventActive" class="form-control">
+                    </div>
+
                     @* TEAM DECIDED TO NOT HAVE "VISIBLE TO ADMIN ONLY" OPTION AS EVENT ACTIVE TAKES CARE
-                        OF THIS
-                    <input type="checkbox" id="visible" name="visible" value="yes">
-                    <label for="visible">Visible to Admin Only</label>
+            OF THIS
+        <input type="checkbox" id="visible" name="visible" value="yes">
+        <label for="visible">Visible to Admin Only</label>
                     *@
-                    <br />  
+              
                     <br />
-
-                    <input type="submit" value="Add Event"> <input type="reset">
-
+                    <div>
+                        <button class="btn btn-primary" type="submit">Save Event</button> <a asp-action="EventList" class="btn btn-outline-dark">Cancel</a>
+                    </div>
                 </form>
-
             </div>
+
 
             <div class="col col-md-3">
 
