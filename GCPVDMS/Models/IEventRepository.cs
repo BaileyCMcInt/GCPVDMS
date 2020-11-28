@@ -8,5 +8,8 @@ namespace GCPVDMS.Models
     public interface IEventRepository
     {
         IEnumerable<Event> Events { get; }
+
+        void SaveEvent(Event @event);
+
     }
 }

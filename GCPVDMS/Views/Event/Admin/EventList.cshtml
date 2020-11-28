@@ -16,7 +16,7 @@
 
 
 <div class="text-center">
-    <button class="btn btn-light">Create New Event</button>
+    <a asp-action="Create" class="btn btn-light">Create New Event</a>
     <button class="btn btn-light">Export Data</button>
     <button class="btn btn-light">Tasks</button>
 </div>
@@ -36,23 +36,34 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) 
-        { 
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>@item.EventTitle</td>
                 <td>@item.LocationID</td>
                 <td>@item.POCName</td>
-                <td>@item.EventDate</td>
-                <td>@item.NumVolunteersNeeded</td>
+                <td>@item.EventDate.ToShortDateString()</td>
+                <td>@item.NumVolunteersSignedUp</td>
                 <td>
+
+                    @*<form asp-action="Delete" method="post">
+                        <a asp-action="Index" class="btn btn-sm btn-warning"
+                           asp-route-eventId="@item.EventID">
+                            Edit
+                        </a>
+                        <input type="hidden" name="ProductID" value="@item.EventID" />
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Delete
+                        </button>*@
                     <form method="post">
                         <button class="btn btn-sm btn-light">
                             View
                         </button>
-                        <input type="hidden" name="ProductID" value=" " />
-                        <button type="submit" class="btn btn-light btn-sm">
-                            Update
-                        </button>
+                        <input type="hidden" name="EventID" value=" " />
+                        <a asp-action="Index" class="btn btn-light btn-sm"
+                           asp-route-eventId="@item.EventID">
+                            Edit
+                        </a>
                     </form>
                 </td>
             </tr>
