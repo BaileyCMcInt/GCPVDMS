@@ -32,8 +32,8 @@ namespace GCPVDMS
         {
             services.AddDbContext<GCPVDMSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GCPVDMSContextConnection")));
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GCPVDMSContextConnection")));
-            services.AddTransient<IDriveRepository, EFDriveRepository>();
             services.AddTransient<IEventRepository, EFEventRepository>();
+            //services.AddTransient<IDriveRepository, EFDriveRepository>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<GCPVDMSContext>()
