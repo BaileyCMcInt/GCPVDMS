@@ -34,7 +34,7 @@ namespace GCPVDMS.Controllers
 
         public ViewResult Index(int eventId) =>
             View("~/Views/Event/Admin/Index.cshtml", repository.Events
-            .FirstOrDefault(p => p.EventID == eventId));
+                .FirstOrDefault(p => p.EventID == eventId));
 
         [HttpPost]
         public IActionResult Index(Event @event)
