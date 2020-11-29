@@ -18,15 +18,15 @@ namespace GCPVDMS
 {
     public class Startup
     {
-       public Startup(IWebHostEnvironment env)
+        IConfigurationRoot Configuration;
+        public Startup(IWebHostEnvironment env)
         {
-            IConfigurationRoot Configuration;
+           
             Configuration = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
             .AddJsonFile("appsettings.json").Build();
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
