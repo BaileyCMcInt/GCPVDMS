@@ -16,9 +16,9 @@ namespace GCPVDMS.Models
         public int Id { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
-        //[ForeignKey("VolunteerGroupID")]
-        //public int VolunteeerGroupID { get; set; }
-        //public VolunteerGroup VolunteerGroup { get; set; }
+        [ForeignKey("VolunteerGroupID")]
+        public int VolunteeerGroupID { get; set; }
+        public VolunteerGroup VolunteerGroup { get; set; }
 
         [ForeignKey("EventID")]
         public int EventID { get; set; }
