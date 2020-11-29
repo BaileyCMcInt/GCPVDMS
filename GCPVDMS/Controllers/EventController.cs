@@ -10,10 +10,10 @@ namespace GCPVDMS.Controllers
     public class EventController : Controller
     {
 
-        //public IActionResult Index()
-        //{
-        //    return View("~/Views/Event/Admin/Index.cshtml");
-        //}
+        public IActionResult Index()
+        {
+            return View("~/Views/Event/Admin/Index.cshtml");
+        }
 
         //public IActionResult EventList()
         //{
