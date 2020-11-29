@@ -20,6 +20,7 @@ namespace GCPVDMS
     {
        public Startup(IWebHostEnvironment env)
         {
+            IConfigurationRoot Configuration;
             Configuration = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
             .AddJsonFile("appsettings.json").Build();
