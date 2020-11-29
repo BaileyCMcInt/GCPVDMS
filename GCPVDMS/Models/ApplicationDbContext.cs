@@ -22,15 +22,7 @@ namespace GCPVDMS.Models
         public DbSet<VolunteerGroup> VolunteerGroups { get; set; }
 
         public DbSet<VolunteerHour> VolunteerHours { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("GCPVDMSContextConnection"));
-        }
+      
 
     }
 }
