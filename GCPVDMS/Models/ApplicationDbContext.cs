@@ -18,5 +18,7 @@ namespace GCPVDMS.Models
 
         public DbSet<Event> Events { get; set; }
 
+        public DbSet<VolunteerGroup> VolunteerGroups { get; set; }
+
     }
 }
