@@ -35,6 +35,7 @@ namespace GCPVDMS.Models
                     dbEntry.POCPhone = @event.POCPhone;
                     dbEntry.POCEmail = @event.POCEmail;
                     dbEntry.isEventActive = @event.isEventActive;
+                    dbEntry.LocationID = @event.LocationID;
                 }
         }
       context.SaveChanges();

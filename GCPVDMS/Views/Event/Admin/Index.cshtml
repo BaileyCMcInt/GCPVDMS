@@ -10,7 +10,7 @@
 
 
 <head>
-    <style>
+    @*<style>
         #location {
             position: fixed;
             left: 180px;
@@ -19,7 +19,7 @@
         label, textarea {
             display: block;
         }
-    </style>
+    </style>*@
 </head>
 <body>
 
@@ -44,11 +44,12 @@
                     <br />
                     <br />
 
-                    <select name="Location" id="Location">
-                        <option value="location">Location</option>
-                        <option value="MLK">MLK Elementary</option>
-                        <option value="mandarin">Mandarin</option>
-                        <option value="Other">Other</option>
+                    <select asp-for="LocationID">
+                        <option value=" ">Location</option>
+                        <option value="1">MLK Elementary</option>
+                        <option value="2">Mandarin</option>
+                        <option value="3">Palm Beach</option>
+                        <option value="0">Other</option>
                     </select>
 
                     <br />
@@ -122,8 +123,8 @@
                     <br />
 
                     <div class="form-group">
-                        <label asp-for="isEventActive">Event Active</label>
-                        <input asp-for="isEventActive" class="form-control">
+                        <input asp-for="isEventActive" class="custom-checkbox">
+                        <label>Event Active</label>
                     </div>
 
                     @* TEAM DECIDED TO NOT HAVE "VISIBLE TO ADMIN ONLY" OPTION AS EVENT ACTIVE TAKES CARE
@@ -131,7 +132,7 @@
         <input type="checkbox" id="visible" name="visible" value="yes">
         <label for="visible">Visible to Admin Only</label>
                     *@
-              
+
                     <br />
                     <div>
                         <button class="btn btn-primary" type="submit">Save Event</button> <a asp-action="EventList" class="btn btn-outline-dark">Cancel</a>
