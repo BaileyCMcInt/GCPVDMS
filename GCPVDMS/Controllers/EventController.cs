@@ -51,5 +51,7 @@ namespace GCPVDMS.Controllers
                 return View(@event);
             }
         }
+
+        public ViewResult Create() => View("~/Views/Event/Admin/Index.cshtml", new Event());
     }
 }
