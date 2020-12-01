@@ -125,7 +125,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt. Input correct email and password.");
                     return Page();
                 }
             }
