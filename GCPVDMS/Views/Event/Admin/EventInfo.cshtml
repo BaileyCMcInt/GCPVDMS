@@ -1,0 +1,68 @@
+﻿@model Event
+
+@{
+    ViewBag.Title = "Event Info";
+    Layout = "_Layout";
+}
+
+
+<h1> @Model.EventTitle </h1>
+
+<div class="container">
+
+
+    <p class="card-text">LocationID: @Model.LocationID</p>
+
+    <br />
+
+    <p class="card-text">Event Date: @Model.EventDate.ToShortDateString()</p>
+
+    <br />
+
+    <p class="card-text">Start Time: @Model.StartTime.ToShortTimeString()</p>
+
+    <br />
+
+    <p class="card-text">End Time: @Model.EndTime.ToShortTimeString()</p>
+
+    <br />
+
+    <p class="card-text">Number of Volunteers Needed: @Model.NumVolunteersNeeded</p>
+
+    <br />
+
+    <p class="card-text">Event Description: @Model.EventDescription</p>
+
+    <br />
+
+    <p class="card-text">Event is active: @Model.isEventActive</p>
+
+    <br />
+
+    <h4> Point of Contact </h4>
+
+    <br />
+    <br />
+
+    <p class="card-text">Name: @Model.POCName</p>
+
+    <br />
+
+    <p class="card-text">Phone Number: @Model.POCPhone</p>
+
+    <br />
+
+    <p class="card-text">Email: @Model.POCEmail</p>
+
+    <br />
+
+    <div>
+        <a asp-action="EventList" class="btn btn-outline-dark">Done</a>
+        <a asp-action="Index" class="btn btn-outline-dark"
+           asp-route-eventId="@Model.EventID">
+            Edit
+        </a>
+    </div>
+
+</div>
+

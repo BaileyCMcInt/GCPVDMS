@@ -4,6 +4,15 @@
     ViewBag.Title = "Edit Event";
     Layout = "_Layout";
 }
+@section Scripts{
+    <script>
+        $(function () {
+            $('[type="date"]').prop('min', function () {
+                return new Date().toJSON().split('T')[0];
+            });
+        });
+    </script>
+}
 
 
 <!DOCTYPE html>
@@ -11,15 +20,15 @@
 
 <head>
     @*<style>
-        #location {
-            position: fixed;
-            left: 180px;
-        }
+            #location {
+                position: fixed;
+                left: 180px;
+            }
 
-        label, textarea {
-            display: block;
-        }
-    </style>*@
+            label, textarea {
+                display: block;
+            }
+        </style>*@
 </head>
 <body>
 
@@ -45,11 +54,12 @@
                     <br />
 
                     <select asp-for="LocationID">
-                        <option value=" ">Location</option>
-                        <option value="1">MLK Elementary</option>
-                        <option value="2">Mandarin</option>
+                        <option value=" " selected>Location</option>
+                        <option value="1">Mandarin</option>
+                        <option value="2">MLK Elementary</option>
                         <option value="3">Palm Beach</option>
-                        <option value="0">Other</option>
+                        <option value="5">Other Duval</option>
+                        <option value="6">Other Palm Beach</option>
                     </select>
 
                     <br />
@@ -58,7 +68,7 @@
 
                     <div class="form-group">
                         <label asp-for="EventDate">Event Date: </label>
-                        <input asp-for="EventDate" type="date" class="form-control">
+                        <input asp-for="EventDate" type="date" min='2020-01-01' class="form-control">
                     </div>
 
                     <br />
@@ -128,9 +138,9 @@
                     </div>
 
                     @* TEAM DECIDED TO NOT HAVE "VISIBLE TO ADMIN ONLY" OPTION AS EVENT ACTIVE TAKES CARE
-            OF THIS
-        <input type="checkbox" id="visible" name="visible" value="yes">
-        <label for="visible">Visible to Admin Only</label>
+                            OF THIS
+                        <input type="checkbox" id="visible" name="visible" value="yes">
+                        <label for="visible">Visible to Admin Only</label>
                     *@
 
                     <br />
