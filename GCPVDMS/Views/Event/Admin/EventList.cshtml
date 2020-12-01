@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Event>
+﻿@model IEnumerable<Event> 
 
 @{
     ViewBag.Title = "All Events";
@@ -43,7 +43,7 @@
                 <td>@item.LocationID</td>
                 <td>@item.POCName</td>
                 <td>@item.EventDate.ToShortDateString()</td>
-                <td>@item.NumVolunteersSignedUp</td>
+                <td>@(@item.NumVolunteersNeeded - @item.NumVolunteersSignedUp)</td>
                 <td>
 
                     @*<form asp-action="Delete" method="post">
@@ -56,9 +56,14 @@
                             Delete
                         </button>*@
                     <form method="post">
-                        <button class="btn btn-sm btn-light">
+                        @*<button class="btn btn-sm btn-light">
                             View
-                        </button>
+                        </button>*@
+                        <input type="hidden" name="EventID" value="" />
+                        <a asp-action="DisplayEvent" class="btn btn-light btn-sm"
+                           asp-route-eventId="@item.EventID">
+                            View
+                        </a>
                         <input type="hidden" name="EventID" value=" " />
                         <a asp-action="Index" class="btn btn-light btn-sm"
                            asp-route-eventId="@item.EventID">

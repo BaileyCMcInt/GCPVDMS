@@ -31,6 +31,7 @@ namespace GCPVDMS.Models
                     dbEntry.StartTime = @event.StartTime;
                     dbEntry.EndTime = @event.EndTime; 
                     dbEntry.EventDescription = @event.EventDescription;
+                    dbEntry.NumVolunteersNeeded = @event.NumVolunteersNeeded;
                     dbEntry.POCName = @event.POCName;
                     dbEntry.POCPhone = @event.POCPhone;
                     dbEntry.POCEmail = @event.POCEmail;
