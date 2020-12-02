@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!DOCTYPE>
+<html>
+<head>
+
+</head>
+<body>
+    <h3>Log Hours Request Form</h3>
+    <form>
+        <label for="location">Location</label>
+        <input type="text" name="location" id="location" />
+        <br />
+        <label for="date">Date</label>
+        <input type="text" name="date" id="date" />
+        <br />
+        <label for="numOfHours">Number of Hours Worked</label>
+        <input type="text" name="numOfHours" id="numOfHours" />
+        <br />
+        <div>
+            <button asp-action="Index" class="btn btn-primary" type="submit">Submit Form</button> <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
+        </div>
+    </form>
+</body>
+</html>
