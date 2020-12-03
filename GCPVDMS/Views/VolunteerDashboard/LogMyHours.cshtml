@@ -10,20 +10,34 @@
 
 </head>
 <body>
-    <h3>Log Hours Request Form</h3>
-    <form>
-        <label for="location">Location</label>
-        <input type="text" name="location" id="location" />
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Volunteer</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Donor</a>
+        </li>
+    </ul>
+    <br />
+    <div style="text-align: center">
+        <h3>Log Hours Request Form</h3>
         <br />
-        <label for="date">Date</label>
-        <input type="text" name="date" id="date" />
-        <br />
-        <label for="numOfHours">Number of Hours Worked</label>
-        <input type="text" name="numOfHours" id="numOfHours" />
-        <br />
-        <div>
-            <button asp-action="Index" class="btn btn-primary" type="submit">Submit Form</button> <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
-        </div>
-    </form>
+        <form>
+            <label for="location">Location</label>
+            <input type="text" name="location" id="location" />
+            <br />
+            <label for="date">Date</label>
+            <input type="text" name="date" id="date" />
+            <br />
+            <label for="numOfHours">Number of Hours Worked</label>
+            <input type="text" name="numOfHours" id="numOfHours" />
+            <br />
+            <div>
+                <button asp-action="Index" class="btn btn-primary" type="submit">Submit Form</button> <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
+            </div>
+        </form>
+    </div>
+
 </body>
 </html>
