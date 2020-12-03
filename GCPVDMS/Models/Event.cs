@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using GCPVDMS.CustomValidation;
 
 namespace GCPVDMS.Models
 {
     public class Event
     {
         public int EventID { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please choose date.")]
+        [Display(Name = "Today's Date")]
+        [DataType(DataType.Date)]
+        [CustomAdmissionDate(ErrorMessage = "Date must be greater than or equal to Today's Date.")]
         public DateTime EventDate { get; set; }
 
         public DateTime StartTime { get; set; }

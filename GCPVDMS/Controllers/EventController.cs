@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GCPVDMS.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GCPVDMS.Controllers
 {
@@ -30,16 +31,21 @@ namespace GCPVDMS.Controllers
         {
             repository = repo;
         }
+
+        [Authorize(Roles = "Global Admin")]
         public ViewResult EventList() => View("~/Views/Event/Admin/EventList.cshtml", repository.Events);
 
+        [Authorize(Roles = "Global Admin")]
         public ViewResult Index(int eventId) =>
             View("~/Views/Event/Admin/Index.cshtml", repository.Events
                 .FirstOrDefault(p => p.EventID == eventId));
 
-       public ViewResult DisplayEvent(int eventId) =>
+        [Authorize(Roles = "Global Admin")]
+        public ViewResult DisplayEvent(int eventId) =>
          View("~/Views/Event/Admin/EventInfo.cshtml", repository.Events
           .FirstOrDefault(p => p.EventID == eventId));
 
+        [Authorize(Roles = "Global Admin")]
         [HttpPost]
         public IActionResult Index(Event @event)
         {
@@ -56,6 +62,7 @@ namespace GCPVDMS.Controllers
             }
         }
 
+        [Authorize(Roles = "Global Admin")]
         public ViewResult Create() => View("~/Views/Event/Admin/Index.cshtml", new Event());
     }
 }
