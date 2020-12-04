@@ -10,8 +10,33 @@
 
 <div class="container">
 
+    @{ 
+        string locationname;
 
-    <p class="card-text">LocationID: @Model.LocationID</p>
+        if (Model.LocationID == 1)
+        {
+            locationname = "Mandarin";
+        }
+        else if (Model.LocationID == 2)
+        {
+            locationname = "MLK Elementary";
+        }
+        else if (Model.LocationID == 3)
+        {
+            locationname = "Main Palm Beach";
+        }
+        else if (Model.LocationID == 5)
+        {
+            locationname = "Other Duval";
+        }
+        else
+        {
+            locationname = "Other Palm Beach";
+        }
+    }
+
+
+    <p class="card-text">Location: @locationname</p>
 
     <br />
 
