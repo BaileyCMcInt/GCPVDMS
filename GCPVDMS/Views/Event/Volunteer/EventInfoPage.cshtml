@@ -1,0 +1,50 @@
+﻿@model Event
+
+@{
+    ViewBag.Title = "Event Information";
+    Layout = "_Layout";
+}
+
+
+<h1> @Model.EventTitle </h1>
+
+<div class="container">
+
+    <p class="card-text">Event Description: @Model.EventDescription</p>
+
+    <p class="card-text">LocationID: @Model.LocationID</p>
+
+    <p class="card-text">Event Date: @Model.EventDate.ToShortDateString()</p>
+
+    <p class="card-text">Start Time: @Model.StartTime.ToShortTimeString()</p>
+
+    <p class="card-text">End Time: @Model.EndTime.ToShortTimeString()</p>
+
+    <p class="card-text">
+        Volunteer spots available: @(@Model.NumVolunteersNeeded - @Model.NumVolunteersSignedUp)
+    </p>
+
+    <br />
+
+    <h4> Point of Contact </h4>
+    <br />
+
+    <p class="card-text">Name: @Model.POCName</p>
+
+    <p class="card-text">Phone Number: @Model.POCPhone</p>
+
+    <p class="card-text">Email: @Model.POCEmail</p>
+
+    <br />
+
+    <div>
+        @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
+
+        <a asp-action="ConfirmationPage" class="btn btn-outline-dark"
+           onclick="return confirm('Are you sure you want to sign up?')"
+           asp-route-eventId="@Model.EventID">
+            Sign Up
+        </a>
+    </div>
+
+</div>

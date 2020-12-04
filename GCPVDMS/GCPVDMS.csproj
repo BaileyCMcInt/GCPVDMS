@@ -36,6 +36,7 @@
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Drive\Admin\" />
     <Folder Include="Views\Drive\Volunteer\" />
+    <Folder Include="Views\Vol_Event_Host_Opp\" />
   </ItemGroup>
 
 </Project>

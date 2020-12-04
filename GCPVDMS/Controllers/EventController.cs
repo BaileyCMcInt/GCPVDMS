@@ -20,17 +20,23 @@ namespace GCPVDMS.Controllers
         //{
         //    return View("~/Views/Event/Admin/EventList.cshtml");
         //}
-        public IActionResult EventSignUp()
-        {
-            return View("~/Views/Event/Volunteer/EventSignUp.cshtml");
-        }
-
 
         private IEventRepository repository;
         public EventController(IEventRepository repo)
         {
             repository = repo;
         }
+        public ViewResult EventSignUp() =>
+            View("~/Views/Event/Volunteer/EventSignUp.cshtml", repository.Events);
+        public ViewResult EventInfoPage(int eventId) =>
+            View("~/Views/Event/Volunteer/EventInfoPage.cshtml", repository.Events
+                .FirstOrDefault(p => p.EventID == eventId));
+
+        public ViewResult ConfirmationPage(int eventId) =>
+            View("~/Views/Event/Volunteer/ConfirmationPage.cshtml", repository.Events
+                .FirstOrDefault(p => p.EventID == eventId));
+
+        public ViewResult HostaDrive() => View("~/Views/Event/Volunteer/HostaDrive.cshtml");
 
         [Authorize(Roles = "Global Admin")]
         public ViewResult EventList() => View("~/Views/Event/Admin/EventList.cshtml", repository.Events);
