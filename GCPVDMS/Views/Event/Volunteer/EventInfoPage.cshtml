@@ -8,11 +8,36 @@
 
 <h1> @Model.EventTitle </h1>
 
+@{
+    string locationname;
+
+    if (Model.LocationID == 1)
+    {
+        locationname = "Mandarin";
+    }
+    else if (Model.LocationID == 2)
+    {
+        locationname = "MLK Elementary";
+    }
+    else if (Model.LocationID == 3)
+    {
+        locationname = "Palm Beach";
+    }
+    else if (Model.LocationID == 4)
+    {
+        locationname = "Offsite Duval";
+    }
+    else
+    {
+        locationname = "Offsite Palm Beach";
+    }
+}
+
 <div class="container">
 
     <p class="card-text">Event Description: @Model.EventDescription</p>
 
-    <p class="card-text">LocationID: @Model.LocationID</p>
+    <p class="card-text">LocationID: @locationname</p>
 
     <p class="card-text">Event Date: @Model.EventDate.ToShortDateString()</p>
 
