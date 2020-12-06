@@ -11,16 +11,17 @@
             $('#roleTable3').DataTable();
         });</script>
 }
+<partial name="_GlobalRoleTabs" />
 
 <h1 class="bg-light">Update Role</h1>
-<a asp-action="Index" class="btn btn-secondary">Back</a>
+<a asp-action="RoleIndex" class="btn btn-secondary">Back to Roles</a>
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form method="post">
     <input type="hidden" name="roleName" value="@Model.Role.Name" />
     <input type="hidden" name="roleId" value="@Model.Role.Id" />
 
- 
+
 
     <h2 class="bg-light">Add To @Model.Role.Name</h2>
     <table id="roleTable2" class="display">
@@ -40,17 +41,18 @@
             {
                 @foreach (ApplicationUser user in Model.NonMembers)
                 {
-        <tr>
-            <td>@user.FirstName @user.LastName</td>
-            <td>@user.UserName</td>
-            <td>
-                <input type="checkbox" name="AddIds" value="@user.Id">
-            </td>
-        </tr>
+                    <tr>
+                        <td>@user.FirstName @user.LastName</td>
+                        <td>@user.UserName</td>
+                        <td>
+                            <input type="checkbox" name="AddIds" value="@user.Id">
+                        </td>
+                    </tr>
                 }
             }
         </tbody>
     </table>
+    <center><button type="submit" class="btn btn-primary">Add user(s) to role</button></center>
     </br></br>
 
     <h2 class="bg-light">Remove From @Model.Role.Name</h2>
@@ -71,17 +73,17 @@
             {
                 @foreach (ApplicationUser user in Model.Members)
                 {
-        <tr>
+                    <tr>
 
-            <td>@user.FirstName @user.LastName</td>
-            <td>@user.UserName</td>
-            <td>
-                <input type="checkbox" name="DeleteIds" value="@user.Id">
-            </td>
-        </tr>
+                        <td>@user.FirstName @user.LastName</td>
+                        <td>@user.UserName</td>
+                        <td>
+                            <input type="checkbox" name="DeleteIds" value="@user.Id">
+                        </td>
+                    </tr>
                 }
             }
         </tbody>
     </table>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <center><button type="submit" class="btn btn-primary">Remove user(s) from role</button></center>
 </form>

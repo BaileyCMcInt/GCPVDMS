@@ -11,6 +11,7 @@
         });</script>
 }
 
+<partial name="_GlobalRoleTabs" />
 <br /><h1 class="bg-light">All Roles</h1>
 @*</br>
 <a asp-action="Create" class="btn btn-secondary">Create a Role</a>*@
@@ -31,9 +32,9 @@
             <!--<td>@role.Id</td>-->
             <td>@role.Name</td>
             @*<td i-role="@role.Id"></td>*@
-            <td><a class="btn btn-sm btn-primary" asp-action="Update" asp-route-id="@role.Id">Update</a></td>
+            <td><a class="btn btn-sm btn-primary" asp-action="RoleUpdate" asp-route-id="@role.Id">Update</a></td>
             <td>
-                <form asp-action="Delete" asp-route-id="@role.Id" method="post">
+                <form asp-action="RoleDelete" asp-route-id="@role.Id" method="post">
                     <button type="submit" class="btn btn-sm btn-danger">
                         Delete
                     </button>
