@@ -26,6 +26,10 @@ namespace GCPVDMS.Controllers
             userManager = userMrg;
         }
 
+        public IActionResult Index()
+        {
+            return RedirectToAction("EventList");
+        }
 
         //the following are methods related to EVENT MODELS. New comments are documented
         ///each time we start a new set of model methods.
@@ -33,17 +37,12 @@ namespace GCPVDMS.Controllers
         {
             return View("~/Views/Event/Volunteer/EventSignUp.cshtml");
         }
-        [Authorize(Roles = "Global Admin")]
-        public IActionResult Index()
-        {
-            return RedirectToAction("EventList");
-        }
 
         [Authorize(Roles = "Global Admin")]
-        public ViewResult EventList() => View(repository.Events);
+        public IActionResult EventList() => View(repository.Events);
 
         [Authorize(Roles = "Global Admin")]
-        public ViewResult EventIndex(int eventId) =>
+        public ViewResult EventForm(int eventId) =>
             View(repository.Events
                 .FirstOrDefault(p => p.EventID == eventId));
 
@@ -54,7 +53,7 @@ namespace GCPVDMS.Controllers
 
         [Authorize(Roles = "Global Admin")]
         [HttpPost]
-        public IActionResult EventIndex(Event @event)
+        public IActionResult EventForm(Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -68,9 +67,12 @@ namespace GCPVDMS.Controllers
                 return View(@event);
             }
         }
-
         [Authorize(Roles = "Global Admin")]
-        public ViewResult Create() => View("~/Views/GlobalDashboard/EventIndex.cshtml", new Event());
+        public ViewResult DisplayEvent(int eventId) =>
+        View("~/Views/GlobalDashboard/EventInfo.cshtml",repository.Events
+         .FirstOrDefault(p => p.EventID == eventId));
+        [Authorize(Roles = "Global Admin")]
+        public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event());
 
         //the following methods are related to ROLE MODELS
 
