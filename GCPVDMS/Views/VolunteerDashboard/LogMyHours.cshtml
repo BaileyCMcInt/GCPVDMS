@@ -1,10 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-<!DOCTYPE>
+﻿@model VolunteerHour
 <html>
 <head>
 
@@ -13,25 +7,32 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Volunteer</a>
+            <a class="nav-link active" asp-action="Index">Volunteer</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Donor</a>
         </li>
     </ul>
     <br />
-    <div style="text-align: center">
+    <div >
         <h3>Log Hours Request Form</h3>
         <br />
-        <form>
-            <label for="location">Location</label>
-            <input type="text" name="location" id="location" />
+        <form asp-action="LogMyHours" method="post">
+            <input type="hidden" asp-for="UserHoursID" />
+            <div class="form-group">
+                <label asp-for="Event">Event</label>
+                <input asp-for="Event" class="form-control">
+            </div>
             <br />
-            <label for="date">Date</label>
-            <input type="text" name="date" id="date" />
+            <div class="form-group">
+                <label asp-for="Date">Date</label>
+                <input asp-for="Date" class="form-control">
+            </div>
             <br />
-            <label for="numOfHours">Number of Hours Worked</label>
-            <input type="text" name="numOfHours" id="numOfHours" />
+            <div class="form-group">
+                <label asp-for="NumberOfHours">Number of Hours</label>
+                <input asp-for="NumberOfHours" min="1" max="24" class="form-control">
+            </div>
             <br />
             <div>
                 <button asp-action="Index" class="btn btn-primary" type="submit">Submit Form</button> <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>

@@ -1,50 +1,100 @@
-﻿@page
-@model GCPVDMS.Views.Event.EventSignUpModel
+﻿@model IEnumerable<Event>
+
 @{
+    ViewBag.Title = "GCP Volunteer Events";
+    Layout = "_Layout";
 }
-<!DOCTYPE html>
-<html>
-    <head>
 
-    </head>
-    <body>
-        <h1>GCP Events</h1>
-        <p>[A paragraph about events at GCP. See if current websites have sometihng that could be used. Description of tasks?]</p>
+@*Script for JavaScript DataTables*@
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
 
-        <br />
-        <hr />
+<h1>GCP Volunteer Events</h1>
+<p>
+    Students, we're glad you're here! The GCP loves having student volunteers! Our student volunteers help
+    with filling orders (picking out clothes for students in need), sorting clothes, and organizing at our
+    home office facility. Fill out the form below to let us know you're interested!
+    <br />
+    Community Volunteers We greatly appreciate your interest in volunteering with the GCP and we can't
+    wait to work with you!
+    <br />
+    *Please note that due to the busy nature of the beginning of the school year, it may take us
+    some time to get back to you! We greatly appreciate your interest in volunteering with the GCP
+    and we can't wait to work with you!*
+</p>
+<hr />
+<h2>Host a Drive</h2>
+ <p>We are always looking for individuals, businesses, and organizations that want to make a difference in their
+        community. Our goal is to keep our district hubs stocked throughout the school year, so we can continue to provide
+        clothing and other basic essentials to students in need all year long.</p>
+<br />
+<form method="post">
+    <a asp-action="HostaDrive" class="btn btn-light btn-sm">
+        Host a Drive
+    </a>
+</form>
+<hr />
+<h2>List of Upcoming Events</h2>
+<br />
 
-        <h2>Host an Event</h2>
-        <p>
-            We are always looking for individuals, businesses, and organizations that want to make a difference in their
-            community. Our goal is to keep our district hubs stocked throughout the school year, so we can continue to provide
-            clothing and other basic essentials to students in need all year long.
-        </p>
+<table id="myTable" class="display">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Spots available</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
 
-        <p>Future link to event page</p>
+            string locationname;
 
-        <br />
-        <hr />
-        
-        <h2>Calendar of events</h2>
-        <p>Here's our list of upcoming events.</p>
+            if (item.LocationID == 1)
+            {
+                locationname = "Mandarin";
+            }
+            else if (item.LocationID == 2)
+            {
+                locationname = "MLK Elementary";
+            }
+            else if (item.LocationID == 3)
+            {
+                locationname = "Palm Beach";
+            }
+            else if (item.LocationID == 4)
+            {
+                locationname = "Offsite Duval";
+            }
+            else
+            {
+                locationname = "Offsite Palm Beach";
+            }
 
-        <!--Note to self: Find a way to format the table nicely. Also center on page-->
-        <table>
             <tr>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Event Name</th>
-                <th>Sign up</th>
+                <td>@item.EventTitle</td>
+                <td>@locationname</td>
+                <td>@item.EventDate.ToShortDateString()</td>
+                <td>@(@item.NumVolunteersNeeded - @item.NumVolunteersSignedUp)</td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="EventID" value=" " />
+                        <a asp-action="EventInfoPage" class="btn btn-light btn-sm"
+                           asp-route-eventId="@item.EventID">
+                            Sign up
+                        </a>
+                    </form>
+                </td>
             </tr>
-            <tr>
-                <td>Fake data</td>
-                <td>Fake data</td>
-                <td>Fake data</td>
-                <td>Fake data</td>
-            </tr>
-        </table>
+        }
+    </tbody>
+</table>
 
-
-    </body>
-</html>

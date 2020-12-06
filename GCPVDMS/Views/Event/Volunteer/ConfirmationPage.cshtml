@@ -1,0 +1,37 @@
+﻿@model Event
+
+@{
+    ViewBag.Title = "Sign up confirmation";
+    Layout = "_Layout";
+}
+
+
+<h1>Thank You</h1>
+<div class="container">
+    <p>We can't wait to see you at the event!</p>
+    <p class="card-text">Event Date: @Model.EventDate.ToShortDateString()</p>
+
+    <p class="card-text">Start Time: @Model.StartTime.ToShortTimeString()</p>
+
+    <p class="card-text">End Time: @Model.EndTime.ToShortTimeString()</p>
+
+    <p class="card-text">LocationID: @Model.LocationID</p>
+    <br />
+
+    <h2> Questions? </h2>
+    <br />
+    <p class="card-text">Contact Name: @Model.POCName</p>
+
+    <p class="card-text">Contact Phone Number: @Model.POCPhone</p>
+
+    <p class="card-text">Contact Email: @Model.POCEmail</p>
+
+    <br />
+
+    <div>
+        <a @*asp-action="Index"*@ class="btn btn-outline-dark">
+            View my sign-ups
+        </a>
+    </div>
+
+</div>

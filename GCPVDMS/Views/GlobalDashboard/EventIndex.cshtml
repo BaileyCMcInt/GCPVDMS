@@ -43,7 +43,7 @@
                     <input type="hidden" asp-for="EventID" />
 
 
-                    <select name="County" id="County">
+                    @*<select name="County" id="County">
                         <option value="county">County</option>
                         <option value="Duval">Duval</option>
                         <option value="Palm Beach">Palm Beach</option>
@@ -51,15 +51,15 @@
                     </select>
 
                     <br />
-                    <br />
+                    <br />*@
 
                     <select asp-for="LocationID">
                         <option value=" " selected>Location</option>
                         <option value="1">Mandarin</option>
                         <option value="2">MLK Elementary</option>
                         <option value="3">Palm Beach</option>
-                        <option value="5">Other Duval</option>
-                        <option value="6">Other Palm Beach</option>
+                        <option value="5">Offsite Duval</option>
+                        <option value="6">Offsite Palm Beach</option>
                     </select>
 
                     <br />

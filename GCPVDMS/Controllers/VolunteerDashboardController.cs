@@ -9,6 +9,11 @@ namespace GCPVDMS.Controllers
 {
     public class VolunteerDashboardController : Controller
     {
+        private IVolunteerHourRepository repository;
+        public VolunteerDashboardController(IVolunteerHourRepository repo)
+        {
+            repository = repo;
+        }
         public IActionResult Index()
         {
             return View();
@@ -18,9 +23,23 @@ namespace GCPVDMS.Controllers
         {
             return View();
         }
+
         public IActionResult MyLoggedHours()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult MyLoggedHours(VolunteerHour @volunteerhour)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.SaveVolunteerHour(@volunteerhour);          
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(@volunteerhour);
+            }
         }
 
     }
