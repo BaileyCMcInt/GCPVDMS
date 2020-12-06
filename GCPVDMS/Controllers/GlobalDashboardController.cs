@@ -73,7 +73,7 @@ namespace GCPVDMS.Controllers
 
         //the following methods are related to ROLE MODELS
         [Authorize(Roles = "Global Admin")]
-        public ViewResult Create() => View("~/Views/Dashboard/EventIndex.cshtml", new Event());
+        public ViewResult Create() => View("~/Views/GlobalDashboard/EventIndex.cshtml", new Event());
 
         [Authorize(Roles = "Global Admin")]
         public ViewResult RoleIndex() => View(roleManager.Roles);
