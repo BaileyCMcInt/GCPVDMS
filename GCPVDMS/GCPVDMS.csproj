@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Admin\**" />
+    <Content Remove="Views\Admin\**" />
+    <EmbeddedResource Remove="Views\Admin\**" />
+    <None Remove="Views\Admin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Migrations\20200925231902_dfuglestadAccountFirstNameLast.cs" />
     <Compile Remove="Migrations\20200925231902_dfuglestadAccountFirstNameLast.Designer.cs" />
     <Compile Remove="Migrations\20201124234153_dfugle_addingProfileFields.cs" />
@@ -33,10 +40,9 @@
     
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Drive\Admin\" />
     <Folder Include="Views\Drive\Volunteer\" />
-    <Folder Include="Views\Vol_Event_Host_Opp\" />
+    <Folder Include="Views\Role\" />
   </ItemGroup>
 
 </Project>

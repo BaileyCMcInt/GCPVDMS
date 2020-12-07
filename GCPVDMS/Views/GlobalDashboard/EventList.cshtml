@@ -14,7 +14,7 @@
     </script>
 }
 
-
+<partial name="_GlobalEventTabs" />
 <div class="text-center">
     <a asp-action="Create" class="btn btn-light">Create New Event</a>
     <button class="btn btn-light">Export Data</button>
@@ -89,7 +89,7 @@
                             View
                         </a>
                         <input type="hidden" name="EventID" value=" " />
-                        <a asp-action="Index" class="btn btn-light btn-sm"
+                        <a asp-action="EventForm" class="btn btn-light btn-sm"
                            asp-route-eventId="@item.EventID">
                             Edit
                         </a>

@@ -75,14 +75,13 @@
                                 var globalAdmin = "Global Admin";
                                 if (User.IsInRole(globalAdmin))
                                 {
-                                    // <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index">Global Admin Dashboard</a>
-                                    <a class="dropdown-item" asp-controller="Event" asp-action="EventList">Admin Event Page</a>
-                                    <a class="dropdown-item" asp-controller="Role" asp-action="Index">Admin Management Page</a>
+                                    <a class="dropdown-item" asp-controller="GlobalDashboard" asp-action="Index">Admin Dashboard</a>
+                                    
                                 }
                                 var localAdmin = "Local Admin";
                                 if (User.IsInRole(localAdmin))
                                 {
-                                    <a class="dropdown-item" asp-controller="Dashboard" asp-action="LocalAdminDashboard">Local Admin Dashboard</a>
+                                    @*<a class="dropdown-item" asp-controller="Dashboard" asp-action="LocalAdminDashboard">Local Admin Dashboard</a>*@
                                 }
                                 if (!User.IsInRole(globalAdmin))
                                 {

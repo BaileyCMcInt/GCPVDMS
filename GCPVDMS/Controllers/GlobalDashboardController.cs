@@ -1,28 +1,84 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GCPVDMS.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using GCPVDMS.Models;
-using Microsoft.AspNetCore.Authorization;
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace GCPVDMS.Controllers
 {
-    public class RoleController : Controller
+    public class GlobalDashboardController : Controller
     {
+        private IEventRepository repository;
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> userManager;
-        public RoleController(RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg)
+        
+        public GlobalDashboardController(IEventRepository repo, RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg)
         {
+            //this method is passing in all the data to the constructor and assigning it to a variable to be used to access model data
+            //throughout the controller
+            repository = repo;
             roleManager = roleMgr;
             userManager = userMrg;
         }
+
+        public IActionResult Index()
+        {
+            return RedirectToAction("EventList");
+        }
+
+        //the following are methods related to EVENT MODELS. New comments are documented
+        ///each time we start a new set of model methods.
+        public IActionResult EventSignUp()
+        {
+            return View("~/Views/Event/Volunteer/EventSignUp.cshtml");
+        }
+
         [Authorize(Roles = "Global Admin")]
-        public ViewResult Index() => View(roleManager.Roles);
-        public IActionResult Create() => View();
+        public IActionResult EventList() => View(repository.Events);
+
+        [Authorize(Roles = "Global Admin")]
+        public ViewResult EventForm(int eventId) =>
+            View(repository.Events
+                .FirstOrDefault(p => p.EventID == eventId));
+
+        [Authorize(Roles = "Global Admin")]
+        public ViewResult EventInfo(int eventId) =>
+         View(repository.Events
+          .FirstOrDefault(p => p.EventID == eventId));
+
+        [Authorize(Roles = "Global Admin")]
+        [HttpPost]
+        public IActionResult EventForm(Event @event)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.SaveEvent(@event);
+                //   TempData["message"] = $"{event.EventTitle} has been saved";
+                return RedirectToAction("EventList");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View(@event);
+            }
+        }
+        [Authorize(Roles = "Global Admin")]
+        public ViewResult DisplayEvent(int eventId) =>
+        View("~/Views/GlobalDashboard/EventInfo.cshtml",repository.Events
+         .FirstOrDefault(p => p.EventID == eventId));
+        [Authorize(Roles = "Global Admin")]
+        public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event());
+
+        //the following methods are related to ROLE MODELS
+
+        [Authorize(Roles = "Global Admin")]
+        public ViewResult RoleIndex() => View(roleManager.Roles);
+        public IActionResult RoleCreate() => View();
 
         [Authorize(Roles = "Global Admin")]
         private void Errors(IdentityResult result)
@@ -33,7 +89,7 @@ namespace GCPVDMS.Controllers
 
         [Authorize(Roles = "Global Admin")]
         [HttpPost]
-        public async Task<IActionResult> Create([Required]string name)
+        public async Task<IActionResult> RoleCreate([Required]string name)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +121,7 @@ namespace GCPVDMS.Controllers
         }
 
         [Authorize(Roles = "Global Admin")]
-        public async Task<IActionResult> Update(string id)
+        public async Task<IActionResult> RoleUpdate(string id)
         {
             IdentityRole role = await roleManager.FindByIdAsync(id);
             List<ApplicationUser> members = new List<ApplicationUser>();
@@ -85,7 +141,7 @@ namespace GCPVDMS.Controllers
 
         [Authorize(Roles = "Global Admin")]
         [HttpPost]
-        public async Task<IActionResult> Update(RoleModification model)
+        public async Task<IActionResult> RoleUpdate(RoleModification model)
         {
             IdentityResult result;
             if (ModelState.IsValid)
@@ -113,10 +169,9 @@ namespace GCPVDMS.Controllers
             }
 
             if (ModelState.IsValid)
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(RoleUpdate));
             else
-                return await Update(model.RoleId);
+                return await RoleUpdate(model.RoleId);
         }
     }
 }
-

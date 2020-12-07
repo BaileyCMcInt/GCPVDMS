@@ -5,7 +5,7 @@
     Layout = "_Layout";
 }
 
-
+    <partial name="_GlobalEventTabs" />
 <h1> @Model.EventTitle </h1>
 
 <div class="container">
@@ -83,7 +83,7 @@
 
     <div>
         <a asp-action="EventList" class="btn btn-outline-dark">Done</a>
-        <a asp-action="Index" class="btn btn-outline-dark"
+        <a asp-action="EventForm" class="btn btn-outline-dark"
            asp-route-eventId="@Model.EventID">
             Edit
         </a>
