@@ -11,16 +11,6 @@ namespace GCPVDMS.Controllers
     public class EventController : Controller
     {
 
-        //public IActionResult Index()
-        //{
-        //    return View("~/Views/Event/Admin/Index.cshtml");
-        //}
-
-        //public IActionResult EventList()
-        //{
-        //    return View("~/Views/Event/Admin/EventList.cshtml");
-        //}
-
         private IEventRepository repository;
         public EventController(IEventRepository repo)
         {
@@ -38,37 +28,38 @@ namespace GCPVDMS.Controllers
 
         public ViewResult HostaDrive() => View("~/Views/Event/Volunteer/HostaDrive.cshtml");
 
-        [Authorize(Roles = "Global Admin")]
-        public ViewResult EventList() => View("~/Views/Event/Admin/EventList.cshtml", repository.Events);
+        /***Below moved to GlobalDashboardController***/
+        //[Authorize(Roles = "Global Admin")]
+        //public ViewResult EventList() => View("~/Views/Event/Admin/EventList.cshtml", repository.Events);
 
-        [Authorize(Roles = "Global Admin")]
-        public ViewResult Index(int eventId) =>
-            View("~/Views/Event/Admin/Index.cshtml", repository.Events
-                .FirstOrDefault(p => p.EventID == eventId));
+        //[Authorize(Roles = "Global Admin")]
+        //public ViewResult Index(int eventId) =>
+        //    View("~/Views/Event/Admin/Index.cshtml", repository.Events
+        //        .FirstOrDefault(p => p.EventID == eventId));
 
-        [Authorize(Roles = "Global Admin")]
-        public ViewResult DisplayEvent(int eventId) =>
-         View("~/Views/Event/Admin/EventInfo.cshtml", repository.Events
-          .FirstOrDefault(p => p.EventID == eventId));
+        //[Authorize(Roles = "Global Admin")]
+        //public ViewResult DisplayEvent(int eventId) =>
+        // View("~/Views/Event/Admin/EventInfo.cshtml", repository.Events
+        //  .FirstOrDefault(p => p.EventID == eventId));
 
-        [Authorize(Roles = "Global Admin")]
-        [HttpPost]
-        public IActionResult Index(Event @event)
-        {
-            if (ModelState.IsValid)
-            {
-                repository.SaveEvent(@event);
-             //   TempData["message"] = $"{event.EventTitle} has been saved";
-                return RedirectToAction("EventList");
-            }
-            else
-            {
-                // there is something wrong with the data values
-                return View(@event);
-            }
-        }
+        //[Authorize(Roles = "Global Admin")]
+        //[HttpPost]
+        //public IActionResult Index(Event @event)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        repository.SaveEvent(@event);
+        //     //   TempData["message"] = $"{event.EventTitle} has been saved";
+        //        return RedirectToAction("EventList");
+        //    }
+        //    else
+        //    {
+        //        // there is something wrong with the data values
+        //        return View(@event);
+        //    }
+        //}
 
-        [Authorize(Roles = "Global Admin")]
-        public ViewResult Create() => View("~/Views/Event/Admin/Index.cshtml", new Event());
+        //[Authorize(Roles = "Global Admin")]
+        //public ViewResult Create() => View("~/Views/Event/Admin/Index.cshtml", new Event());
     }
 }
