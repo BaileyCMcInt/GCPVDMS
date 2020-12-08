@@ -13,55 +13,20 @@
 }
 <partial name="_GlobalRoleTabs" />
 
-<h1 class="bg-light">Update Role</h1>
-<a asp-action="RoleIndex" class="btn btn-secondary">Back to Roles</a>
+
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form method="post">
     <input type="hidden" name="roleName" value="@Model.Role.Name" />
     <input type="hidden" name="roleId" value="@Model.Role.Id" />
 
-
-
-    <h2 class="bg-light">Add To @Model.Role.Name</h2>
-    <table id="roleTable2" class="display">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Add</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.NonMembers.Count() == 0)
-            {
-                <tr><td colspan="2">All Users Are Members</td></tr>
-            }
-            else
-            {
-                @foreach (ApplicationUser user in Model.NonMembers)
-                {
-                    <tr>
-                        <td>@user.FirstName @user.LastName</td>
-                        <td>@user.UserName</td>
-                        <td>
-                            <input type="checkbox" name="AddIds" value="@user.Id">
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-    <center><button type="submit" class="btn btn-primary">Add user(s) to role</button></center>
-    </br></br>
-
-    <h2 class="bg-light">Remove From @Model.Role.Name</h2>
+    <center><h3 style="background-color: #009E00; color: white">Current @Model.Role.Name</h3></center>
     <table id="roleTable3" class="display">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Remove</th>
+                <th><center>Name</center></th>
+                <th><center>Email</center></th>
+                <th><center>Select to Remove</center></th>
             </tr>
         </thead>
         <tbody>
@@ -78,12 +43,49 @@
                         <td>@user.FirstName @user.LastName</td>
                         <td>@user.UserName</td>
                         <td>
-                            <input type="checkbox" name="DeleteIds" value="@user.Id">
+                            <center>
+                                <input type="checkbox" name="DeleteIds" value="@user.Id">
+                            </center>
                         </td>
                     </tr>
                 }
             }
         </tbody>
     </table>
-    <center><button type="submit" class="btn btn-primary">Remove user(s) from role</button></center>
+    <center><button type="submit" class="btn btn-secondary">Submit</button></center>
+    </br></br>
+    <center><h3 style="background-color: #009E00; color: white">Add User(s) To @Model.Role.Name</h3></center>
+    <table id="roleTable2" class="display">
+        <thead>
+            <tr>
+                <th><center>Name</center></th>
+               <th><center>Email</center></th>
+                <th><center>Select to Add</center></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.NonMembers.Count() == 0)
+            {
+                <tr><td colspan="2">All Users Are Members</td></tr>
+            }
+            else
+            {
+                @foreach (ApplicationUser user in Model.NonMembers)
+                {
+                    <tr>
+                        <td>@user.FirstName @user.LastName</td>
+                        <td>@user.UserName</td>
+                        <td>
+                            <center><input type="checkbox" name="AddIds" value="@user.Id"></center>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <center>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+        <a asp-action="RoleIndex" class="btn btn-secondary">Back to Roles</a>
+    </center>
+    </br></br>
 </form>

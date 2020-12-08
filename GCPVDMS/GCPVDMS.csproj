@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Views\Admin\**" />
+    <Compile Remove="Views\Role\**" />
     <Content Remove="Views\Admin\**" />
+    <Content Remove="Views\Role\**" />
     <EmbeddedResource Remove="Views\Admin\**" />
+    <EmbeddedResource Remove="Views\Role\**" />
     <None Remove="Views\Admin\**" />
+    <None Remove="Views\Role\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,7 +46,6 @@
   <ItemGroup>
     <Folder Include="Views\Drive\Admin\" />
     <Folder Include="Views\Drive\Volunteer\" />
-    <Folder Include="Views\Role\" />
   </ItemGroup>
 
 </Project>
