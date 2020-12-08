@@ -10,6 +10,7 @@ namespace GCPVDMS.Controllers
 {
     public class EventController : Controller
     {
+
         private IEventRepository repository;
         public EventController(IEventRepository repo)
         {
