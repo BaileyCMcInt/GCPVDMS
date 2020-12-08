@@ -1,0 +1,21 @@
+﻿@model ApplicationUser
+@{
+    Layout = "_Layout";
+
+}
+
+
+<partial name="_GlobalVolunteerTabs" />
+
+<br/>
+
+<center><h3 style="background-color: #009E00; color: white">@Model.FirstName @Model.LastName's Volunteer Information</h3></center>
+First Name: @Model.FirstName<br />
+Last Name: @Model.LastName <br />
+County: @Model.County <br/>
+Preferred Method of Contact: @Model.PreferredContact <br/>
+Phone Number: @Model.PhoneNumber<br/>
+Email: @Model.Email<br/>
+
+<br />
+<center> <a asp-action="viewVolunteers" class="btn btn-outline-dark">Back to Volunteer List</a></center>

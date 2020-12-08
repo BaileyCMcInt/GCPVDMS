@@ -17,7 +17,7 @@ namespace GCPVDMS.Controllers
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> userManager;
         
-        public GlobalDashboardController(IEventRepository repo, RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg)
+        public GlobalDashboardController(IEventRepository repo, RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg, ApplicationDbContext context)
         {
             //this method is passing in all the data to the constructor and assigning it to a variable to be used to access model data
             //throughout the controller
@@ -33,11 +33,7 @@ namespace GCPVDMS.Controllers
 
         //the following are methods related to EVENT MODELS. New comments are documented
         ///each time we start a new set of model methods.
-        public IActionResult EventSignUp()
-        {
-            return View("~/Views/Event/Volunteer/EventSignUp.cshtml");
-        }
-
+        ///
         [Authorize(Roles = "Global Admin")]
         public IActionResult EventList() => View(repository.Events);
 
@@ -74,7 +70,9 @@ namespace GCPVDMS.Controllers
         [Authorize(Roles = "Global Admin")]
         public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event());
 
-        //the following methods are related to ROLE MODELS
+
+
+        //the following methods are related to ROLE MODELS utilized on the ADMIN tab of the dashboard
 
         [Authorize(Roles = "Global Admin")]
         public ViewResult RoleIndex() => View(roleManager.Roles);
@@ -104,7 +102,7 @@ namespace GCPVDMS.Controllers
 
         [Authorize(Roles = "Global Admin")]
         [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> RoleDelete(string id)
         {
             IdentityRole role = await roleManager.FindByIdAsync(id);
             if (role != null)
@@ -173,5 +171,18 @@ namespace GCPVDMS.Controllers
             else
                 return await RoleUpdate(model.RoleId);
         }
+
+
+        //the following methods are related to ROLE MODELS utilized on the VOLUNTEER tab of the dashboard
+        public IActionResult ViewVolunteers()
+        {
+            return View(userManager.Users);
+        }
+
+
+        public ViewResult VolunteerInfo(string id) =>
+         View(userManager.Users
+                .FirstOrDefault(p => p.Id == id));
+      
     }
 }
