@@ -75,14 +75,14 @@
 
                     <div class="form-group">
                         <label asp-for="StartTime">Start Time: </label>
-                        <input asp-for="StartTime" type="time" min="09:00" max="18:00" class="form-control">
+                        <input asp-for="StartTime" type="time" min="06:00" max="18:00" class="form-control">
                     </div>
 
                     <br />
 
                     <div class="form-group">
                         <label asp-for="EndTime">End Time: </label>
-                        <input asp-for="EndTime" type="time" min="09:00" max="18:00" class="form-control">
+                        <input asp-for="EndTime" type="time" min="06:00" max="18:00" class="form-control">
                     </div>
 
                     <br />
@@ -136,12 +136,6 @@
                         <input asp-for="isEventActive" class="custom-checkbox">
                         <label>Event Active</label>
                     </div>
-
-                    @* TEAM DECIDED TO NOT HAVE "VISIBLE TO ADMIN ONLY" OPTION AS EVENT ACTIVE TAKES CARE
-                            OF THIS
-                        <input type="checkbox" id="visible" name="visible" value="yes">
-                        <label for="visible">Visible to Admin Only</label>
-                    *@
 
                     <br />
                     <div>
