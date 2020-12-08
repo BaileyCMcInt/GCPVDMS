@@ -21,9 +21,9 @@
 <table id="roleTable" class="display">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Update</th>
-            <th>Delete</th>
+            <th><center>Role Name</center></th>
+            <th><center>Edit</center></th>
+            <th><center>Delete</center></th>
         </tr>
     </thead>
     <tbody>
@@ -34,12 +34,16 @@
                 <!--<td>@role.Id</td>-->
                 <td>@role.Name</td>
                 @*<td i-role="@role.Id"></td>*@
-                <td><center><a class="btn btn-sm btn-secondary" asp-action="RoleUpdate" asp-route-id="@role.Id">Edit Users</a></center></td>
+                <td>
+                    <center>
+                        <a class="btn btn-sm btn-outline-dark" asp-action="RoleUpdate" asp-route-id="@role.Id">Edit Users</a>
+                    </center>
+                </td>
                 <td>
                     <form asp-action="RoleDelete" asp-route-id="@role.Id" method="post">
                         <center>
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                Delete
+                            <button type="submit" class="btn btn-sm btn-outline-danger" disabled>
+                                Delete Role
                             </button>
                         </center>
                     </form>
