@@ -16,6 +16,10 @@ namespace GCPVDMS.Controllers
         {
             repository = repo;
         }
+        public IActionResult Index()
+        {
+            return RedirectToAction("EventInfoPage");
+        }
         public ViewResult EventSignUp() =>
             View("~/Views/Event/Volunteer/EventSignUp.cshtml", repository.Events);
         public ViewResult EventInfoPage(int eventId) =>
@@ -28,7 +32,6 @@ namespace GCPVDMS.Controllers
 
         public ViewResult HostaDrive() => View("~/Views/Event/Volunteer/HostaDrive.cshtml");
 
-        /***Below moved to GlobalDashboardController***/
         //[Authorize(Roles = "Global Admin")]
         //public ViewResult EventList() => View("~/Views/Event/Admin/EventList.cshtml", repository.Events);
 
