@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace GCPVDMS.Controllers
 {
     public class GlobalDashboardController : Controller
@@ -174,15 +173,18 @@ namespace GCPVDMS.Controllers
 
 
         //the following methods are related to ROLE MODELS utilized on the VOLUNTEER tab of the dashboard
+        [Authorize(Roles = "Global Admin")]
         public IActionResult ViewVolunteers()
         {
             return View(userManager.Users);
         }
 
 
+        [Authorize(Roles = "Global Admin")]
         public ViewResult VolunteerInfo(string id) =>
          View(userManager.Users
                 .FirstOrDefault(p => p.Id == id));
+
       
     }
 }
