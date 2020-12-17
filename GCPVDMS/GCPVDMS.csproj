@@ -22,6 +22,8 @@
     <Compile Remove="Migrations\20201124234153_dfugle_addingProfileFields.Designer.cs" />
     <Compile Remove="Migrations\ApplicationDb\20201124162209_dfugle_addingFKtoLocationTable.cs" />
     <Compile Remove="Migrations\ApplicationDb\20201124162209_dfugle_addingFKtoLocationTable.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20201217195623_rcook_GCPtasks.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20201217195623_rcook_GCPtasks.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
