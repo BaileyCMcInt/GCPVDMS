@@ -24,6 +24,8 @@ namespace GCPVDMS.Controllers
             roleManager = roleMgr;
             userManager = userMrg;
         }
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public IActionResult Index()
         {
@@ -185,6 +187,41 @@ namespace GCPVDMS.Controllers
          View(userManager.Users
                 .FirstOrDefault(p => p.Id == id));
 
-      
+        //the following methods are for the USER ACCOUNT MANAGEMENT portion of the Global Dashboard
+        public IActionResult ViewUsers()
+        {
+            return View(userManager.Users);
+        }
+
+        public async Task<IActionResult> UpdateUser(string id)
+        {
+            ApplicationUser user = await userManager.FindByIdAsync(id);
+            if (user != null)
+                return View(user);
+            else
+                return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(string id, bool accountStatus)
+        {
+            accountStatus = true;
+            ApplicationUser user = await userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                if (accountStatus != user.isApproved)
+                { 
+                    user.isApproved = accountStatus;
+                
+                    IdentityResult result = await userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("ViewUsers");
+                    }
+                }
+            }
+            return View(user);
+        }
+
     }
 }

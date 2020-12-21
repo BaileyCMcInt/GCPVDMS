@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ApplicationUser>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#approvalTable').DataTable();
+        });</script>
+}
+
+<partial name="_GlobalApprovalTabs" />
+<br/>
+<center><h3 style="background-color: #009E00; color: white">Accounts to Be Approved</h3></center>
+<br />
+<table id="approvalTable" class="display">
+    <thead>
+        <tr>
+            <th><center>Name</center></th>
+            <th><center>Email</center></th>
+            <th><center>Account Type</center></th>
+            <th><center>Edit</center></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ApplicationUser user in Model)
+        {
+            if (user.isApproved == false)
+            {
+                <tr>
+                    <td>@user.FirstName @user.LastName</td>
+                    <td>@user.Email</td>
+
+                    @if (user.isVolunteer == true && user.isDonor == true)
+                    {
+                        <td>Volunteer, Donor</td>
+                    }
+                    @if (user.isVolunteer == true && user.isDonor == false)
+                    {
+                        <td>Volunteer</td>
+                    }
+                    @if (user.isVolunteer == false && user.isDonor == true)
+                    {
+                        <td>Donor</td>
+                    }
+                    <td>
+                        <center>
+                            <a class="btn btn-sm btn-outline-dark" asp-action="UpdateUser" asp-route-id="@user.Id">
+                                Approve Account
+                            </a>
+                        </center>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+</table>

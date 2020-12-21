@@ -4,54 +4,55 @@
 @{
     ViewData["Title"] = "Login to GCP";
 }
+<partial name="_StatusMessage" model="Model.ErrorMessage" />
 
-    <center>
-      
-        <section>
-            <div class="row d-flex justify-content-center col-12">
-                <div class="col-4 border border-secondary rounded m-20">
-                    <form id="account" method="post" class="py-5">
-                        <div class="d-flex justify-content-center">
-                            <i class="icon-map-marker icon-4x text-success"></i>
-                        </div>
-                        <h3>@ViewData["Title"]</h3>
-                        <div class="d-flex justify-content-center">
-                            <img src="http://a.mktgcdn.com/p/a7_dnX-x6IMTbmKYR86l9X__EBN55STZo2n1EF4UYKw/960x960.jpg" width="185" height="185" />
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                        </div></br>
-                        <div class="form-group ">
-                            <input asp-for="Input.Email" class="form-control" placeholder="Email address" required />
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-group ">
-                            <input asp-for="Input.Password" class="form-control" placeholder="Password" required />
-                            <span asp-validation-for="Input.Password" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label asp-for="Input.RememberMe">
-                                    <input asp-for="Input.RememberMe" />
-                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
-                                </label>
-                            </div>
-                        </div>
-                        @*<div asp-validation-summary="All" class="text-danger"></div>*@
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-outline-secondary">Sign in</button>
-                        </div>
+<center>
 
-                        <p class="col-12">
-                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                        </p>
-                        <p class="col-12">
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                        </p>
-                    </form>
-                </div>
-             
+    <section>
+        <div class="row d-flex justify-content-center col-12">
+            <div class="col-4 border border-secondary rounded m-20">
+                <form id="account" method="post" class="py-5">
+                    <div class="d-flex justify-content-center">
+                        <i class="icon-map-marker icon-4x text-success"></i>
+                    </div>
+                    <h3>@ViewData["Title"]</h3>
+                    <div class="d-flex justify-content-center">
+                        <img src="http://a.mktgcdn.com/p/a7_dnX-x6IMTbmKYR86l9X__EBN55STZo2n1EF4UYKw/960x960.jpg" width="185" height="185" />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </div></br>
+                    <div class="form-group ">
+                        <input asp-for="Input.Email" class="form-control" placeholder="Email address" required />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group ">
+                        <input asp-for="Input.Password" class="form-control" placeholder="Password" required />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    @*<div asp-validation-summary="All" class="text-danger"></div>*@
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-secondary">Sign in</button>
+                    </div>
+
+                    <p class="col-12">
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p class="col-12">
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                </form>
             </div>
-        </section>
-    </center>
+
+        </div>
+    </section>
+</center>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
