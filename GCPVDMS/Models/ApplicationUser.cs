@@ -19,6 +19,8 @@ namespace GCPVDMS.Models
         public bool isVolunteer { get; set; }
         public bool isDonor { get; set; }
 
+        public bool isApproved { get; set; }
+
 
     }
 

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using GCPVDMS.Models;
 using System.Net.Mail;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace GCPVDMS.Areas.Identity.Pages.Account
 {
@@ -41,6 +42,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
+
+
 
         public class InputModel
         {//with identity, the username and email is the same by default so users can log in with both
@@ -86,48 +89,59 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
-            var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-
-            if (ModelState.IsValid)
+         
+            var userApproval = await _userManager.FindByEmailAsync(Input.Email);
+            if (userApproval.isApproved == true)
             {
-              
-                var userName = Input.Email;
-                if (IsValidEmail(Input.Email))
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+
+                if (ModelState.IsValid)
                 {
-                    var user = await _userManager.FindByEmailAsync(Input.Email);
-                    if (user != null)
+
+                    var userName = Input.Email;
+
+
+                    if (IsValidEmail(Input.Email))
                     {
-                        userName = user.UserName;
+                        var user = await _userManager.FindByEmailAsync(Input.Email);
+                        if (user != null)
+                        {
+                            userName = user.UserName;
+                        }
+                    }
+
+                    //if (result.Succeeded && userApproval.isApproved == false)
+                    //{
+                    //    ErrorMessage = "Waiting on admin approval.";
+                    //    return Page();
+                    //}
+                    //var result = await _signInManager.PasswordSignInAsync(userName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("User logged in.");
+                        return LocalRedirect(returnUrl);
+                    }
+                    // This doesn't count login failures towards account lockout
+                    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+                    if (result.IsLockedOut)
+                    {
+                        _logger.LogWarning("User account locked out.");
+                        return RedirectToPage("./Lockout");
+                    }
+
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt. Input correct email and password.");
+                        return Page();
                     }
                 }
-                //var result = await _signInManager.PasswordSignInAsync(userName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt. Input correct email and password.");
+            }
+            else
+            {
+                    ErrorMessage = "Waiting on admin approval. Once admin approves your account, login will be enabled.";
                     return Page();
-                }
             }
 
             // If we got this far, something failed, redisplay form
