@@ -8,8 +8,16 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $('#roleTable2').DataTable();
-            $('#roleTable3').DataTable();
+            $('#roleTable2').DataTable({
+                "scrollY": "200px",
+                "scrollCollapse": true,
+                "paging": false
+            });
+            $('#roleTable3').DataTable({
+                "scrollY": "200px",
+                "scrollCollapse": true,
+                "paging": false
+            } );
         });</script>
 }
 <partial name="_GlobalRoleTabs" />
