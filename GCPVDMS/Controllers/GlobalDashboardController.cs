@@ -236,7 +236,6 @@ namespace GCPVDMS.Controllers
                 IdentityResult result = await userManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
-                    StatusMessage = "Account has been removed from the queue.";
                     return RedirectToAction("ViewUsers");
                 }
                 else
