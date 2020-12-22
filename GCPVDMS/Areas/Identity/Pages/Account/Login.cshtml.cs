@@ -89,9 +89,16 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
-         
+
             var userApproval = await _userManager.FindByEmailAsync(Input.Email);
-            if (userApproval.isApproved == true)
+
+            if (userApproval == null)
+            {
+                ErrorMessage = "Account with that email address does not exist. If this is a valid email, please register for a new account.";
+                return Page();
+            }
+
+            if (userApproval != null && userApproval.isApproved == true)
             {
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
@@ -110,6 +117,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                             userName = user.UserName;
                         }
                     }
+
 
                     //if (result.Succeeded && userApproval.isApproved == false)
                     //{
@@ -133,15 +141,19 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
 
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Invalid login attempt. Input correct email and password.");
+
+                        ErrorMessage = "Invalid login attempt. Please input correct email and password.";
                         return Page();
                     }
                 }
             }
             else
             {
-                    ErrorMessage = "Waiting on admin approval. Once admin approves your account, login will be enabled.";
+                if(userApproval.isApproved == false)
+                {
+                    ErrorMessage = "Account is awaiting admin approval. Once admin approves this account, login will be enabled.";
                     return Page();
+                }
             }
 
             // If we got this far, something failed, redisplay form

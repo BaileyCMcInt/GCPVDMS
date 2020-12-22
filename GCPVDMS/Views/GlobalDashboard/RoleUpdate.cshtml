@@ -39,6 +39,8 @@
             {
                 @foreach (ApplicationUser user in Model.Members)
                 {
+                    if (user.isApproved == true)
+                    {
                     <tr>
 
                         <td>@user.FirstName @user.LastName</td>
@@ -49,8 +51,9 @@
                             </center>
                         </td>
                     </tr>
+                      }
+                    }
                 }
-            }
         </tbody>
     </table>
     <center><button type="submit" class="btn btn-outline-dark">Submit</button></center>
@@ -71,8 +74,11 @@
             }
             else
             {
+                
                 @foreach (ApplicationUser user in Model.NonMembers)
                 {
+                    if (user.isApproved == true)
+                    {
                     <tr>
                         <td>@user.FirstName @user.LastName</td>
                         <td>@user.UserName</td>
@@ -80,6 +86,7 @@
                             <center><input type="checkbox" name="AddIds" value="@user.Id"></center>
                         </td>
                     </tr>
+                }
                 }
             }
         </tbody>

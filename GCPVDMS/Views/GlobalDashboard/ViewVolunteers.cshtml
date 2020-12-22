@@ -10,7 +10,7 @@
             $('#volunteerTable').DataTable();
         });</script>
 }
-<partial name="_GlobalApprovalTabs" />
+<partial name="_GlobalVolunteerTabs" />
 
 
 <div asp-validation-summary="All" class="text-danger"></div>
@@ -29,7 +29,7 @@
             @foreach (ApplicationUser user in Model)
             {
 
-                @if (user.isVolunteer)
+                @if (user.isVolunteer && user.isApproved == true)
                 {
 
                     <tr>
