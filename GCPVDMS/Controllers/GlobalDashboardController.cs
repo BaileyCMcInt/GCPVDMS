@@ -34,6 +34,7 @@ namespace GCPVDMS.Controllers
 
         //the following are methods related to EVENT MODELS. New comments are documented
         ///each time we start a new set of model methods.
+        ///
         [Authorize(Roles = "Global Admin")]
         public IActionResult EventList() => View(repository.Events);
 
@@ -235,6 +236,7 @@ namespace GCPVDMS.Controllers
                 IdentityResult result = await userManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
+                    StatusMessage = "Account has been removed from the queue.";
                     return RedirectToAction("ViewUsers");
                 }
                 else
