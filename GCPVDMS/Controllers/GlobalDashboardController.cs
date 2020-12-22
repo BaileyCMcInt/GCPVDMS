@@ -188,11 +188,13 @@ namespace GCPVDMS.Controllers
                 .FirstOrDefault(p => p.Id == id));
 
         //the following methods are for the USER ACCOUNT MANAGEMENT portion of the Global Dashboard
+
+        [Authorize(Roles = "Global Admin")]
         public IActionResult ViewUsers()
         {
             return View(userManager.Users);
         }
-
+        [Authorize(Roles = "Global Admin")]
         public async Task<IActionResult> UpdateUser(string id)
         {
             ApplicationUser user = await userManager.FindByIdAsync(id);
@@ -202,6 +204,7 @@ namespace GCPVDMS.Controllers
                 return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Global Admin")]
         [HttpPost]
         public async Task<IActionResult> UpdateUser(string id, bool accountStatus)
         {
@@ -221,6 +224,27 @@ namespace GCPVDMS.Controllers
                 }
             }
             return View(user);
+        }
+
+        [Authorize(Roles = "Global Admin")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            ApplicationUser user = await userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                IdentityResult result = await userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    StatusMessage = "Account has been removed from the queue.";
+                    return RedirectToAction("ViewUsers");
+                }
+                else
+                    Errors(result);
+            }
+            else
+                ModelState.AddModelError("", "User Not Found");
+            return View("Index", userManager.Users);
         }
 
     }

@@ -10,13 +10,14 @@
             $('#volunteerTable').DataTable();
         });</script>
 }
-<partial name="_GlobalApprovalTabs" />
+<partial name="_GlobalVolunteerTabs" />
 
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form method="post">
     <center><h3 style="background-color: #009E00; color: white">GCP Volunteers</h3></center>
+
     <table id="volunteerTable" class="display">
         <thead>
             <tr>
@@ -29,18 +30,18 @@
             @foreach (ApplicationUser user in Model)
             {
 
-                @if (user.isVolunteer)
+                @if (user.isVolunteer && user.isApproved == true)
                 {
 
-                    <tr>
-                        <td>@user.FirstName</td>
-                        <td>@user.LastName</td>
-                        <td>
-                            <center>
-                                <button type="submit" class="btn btn-outline-dark" asp-action="VolunteerInfo" asp-route-id="@user.Id">View</button>
-                            </center>
-                        </td>
-                    </tr>
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>
+                    <center>
+                        <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="VolunteerInfo" asp-route-id="@user.Id">View</button>
+                    </center>
+                </td>
+            </tr>
 
                 }
             }
