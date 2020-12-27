@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ApplicationUser>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#approvalTable').DataTable();
+        });</script>
+}
+
+<partial name="_GlobalApprovalTabs" />
+<br/>
+<center><h3 style="background-color: #009E00; color: white">Accounts to Be Approved</h3></center>
+<br />
+<table id="approvalTable" class="display">
+    <thead>
+        <tr>
+            <th><center>Name</center></th>
+            <th><center>Email</center></th>
+            <th><center>Account Type</center></th>
+            <th><center>Approve</center></th>
+            <th><center>Deny</center></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ApplicationUser user in Model)
+        {
+            if (user.isApproved == false)
+            {
+                <tr>
+                    <td>@user.FirstName @user.LastName</td>
+                    <td>@user.Email</td>
+
+                    @if (user.isVolunteer == true && user.isDonor == true)
+                    {
+                        <td>Volunteer, Donor</td>
+                    }
+                    @if (user.isVolunteer == true && user.isDonor == false)
+                    {
+                        <td>Volunteer</td>
+                    }
+                    @if (user.isVolunteer == false && user.isDonor == true)
+                    {
+                        <td>Donor</td>
+                    }
+                    <td>
+                        <center>
+                             <form asp-action="UpdateUser" asp-route-id="@user.Id" method="post" onclick="return confirm('Are you sure you want to approve this account?')">
+                                <button type="submit" class="btn btn-sm btn-outline-dark">
+                                    Approve
+                                </button>
+                             </form>
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post" onclick="return confirm('Are you sure you want to deny this account?')">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    Deny
+                                </button>
+                            </form>
+                        </center>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+</table>

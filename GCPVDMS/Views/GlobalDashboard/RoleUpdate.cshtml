@@ -8,8 +8,16 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $('#roleTable2').DataTable();
-            $('#roleTable3').DataTable();
+            $('#roleTable2').DataTable({
+                "scrollY": "200px",
+                "scrollCollapse": true,
+                "paging": false
+            });
+            $('#roleTable3').DataTable({
+                "scrollY": "200px",
+                "scrollCollapse": true,
+                "paging": false
+            } );
         });</script>
 }
 <partial name="_GlobalRoleTabs" />
@@ -27,7 +35,7 @@
             <tr>
                 <th><center>Name </center></th>
                 <th><center>Email </center></th>
-                <th><center>Select to Remove <i class="fa fa-check" aria-hidden="true"></i></center></th>
+                <th><center>Remove from Admin Role</center></th>
             </tr>
         </thead>
         <tbody>
@@ -39,21 +47,23 @@
             {
                 @foreach (ApplicationUser user in Model.Members)
                 {
+                    if (user.isApproved == true)
+                    {
                     <tr>
 
                         <td>@user.FirstName @user.LastName</td>
                         <td>@user.UserName</td>
                         <td>
                             <center>
-                                <input type="checkbox" name="DeleteIds" value="@user.Id">
+                                <button type="submit" onclick="return confirm('Are you sure you want to remove this user as an Admin?')" class="btn btn-sm btn-outline-danger" name="DeleteIds" value="@user.Id">Remove</button>
                             </center>
                         </td>
                     </tr>
+                      }
+                    }
                 }
-            }
         </tbody>
     </table>
-    <center><button type="submit" class="btn btn-outline-dark">Submit</button></center>
     </br></br>
     <center><h3 style="background-color: #009E00; color: white">Add User(s) To @Model.Role.Name</h3></center>
     <table id="roleTable2" class="display">
@@ -61,7 +71,7 @@
             <tr>
                 <th><center>Name</center></th>
                <th><center>Email</center></th>
-                <th><center>Select to Add <i class="fa fa-check" aria-hidden="true"></i></center></th>
+                <th><center>Add to Admin Role</center></th>
             </tr>
         </thead>
         <tbody>
@@ -71,21 +81,24 @@
             }
             else
             {
+                
                 @foreach (ApplicationUser user in Model.NonMembers)
                 {
+                    if (user.isApproved == true)
+                    {
                     <tr>
                         <td>@user.FirstName @user.LastName</td>
                         <td>@user.UserName</td>
                         <td>
-                            <center><input type="checkbox" name="AddIds" value="@user.Id"></center>
+                            <center><button type="submit"  onclick="return confirm('Are you sure you want to add this user to Admin?')" class="btn btn-sm btn-outline-dark" name="AddIds" value="@user.Id">Add</button></center>
                         </td>
                     </tr>
+                }
                 }
             }
         </tbody>
     </table>
     <center>
-        <button type="submit" class="btn btn-outline-dark">Submit</button>
         <a asp-action="RoleIndex" class="btn btn-outline-dark">Back to Roles</a>
     </center>
     </br></br>

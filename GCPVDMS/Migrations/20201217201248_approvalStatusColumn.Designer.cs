@@ -4,14 +4,16 @@ using GCPVDMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GCPVDMS.Migrations
 {
     [DbContext(typeof(GCPVDMSContext))]
-    partial class GCPVDMSContextModelSnapshot : ModelSnapshot
+    [Migration("20201217201248_approvalStatusColumn")]
+    partial class approvalStatusColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,9 +29,6 @@ namespace GCPVDMS.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("Birthday")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -75,12 +74,6 @@ namespace GCPVDMS.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("PreferredContact")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("ProfilePicture")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("SecondPreferredContact")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")

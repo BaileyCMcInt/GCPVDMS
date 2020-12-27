@@ -42,8 +42,10 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
-            [Display(Name = "Preferred method of Contact")]
+            [Display(Name = "Primary Preferred method of Contact")]
             public string PreferredContact{ get; set; }
+            [Display(Name = "Secondary Preferred method of Contact")]
+            public string SecondPreferredContact { get; set; }
 
             [Display(Name = "County Affiliation")]
             public string County { get; set; }
@@ -51,8 +53,12 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             public bool isDonor { get; set; }
             [Display(Name = "Volunteer")]
             public bool isVolunteer { get; set; }
+         
+            [DataType(DataType.Date)]
+            [Display(Name = "Date of birth")]
+            public DateTime Birthday { get; set; }
 
-           
+
 
         }
   
@@ -63,9 +69,11 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var firstName = user.FirstName;
             var lastName = user.LastName;
             var preferredContact = user.PreferredContact;
+            var secondpreferredContact = user.SecondPreferredContact;
             var county = user.County;
             var IsVolunteer = user.isVolunteer;
             var IsDonor = user.isDonor;
+            var birthday = user.Birthday;
             Username = userName;
             Input = new InputModel
             {
@@ -74,9 +82,11 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 FirstName = firstName,
                 LastName = lastName,
                 PreferredContact = preferredContact,
+                SecondPreferredContact = secondpreferredContact,
                 County = county,
                 isVolunteer = IsVolunteer,
-                isDonor = IsDonor
+                isDonor = IsDonor,
+                Birthday = birthday
             };
         }
 
@@ -98,9 +108,11 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var firstName = user.FirstName;
             var lastName = user.LastName;
             var preferredContact = user.PreferredContact;
+            var secondpreferredContact = user.SecondPreferredContact;
             var county = user.County;
             var IsVolunteer = user.isVolunteer;
             var IsDonor= user.isDonor;
+            var birthday = user.Birthday;
             if (Input.FirstName != firstName)
             {
                 user.FirstName = Input.FirstName;
@@ -114,6 +126,16 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             if (Input.PreferredContact != preferredContact)
             {
                 user.PreferredContact = Input.PreferredContact;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.SecondPreferredContact != secondpreferredContact)
+            {
+                user.SecondPreferredContact = Input.SecondPreferredContact;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.Birthday != birthday)
+            {
+                user.Birthday = Input.Birthday;
                 await _userManager.UpdateAsync(user);
             }
             if (user == null)

@@ -4,14 +4,16 @@ using GCPVDMS.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GCPVDMS.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201217201314_approvalStatusColumn2")]
+    partial class approvalStatusColumn2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,9 +28,6 @@ namespace GCPVDMS.Migrations.ApplicationDb
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("Birthday")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
@@ -70,12 +69,6 @@ namespace GCPVDMS.Migrations.ApplicationDb
                         .HasColumnType("bit");
 
                     b.Property<string>("PreferredContact")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("ProfilePicture")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("SecondPreferredContact")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -188,43 +181,6 @@ namespace GCPVDMS.Migrations.ApplicationDb
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("GCPVDMS.Models.GCPEventTask", b =>
-                {
-                    b.Property<int>("GCPEventTaskID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EventID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GCPTaskID")
-                        .HasColumnType("int");
-
-                    b.HasKey("GCPEventTaskID");
-
-                    b.HasIndex("EventID");
-
-                    b.HasIndex("GCPTaskID");
-
-                    b.ToTable("GCPEventTasks");
-                });
-
-            modelBuilder.Entity("GCPVDMS.Models.GCPTask", b =>
-                {
-                    b.Property<int>("GCPTaskID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TaskName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GCPTaskID");
-
-                    b.ToTable("GCPTasks");
-                });
-
             modelBuilder.Entity("GCPVDMS.Models.Location", b =>
                 {
                     b.Property<int>("LocationID")
@@ -304,21 +260,6 @@ namespace GCPVDMS.Migrations.ApplicationDb
                     b.HasOne("GCPVDMS.Models.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GCPVDMS.Models.GCPEventTask", b =>
-                {
-                    b.HasOne("GCPVDMS.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GCPVDMS.Models.GCPTask", "GCPTask")
-                        .WithMany()
-                        .HasForeignKey("GCPTaskID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
