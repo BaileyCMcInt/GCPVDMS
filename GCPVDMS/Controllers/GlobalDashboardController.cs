@@ -13,16 +13,20 @@ namespace GCPVDMS.Controllers
     public class GlobalDashboardController : Controller
     {
         private IEventRepository repository;
+        private IGCPTaskRepository taskRepository;
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> userManager;
-        
-        public GlobalDashboardController(IEventRepository repo, RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg, ApplicationDbContext context)
+        private ApplicationDbContext context;
+
+        public GlobalDashboardController(IEventRepository repo, IGCPTaskRepository taskRepo, RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx)
         {
             //this method is passing in all the data to the constructor and assigning it to a variable to be used to access model data
             //throughout the controller
             repository = repo;
+            taskRepository = taskRepo;
             roleManager = roleMgr;
             userManager = userMrg;
+            context = ctx;
         }
         [TempData]
         public string StatusMessage { get; set; }
@@ -71,6 +75,41 @@ namespace GCPVDMS.Controllers
         [Authorize(Roles = "Global Admin")]
         public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event());
 
+
+        //the following are methods related to TASK MODELS
+
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult MasterTask()
+        {
+            var gcptaskdata = new GCPTaskDTO()
+            {
+                GCPTaskList = context.GCPTasks.ToList()
+            };
+            return View(gcptaskdata);
+        }
+
+        [HttpPost]
+        public IActionResult MasterTask(GCPTaskDTO GCPTask)
+        {
+            if (GCPTask.GCPTaskData.GCPTaskID == 0)
+            {
+                context.GCPTasks.Add(GCPTask.GCPTaskData);
+            }
+            else
+            {
+                GCPTask dbEntry = context.GCPTasks
+                .FirstOrDefault(p => p.GCPTaskID == GCPTask.GCPTaskData.GCPTaskID);
+                if (dbEntry != null)
+                {
+                    dbEntry.TaskName = GCPTask.GCPTaskData.TaskName;
+                }
+            }
+
+            //context.GCPTasks.Add(GCPTask);
+            context.SaveChanges();
+            return RedirectToAction("MasterTask");
+        }
 
 
         //the following methods are related to ROLE MODELS utilized on the ADMIN tab of the dashboard
