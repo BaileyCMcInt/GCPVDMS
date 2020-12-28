@@ -4,9 +4,44 @@
     ViewData["Title"] = "MasterTask";
 }
 
-<h1>MasterTask</h1>
+<head>
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
 
-<h4>GCPTask</h4>
+            .styled-table thead tr {
+                color: black;
+                text-align: left;
+                border-bottom: 1px solid #dddddd;
+            }
+
+            .styled-table th,
+            .styled-table td {
+                padding: 12px 15px;
+            }
+
+            .styled-table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+
+                .styled-table tbody tr:nth-of-type(odd) {
+                    background-color: #f3f3f3;
+                }
+    </style>
+</head>
+
+<!DOCTYPE html>
+<partial name="_GlobalEventTabs" />
+
+
+<h1>Master Task List</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,12 +49,12 @@
             <input type="hidden" asp-for="GCPTaskData.GCPTaskID" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-                <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
-                <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
-                <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
+                    <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
+                    <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
-                <label asp-for="GCPTaskData.TaskName" class="control-label"></label>
+                <label asp-for="GCPTaskData.TaskName" class="control-label">Task Name</label>
                 <input asp-for="GCPTaskData.TaskName" class="form-control" />
                 <span asp-validation-for="GCPTaskData.TaskName" class="text-danger"></span>
             </div>
@@ -30,7 +65,7 @@
     </div>
 </div>
 
-<table border="1" id="tasktable">
+<table class="styled-table" id="tasktable">
     <thead>
         <tr>
             <th>Task Name</th>
@@ -41,14 +76,23 @@
         {
             <tr>
                 <td>@item.TaskName</td>
+                <td>
+                    @Html.ActionLink("Edit", "GCPTaskEdit", new { id = item.GCPTaskID })
+                    @*<input type="hidden" name="GCPTaskID" value=" " />
+                        <a asp-action="GCPTaskEdit" class="btn btn-outline-dark btn-sm"
+                           asp-route-GCPTaskId="@item.GCPTaskID">
+                            Edit
+                        </a>*@
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-dark">Back to Event List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
