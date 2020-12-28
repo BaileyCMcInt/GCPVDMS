@@ -78,6 +78,7 @@ namespace GCPVDMS.Controllers
 
         //the following are methods related to TASK MODELS
 
+        //This method provides the list of tasks in the master task view. 
         [Authorize(Roles = "Global Admin")]
         [HttpGet]
         public IActionResult MasterTask()
@@ -88,7 +89,9 @@ namespace GCPVDMS.Controllers
             };
             return View(gcptaskdata);
         }
-
+        
+        //This method allows the admin to add a new task to the master list. 
+        [Authorize(Roles = "Global Admin")]
         [HttpPost]
         public IActionResult MasterTask(GCPTaskDTO GCPTask)
         {
@@ -105,10 +108,31 @@ namespace GCPVDMS.Controllers
                     dbEntry.TaskName = GCPTask.GCPTaskData.TaskName;
                 }
             }
-
-            //context.GCPTasks.Add(GCPTask);
             context.SaveChanges();
             return RedirectToAction("MasterTask");
+        }
+        
+        //This method is currently not in use. 
+        [Authorize(Roles = "Global Admin")]
+        public IActionResult GCPTaskDelete(int id)
+        {
+            var dataForDelete = context.GCPTasks.FirstOrDefault(async => async.GCPTaskID == id);
+            context.GCPTasks.Remove(dataForDelete);
+            context.SaveChanges();
+            return RedirectToAction("MasterTask");
+        }
+        //This method allows the admin to edit an existing task
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult GCPTaskEdit(int id)
+        {
+     
+            var gcptaskdata = new GCPTaskDTO()
+            {
+                GCPTaskList = context.GCPTasks.ToList(),
+                GCPTaskData = context.GCPTasks.FirstOrDefault(a => a.GCPTaskID == id)
+            };
+            return View("MasterTask", gcptaskdata);
         }
 
 
