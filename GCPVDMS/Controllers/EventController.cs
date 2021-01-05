@@ -20,8 +20,14 @@ namespace GCPVDMS.Controllers
         {
             return RedirectToAction("EventInfoPage");
         }
-        public ViewResult EventSignUp() =>
-            View("~/Views/Event/Volunteer/EventSignUp.cshtml", repository.Events);
+
+        public ViewResult EventSignUp()
+        {
+            var Events = from e in repository.Events select e;
+            Events = repository.Events.Where(e => e.isEventActive == true && e.EventDate > DateTime.Now);
+
+            return View("~/Views/Event/Volunteer/EventSignUp.cshtml", Events);
+        }
         public ViewResult EventInfoPage(int eventId) =>
             View("~/Views/Event/Volunteer/EventInfoPage.cshtml", repository.Events
                 .FirstOrDefault(p => p.EventID == eventId));

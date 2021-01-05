@@ -7,6 +7,30 @@
 
 
 <h1>Thank You</h1>
+@{
+    string locationname;
+
+    if (Model.LocationID == 1)
+    {
+        locationname = "Mandarin";
+    }
+    else if (Model.LocationID == 2)
+    {
+        locationname = "MLK Elementary";
+    }
+    else if (Model.LocationID == 3)
+    {
+        locationname = "Palm Beach";
+    }
+    else if (Model.LocationID == 4)
+    {
+        locationname = "Offsite Duval";
+    }
+    else
+    {
+        locationname = "Offsite Palm Beach";
+    }
+}
 <div class="container">
     <p>We can't wait to see you at the event!</p>
     <p class="card-text">Event Date: @Model.EventDate.ToShortDateString()</p>
@@ -15,7 +39,7 @@
 
     <p class="card-text">End Time: @Model.EndTime.ToShortTimeString()</p>
 
-    <p class="card-text">LocationID: @Model.LocationID</p>
+    <p class="card-text">Location: @locationname</p>
     <br />
 
     <h2> Questions? </h2>
