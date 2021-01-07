@@ -13,7 +13,8 @@ namespace GCPVDMS.Models
         public int EventID { get; set; }
 
         [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please choose date.")]
-        [Display(Name = "Today's Date")]
+        // [Display(Name = "Today's Date")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         [CustomAdmissionDate(ErrorMessage = "Date must be greater than or equal to Today's Date.")]
         public DateTime EventDate { get; set; }
@@ -21,9 +22,10 @@ namespace GCPVDMS.Models
         [Required(ErrorMessage = "Please choose a start time")]
         public DateTime StartTime { get; set; }
 
+        [Required(ErrorMessage = "Please choose an end time")]
         public DateTime EndTime { get; set; }
 
-        [Required(ErrorMessage = "Please enter a title")]
+        [Required(ErrorMessage = "Please enter an event title")]
         public string EventTitle { get; set; }
 
         public string EventDescription { get; set; }
@@ -34,6 +36,8 @@ namespace GCPVDMS.Models
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string POCPhone { get; set; }
 
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Not a valid email")]
         public string POCEmail { get; set; }
 
         public bool isEventActive { get; set; }
@@ -43,7 +47,7 @@ namespace GCPVDMS.Models
 
         public int NumVolunteersSignedUp { get; set; }
 
-        
+        [Required(ErrorMessage = "Please choose a location")]
         [ForeignKey("LocationID")]
         public int LocationID { get; set; }
 

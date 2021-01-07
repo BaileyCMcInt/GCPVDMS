@@ -23,6 +23,8 @@
 
     <h1> Event </h1>
 
+    <div asp-validation-summary="All" class="text-danger"></div>
+
     <div class="container">
         <div class="row">
 
@@ -33,14 +35,14 @@
 
 
                     @*<select name="County" id="County">
-                        <option value="county">County</option>
-                        <option value="Duval">Duval</option>
-                        <option value="Palm Beach">Palm Beach</option>
-                        <option value="Other">Other</option>
-                    </select>
+                            <option value="county">County</option>
+                            <option value="Duval">Duval</option>
+                            <option value="Palm Beach">Palm Beach</option>
+                            <option value="Other">Other</option>
+                        </select>
 
-                    <br />
-                    <br />*@
+                        <br />
+                        <br />*@
 
                     <select asp-for="LocationID">
                         <option value=" " selected>Location</option>
