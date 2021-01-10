@@ -113,14 +113,14 @@ namespace GCPVDMS.Controllers
         }
         
         //This method is currently not in use. 
-        [Authorize(Roles = "Global Admin")]
-        public IActionResult GCPTaskDelete(int id)
-        {
-            var dataForDelete = context.GCPTasks.FirstOrDefault(async => async.GCPTaskID == id);
-            context.GCPTasks.Remove(dataForDelete);
-            context.SaveChanges();
-            return RedirectToAction("MasterTask");
-        }
+        //[Authorize(Roles = "Global Admin")]
+        //public IActionResult GCPTaskDelete(int id)
+        //{
+        //    var dataForDelete = context.GCPTasks.FirstOrDefault(async => async.GCPTaskID == id);
+        //    context.GCPTasks.Remove(dataForDelete);
+        //    context.SaveChanges();
+        //    return RedirectToAction("MasterTask");
+        //}
         //This method allows the admin to edit an existing task
         [Authorize(Roles = "Global Admin")]
         [HttpGet]
@@ -133,6 +133,19 @@ namespace GCPVDMS.Controllers
                 GCPTaskData = context.GCPTasks.FirstOrDefault(a => a.GCPTaskID == id)
             };
             return View("MasterTask", gcptaskdata);
+        }
+
+        //the following methods are related to LOCATION and COUNTY MODELS utilized on the Locations tab of the dashboard
+
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult Locations()
+        {
+            var gcpLocation = new LocationDTO()
+            {
+                LocationList = context.Locations.ToList()
+            };
+            return View(gcpLocation);
         }
 
 
