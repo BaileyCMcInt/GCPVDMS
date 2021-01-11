@@ -1,0 +1,118 @@
+﻿@model GCPVDMS.Models.LocationDTO
+
+@{
+    ViewData["Title"] = "Locations";
+}
+
+<head>
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+            .styled-table thead tr {
+                color: black;
+                text-align: left;
+                border-bottom: 1px solid #dddddd;
+            }
+
+            .styled-table th,
+            .styled-table td {
+                padding: 12px 15px;
+            }
+
+            .styled-table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+
+                .styled-table tbody tr:nth-of-type(odd) {
+                    background-color: #f3f3f3;
+                }
+    </style>
+</head>
+
+<!DOCTYPE html>
+<partial name="_GlobalLocationTabs" />
+
+
+<h1>Giving Closet Project Locations</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MasterTask">
+            <input type="hidden" asp-for="GCPLocationData.LocationID" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
+            <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
+            <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="GCPLocationData.LocationName" class="control-label">Location Name: </label>
+                <input asp-for="GCPLocationData.LocationName" class="form-control" />
+                <span asp-validation-for="GCPLocationData.LocationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GCPLocationData.StreetAddress" class="control-label">Street Address: </label>
+                <input asp-for="GCPLocationData.StreetAddress" class="form-control" />
+                <span asp-validation-for="GCPLocationData.StreetAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GCPLocationData.StreetAddress2" class="control-label">Street Address 2: </label>
+                <input asp-for="GCPLocationData.StreetAddress2" class="form-control" />
+                <span asp-validation-for="GCPLocationData.StreetAddress2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GCPLocationData.City" class="control-label">City: </label>
+                <input asp-for="GCPLocationData.City" class="form-control" />
+                <span asp-validation-for="GCPLocationData.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GCPLocationData.Zip" class="control-label">Zip: </label>
+                <input asp-for="GCPLocationData.Zip" class="form-control" />
+                <span asp-validation-for="GCPLocationData.Zip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="styled-table" id="tasktable">
+    <thead>
+        <tr>
+            <th>Location Name</th>
+            <th>Street Address</th>
+            <th>Street Address 2</th>
+            <th>City</th>
+            <th>Zip</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LocationList)
+        {
+            <tr>
+                <td>@item.LocationName</td>
+                <td>@item.StreetAddress</td>
+                <td>@item.StreetAddress2</td>
+                <td>@item.City</td>
+                <td>@item.Zip</td>
+                @*<td>
+                    @Html.ActionLink("Edit", "GCPTaskEdit", new { id = item.GCPTaskID })
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

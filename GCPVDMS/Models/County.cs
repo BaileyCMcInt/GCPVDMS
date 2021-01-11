@@ -9,6 +9,6 @@ namespace GCPVDMS.Models
     {
             public int CountyID { get; set; }
             public string CountyName { get; set; }
-        
+            public string CountyState { get; set; }
     }
 }
