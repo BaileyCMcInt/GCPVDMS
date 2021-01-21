@@ -14,6 +14,8 @@
 
 <html>
 <body>
+    <br />
+    <br />
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -23,7 +25,7 @@
             <a class="nav-link" href="#">Donor</a>
         </li>
     </ul>
-
+    <br />
     <br />
     <h3>My Logged Hours</h3>
     <div>
@@ -33,24 +35,24 @@
                     <th class="text-center">Date</th>
                     <th class="text-center">Event</th>
                     <th class="text-center">Hours Worked</th>
+                    <th class="text-center">Form Status</th>
                 </tr>
             </thead>
             <tbody>
                 @*@foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Date</td>
-                        <td>@item.Event</td>
-                        <td>@item.NumberOfHours</td>
-                    </tr>
-                }*@
+                    {
+                        <tr>
+                            <td>@item.Date</td>
+                            <td>@item.Event</td>
+                            <td>@item.NumberOfHours</td>
+                        </tr>
+                    }*@
             </tbody>
         </table>
     </div>
     <br />
-    <br />
     <div style="text-align: center">
-        <input type="button" class="btn btn-outline-dark" value="Print My Volunteer Logged Hours" onclick="window.print()" />
+        <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="window.print()" />
         <a asp-action="LogMyHours" class="btn btn-outline-dark">Log My Hours</a>
     </div>
 </body>

@@ -4,6 +4,8 @@
 
 </head>
 <body>
+    <br />
+    <br />
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -14,31 +16,47 @@
         </li>
     </ul>
     <br />
-    <div >
+    <br />
+    <div>
         <h3>Log Hours Request Form</h3>
         <br />
-        <form asp-action="LogMyHours" method="post">
+        <form asp-action="MyLoggedHours" method="post">
             <input type="hidden" asp-for="UserHoursID" />
             <div class="form-group">
                 <label asp-for="Event">Event</label>
-                <input asp-for="Event" class="form-control">
+                <input asp-for="Event" class="form-control" required>
+            </div>
+            <br />
+            <div class="form-group">
+                <p>
+                    Check the box below if you are requesting approval for volunteer work that is not tied to an event.
+                    <br />
+                    <input type="checkbox" id="check" /> Non-Event Volunteer Hours
+                </p>
+                <p>
+                    Provide a brief description of the volunteer work you've done.<br />
+                    <textarea id="NonEvent" name="NonEvent" rows="5" cols="150"></textarea>
+                </p>
             </div>
             <br />
             <div class="form-group">
                 <label asp-for="Date">Date</label>
-                <input asp-for="Date" class="form-control">
+                <input type="date" asp-for="Date" asp-format="{0:dd/MM/yyyy}" class="form-control" required>
             </div>
             <br />
             <div class="form-group">
                 <label asp-for="NumberOfHours">Number of Hours</label>
-                <input asp-for="NumberOfHours" min="1" max="24" class="form-control">
+                <input asp-for="NumberOfHours" min="1" max="24" class="form-control" required>
             </div>
             <br />
-            <div>
+            <div style="text-align: center">
                 <button asp-action="Index" class="btn btn-primary" type="submit">Submit Form</button> <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
             </div>
         </form>
     </div>
-
+    <br />
+    <br />
+    <br />
+    <br />
 </body>
 </html>
