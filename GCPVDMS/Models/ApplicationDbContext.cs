@@ -27,6 +27,7 @@ namespace GCPVDMS.Models
 
         public DbSet<GCPEventTask> GCPEventTasks { get; set; }
       
+        public DbSet<EventRegistration> EventRegistrations { get; set; }
 
     }
 }
