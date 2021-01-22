@@ -24,7 +24,7 @@
             <input type="hidden" asp-for="UserHoursID" />
             <div class="form-group">
                 <label asp-for="Event">Event</label>
-                <input asp-for="Event" class="form-control" required>
+                <input asp-for="Event" class="form-control" id="EventDropdown" required>
             </div>
             <br />
             <div class="form-group">
@@ -33,9 +33,9 @@
                     <br />
                     <input type="checkbox" id="check" /> Non-Event Volunteer Hours
                 </p>
-                <p>
+                <p id="NonEvent" style="display:none">
                     Provide a brief description of the volunteer work you've done.<br />
-                    <textarea id="NonEvent" name="NonEvent" rows="5" cols="150"></textarea>
+                    <textarea id="textarea" name="textarea" rows="5" cols="100" required disabled></textarea>
                 </p>
             </div>
             <br />
@@ -58,5 +58,28 @@
     <br />
     <br />
     <br />
+
+    <!--This JavaScript applies to the checkbox/textarea in the html form. By default the textarea is hidden to  the user, once the checkbox is selected the textarea will be visible to the user-->
+    <script>
+        //variable declarations 
+        var cb = document.getElementById("check");
+        var ne = document.getElementById("NonEvent");
+        var ta = document.getElementById("textarea");
+        var ed = document.getElementById("EventDropdown");
+
+        cb.onchange = function() {
+            if (cb.checked) {
+                ne.style.display = "block";//Displays the textarea and the checkbox is checked
+                ed.disabled = true;//Disables the event dropdown
+                ta.disabled = false;//Enables the textarea
+            }
+            else {
+                ne.style.display = "none";//The textarea is not displayed and the checkbox is unchecked
+                ed.disabled = false;//Enables the event dropdown
+                ta.disabled = true;//Disables the textarea
+            }
+        }
+    </script>
+
 </body>
 </html>
