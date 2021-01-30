@@ -4,7 +4,7 @@
     ViewBag.Title = "Event Information";
     Layout = "_Layout";
 }
-
+@inject SignInManager<ApplicationUser> SignInManager
 
 <h1> @Model.EventTitle </h1>
 
@@ -64,12 +64,21 @@
 
     <div>
         @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a asp-action="ConfirmationPage" class="btn btn-outline-dark"
+               onclick="return confirm('Are you sure you want to sign up?')"
+               asp-route-eventId="@Model.EventID">
+                Sign Up
+            </a>
+        } else
+        {
+            <p>You need a volunteer account in order to volunteer at an event.</p>
+            <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
+            <br />
+            <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
+        }
 
-        <a asp-action="ConfirmationPage" class="btn btn-outline-dark"
-           onclick="return confirm('Are you sure you want to sign up?')"
-           asp-route-eventId="@Model.EventID">
-            Sign Up
-        </a>
     </div>
 
 </div>

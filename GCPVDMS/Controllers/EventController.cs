@@ -28,21 +28,23 @@ namespace GCPVDMS.Controllers
             var Events = from e in repository.Events select e;
             Events = repository.Events.Where(e => e.isEventActive == true && e.EventDate > DateTime.Now);
 
-            return View("~/Views/Event/Volunteer/EventSignUp.cshtml", Events);
+            return View("~/Views/Event/EventSignUp.cshtml", Events);
         }
 
-        //Method that displays details about an event on diff page
+        //Method that displays details about an event
+        //It takes in information about the event using the repository and db
         public ViewResult EventInfoPage(int eventId) =>
-            View("~/Views/Event/Volunteer/EventInfoPage.cshtml", repository.Events
+            View("~/Views/Event/EventInfoPage.cshtml", repository.Events
                 .FirstOrDefault(p => p.EventID == eventId));
 
         //Add Description - Method that will increase number signed up by 1 and 
         //will add user and event to event registration table.
         public ViewResult ConfirmationPage(int eventId) =>
-            View("~/Views/Event/Volunteer/ConfirmationPage.cshtml", repository.Events
+            View("~/Views/Event/ConfirmationPage.cshtml", repository.Events
                 .FirstOrDefault(p => p.EventID == eventId));
 
-        public ViewResult HostaDrive() => View("~/Views/Event/Volunteer/HostaDrive.cshtml");
+        //Method that displays the HostaDrive page
+        public ViewResult HostaDrive() => View("~/Views/Event/HostaDrive.cshtml");
 
 
 
