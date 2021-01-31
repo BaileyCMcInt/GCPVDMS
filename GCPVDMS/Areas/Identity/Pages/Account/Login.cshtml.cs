@@ -98,8 +98,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                 return Page();
             }
 
-            if (userApproval != null && userApproval.isApproved == true)
-            {
+            //if (userApproval != null && userApproval.isApproved == true)
+            //{
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
 
@@ -146,18 +146,18 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                         return Page();
                     }
                 }
-            }
+            //}
             else
             {
-                if(userApproval.isApproved == false)
-                {
-                    ErrorMessage = "Account is awaiting admin approval. Once admin approves this account, login will be enabled.";
+                //if(userApproval.isApproved == false)
+                //{
+                //    ErrorMessage = "Account is awaiting admin approval. Once admin approves this account, login will be enabled.";
                     return Page();
-                }
+                //}
             }
 
             // If we got this far, something failed, redisplay form
-            return Page();
+            //return Page();
         }
     }
 
