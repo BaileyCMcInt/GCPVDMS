@@ -47,8 +47,8 @@
             {
                 @foreach (ApplicationUser user in Model.Members)
                 {
-                    if (user.isApproved == true)
-                    {
+                    //if (user.isApproved == true)
+                    //{
                     <tr>
 
                         <td>@user.FirstName @user.LastName</td>
@@ -59,7 +59,7 @@
                             </center>
                         </td>
                     </tr>
-                      }
+                      @*}*@
                     }
                 }
         </tbody>
@@ -84,8 +84,8 @@
                 
                 @foreach (ApplicationUser user in Model.NonMembers)
                 {
-                    if (user.isApproved == true)
-                    {
+                    //if (user.isApproved == true)
+                    //{
                     <tr>
                         <td>@user.FirstName @user.LastName</td>
                         <td>@user.UserName</td>
@@ -93,7 +93,7 @@
                             <center><button type="submit"  onclick="return confirm('Are you sure you want to add this user to Admin?')" class="btn btn-sm btn-outline-dark" name="AddIds" value="@user.Id">Add</button></center>
                         </td>
                     </tr>
-                }
+                @*}*@
                 }
             }
         </tbody>

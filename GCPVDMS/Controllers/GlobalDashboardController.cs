@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using GCPVDMS.Models.ViewModels;
 
 namespace GCPVDMS.Controllers
 {
@@ -42,10 +43,25 @@ namespace GCPVDMS.Controllers
         [Authorize(Roles = "Global Admin")]
         public IActionResult EventList() => View(repository.Events);
 
+        //this is the old EventForm before we had the CreateEventViewModel.
+        //public ViewResult EventForm(int eventId) =>
+        //    View(repository.Events
+        //        .FirstOrDefault(p => p.EventID == eventId));
+
         [Authorize(Roles = "Global Admin")]
-        public ViewResult EventForm(int eventId) =>
-            View(repository.Events
-                .FirstOrDefault(p => p.EventID == eventId));
+        //this method updates the event. When the admin clicks edit this method is called.
+        public ViewResult EventForm(int eventId)
+        {
+            var viewModel = new CreateEventViewModel
+            {
+                Locations = context.Locations.ToList(),
+                Location = context.Locations.FirstOrDefault(a => a.LocationID == eventId),
+                Event = repository.Events.FirstOrDefault(p => p.EventID == eventId)
+        };
+            return View(viewModel);
+        }
+
+
 
         [Authorize(Roles = "Global Admin")]
         public ViewResult EventInfo(int eventId) =>
@@ -54,8 +70,10 @@ namespace GCPVDMS.Controllers
 
         [Authorize(Roles = "Global Admin")]
         [HttpPost]
+        //this method saves the event after creating a new event
         public IActionResult EventForm(Event @event)
         {
+           
             if (ModelState.IsValid)
             {
                 repository.SaveEvent(@event);
@@ -72,9 +90,20 @@ namespace GCPVDMS.Controllers
         public ViewResult DisplayEvent(int eventId) =>
         View("~/Views/GlobalDashboard/EventInfo.cshtml",repository.Events
          .FirstOrDefault(p => p.EventID == eventId));
-        [Authorize(Roles = "Global Admin")]
-        public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event());
 
+        [Authorize(Roles = "Global Admin")]
+        //public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event());
+        public ViewResult Create(int id)
+        {
+            var eventCreate = new Event();
+            var viewModel = new CreateEventViewModel
+            {
+               Locations = context.Locations.ToList(),
+               Location = context.Locations.FirstOrDefault(a => a.LocationID == id),
+               Event = eventCreate
+            };
+            return View("~/Views/GlobalDashboard/EventForm.cshtml", viewModel);
+        }
 
         //the following are methods related to TASK MODELS
 

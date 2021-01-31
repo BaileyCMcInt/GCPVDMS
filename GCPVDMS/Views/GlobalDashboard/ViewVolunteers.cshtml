@@ -30,7 +30,7 @@
             @foreach (ApplicationUser user in Model)
             {
 
-                @if (user.isVolunteer && user.isApproved == true)
+                @if (user.isVolunteer @*&& user.isApproved == true*@)
                 {
 
             <tr>

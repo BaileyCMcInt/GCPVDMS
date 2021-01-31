@@ -23,8 +23,8 @@
     <tbody>
         @foreach (ApplicationUser user in Model)
         {
-            if (user.isApproved == false)
-            {
+            //if (user.isApproved == false)
+            //{
                 <tr>
                     <td>@user.FirstName @user.LastName</td>
                     <td>@user.Email</td>
@@ -60,7 +60,7 @@
                         </center>
                     </td>
                 </tr>
-            }
+            @*}*@
         }
         </tbody>
 </table>
