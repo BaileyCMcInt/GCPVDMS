@@ -37,9 +37,10 @@ namespace GCPVDMS.Controllers
             return RedirectToAction("EventList");
         }
 
-        //the following are methods related to EVENT MODELS. New comments are documented
-        ///each time we start a new set of model methods.
-        ///
+        //The following are methods related to EVENT MODELS. 
+
+        //Method to display a table of all the current events. 
+        //TODO: include locations dynamically
         [Authorize(Roles = "Global Admin")]
         public IActionResult EventList() => View(repository.Events);
 
@@ -50,6 +51,7 @@ namespace GCPVDMS.Controllers
 
         [Authorize(Roles = "Global Admin")]
         //this method updates the event. When the admin clicks edit this method is called.
+        //Prefills the Event form with the event info
         public ViewResult EventForm(int eventId)
         {
             var viewModel = new CreateEventViewModel
@@ -62,15 +64,11 @@ namespace GCPVDMS.Controllers
         }
 
 
-
-        [Authorize(Roles = "Global Admin")]
-        public ViewResult EventInfo(int eventId) =>
-         View(repository.Events
-          .FirstOrDefault(p => p.EventID == eventId));
-
         [Authorize(Roles = "Global Admin")]
         [HttpPost]
-        //this method saves the event after creating a new event
+        //this method saves the event after creating a new event or updating an existing event
+        //SaveEvent() is in EFEventRepository.cs. 
+        //After saving, redirects to the table of Events. 
         public IActionResult EventForm(Event @event)
         {
            
@@ -86,11 +84,17 @@ namespace GCPVDMS.Controllers
                 return View(@event);
             }
         }
+
+
+        //Method for displaying the static event info. 
+        //TODO: add dynamic location, tasks, and volunteers who have signed-up. 
         [Authorize(Roles = "Global Admin")]
         public ViewResult DisplayEvent(int eventId) =>
         View("~/Views/GlobalDashboard/EventInfo.cshtml",repository.Events
          .FirstOrDefault(p => p.EventID == eventId));
 
+
+        //Method for creating a new event. The form will be blank.
         [Authorize(Roles = "Global Admin")]
         //public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event());
         public ViewResult Create(int id)
