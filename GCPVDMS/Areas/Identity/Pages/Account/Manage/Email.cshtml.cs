@@ -74,6 +74,10 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             await LoadAsync(user);
             return Page();
         }
+        public interface IEmailSender
+        {
+            Task SendEmailAsync(string email, string subject, string message);
+        }
 
         public async Task<IActionResult> OnPostChangeEmailAsync()
         {

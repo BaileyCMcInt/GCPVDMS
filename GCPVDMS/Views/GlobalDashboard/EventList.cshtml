@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Event> 
+﻿@*@model IEnumerable<Event>*@
+@model GCPVDMS.Models.ViewModels.CreateEventViewModel
+
 
 @{
     ViewBag.Title = "All Events";
@@ -36,35 +38,35 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Events)
         {
 
-            string locationname;
+            //string locationname;
 
-            if(item.LocationID == 1)
-            {
-                locationname = "Mandarin";
-            }
-            else if(item.LocationID == 2)
-            {
-                locationname = "MLK Elementary";
-            }
-            else if (item.LocationID == 3)
-            {
-                locationname = "Palm Beach";
-            }
-            else if (item.LocationID == 4)
-            {
-                locationname = "Offsite Duval";
-            }
-            else
-            {
-                locationname = "Offsite Palm Beach";
-            }
+            //if (item.LocationID == 1)
+            //{
+            //    locationname = "Mandarin";
+            //}
+            //else if (item.LocationID == 2)
+            //{
+            //    locationname = "MLK Elementary";
+            //}
+            //else if (item.LocationID == 3)
+            //{
+            //    locationname = "Palm Beach";
+            //}
+            //else if (item.LocationID == 4)
+            //{
+            //    locationname = "Offsite Duval";
+            //}
+            //else
+            //{
+            //    locationname = "Offsite Palm Beach";
+            //}
 
             <tr>
                 <td>@item.EventTitle</td>
-                <td>@locationname</td>
+                <td>@item.Location.LocationName</td>
                 <td>@item.POCName</td>
                 <td>@item.EventDate.ToShortDateString()</td>
                 <td>@(@item.NumVolunteersNeeded - @item.NumVolunteersSignedUp)</td>
@@ -81,8 +83,8 @@
                         </button>*@
                     <form method="post">
                         @*<button class="btn btn-sm btn-light">
-                            View
-                        </button>*@
+                                View
+                            </button>*@
                         <input type="hidden" name="EventID" value="" />
                         <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
                            asp-route-eventId="@item.EventID">
