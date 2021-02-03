@@ -5,7 +5,6 @@
     ViewData["Title"] = "Login to GCP";
 }
 <partial name="_StatusMessage" model="Model.ErrorMessage" />
-
 <center>
 
     <section>
@@ -17,8 +16,8 @@
                     </div>
                     <h3>@ViewData["Title"]</h3>
                     <div class="d-flex justify-content-center">
-                        <img src="http://a.mktgcdn.com/p/a7_dnX-x6IMTbmKYR86l9X__EBN55STZo2n1EF4UYKw/960x960.jpg" width="185" height="185" />
-                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <img src="http://a.mktgcdn.com/p/a7_dnX-x6IMTbmKYR86l9X__EBN55STZo2n1EF4UYKw/960x960.jpg" width="185" height="185" /><br/>
+                        @*<div asp-validation-summary="All" class="text-danger"></div>*@
                     </div></br>
                     <div class="form-group ">
                         <input asp-for="Input.Email" class="form-control" placeholder="Email address" required />

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using GCPVDMS.Data;
 using GCPVDMS.Models;
+using GCPVDMS.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +21,6 @@ namespace GCPVDMS
 {
     public class Startup
     {
-        IConfigurationRoot Configuration;
         public Startup(IWebHostEnvironment env)
         {
            
@@ -27,6 +28,7 @@ namespace GCPVDMS
             .SetBasePath(env.ContentRootPath)
             .AddJsonFile("appsettings.json").Build();
         }
+        IConfigurationRoot Configuration;
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -40,11 +42,14 @@ namespace GCPVDMS
             services.AddTransient<IGCPTaskRepository, EFGCPTaskRepository>();
             services.AddTransient<IVolunteerHourRepository, EFVolunteerHourRepository>();
             //services.AddTransient<IDriveRepository, EFDriveRepository>(); //added missing package that enables these to interact with connection string
-
+            //opt =>
+            //   opt.SignIn.RequireConfirmedEmail = true
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<GCPVDMSContext>()
                     .AddDefaultUI()
                     .AddDefaultTokenProviders();
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("Email"));
             services.AddControllersWithViews();
             services.AddRazorPages();
           

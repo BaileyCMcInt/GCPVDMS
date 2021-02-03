@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<Event> *@
-@model GCPVDMS.Models.ViewModels.CreateEventViewModel
+
 @{
     ViewBag.Title = "All Events";
     Layout = "_Layout";
@@ -39,28 +38,8 @@
         @foreach (var item in Model.Events)
         {
 
-          /*  string locationname;
 
-            if(item.LocationID == 1)
-            {
-                locationname = "Mandarin";
-            }
-            else if(item.LocationID == 2)
-            {
-                locationname = "MLK Elementary";
-            }
-            else if (item.LocationID == 3)
-            {
-                locationname = "Palm Beach";
-            }
-            else if (item.LocationID == 4)
-            {
-                locationname = "Offsite Duval";
-            }
-            else
-            {
-                locationname = "Offsite Palm Beach";
-            } */
+
 
             <tr>
                 <td>@item.EventTitle</td>
@@ -81,8 +60,8 @@
                         </button>*@
                     <form method="post">
                         @*<button class="btn btn-sm btn-light">
-                            View
-                        </button>*@
+                                View
+                            </button>*@
                         <input type="hidden" name="EventID" value="" />
                         <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
                            asp-route-eventId="@item.EventID">

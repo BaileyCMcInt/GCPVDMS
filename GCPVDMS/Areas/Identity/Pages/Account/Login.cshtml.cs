@@ -106,17 +106,17 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                 if (ModelState.IsValid)
                 {
 
-                    var userName = Input.Email;
+                    //var userName = Input.Email;
 
 
-                    if (IsValidEmail(Input.Email))
-                    {
-                        var user = await _userManager.FindByEmailAsync(Input.Email);
-                        if (user != null)
-                        {
-                            userName = user.UserName;
-                        }
-                    }
+                    //if (IsValidEmail(Input.Email))
+                    //{
+                    //    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    //    if (user != null)
+                    //    {
+                    //        userName = user.UserName;
+                    //    }
+                    //}
 
 
                     //if (result.Succeeded && userApproval.isApproved == false)
@@ -138,10 +138,15 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                         _logger.LogWarning("User account locked out.");
                         return RedirectToPage("./Lockout");
                     }
-
+                    var email = await _userManager.FindByEmailAsync(Input.Email);
+                    if (!await _userManager.IsEmailConfirmedAsync(email))
+                    {
+                        ModelState.AddModelError(string.Empty,
+                                  "You must have a confirmed email to log in. Check your email to confirm your account.");
+                        return Page(); ;
+                    }
                     else
                     {
-
                         ErrorMessage = "Invalid login attempt. Please input correct email and password.";
                         return Page();
                     }
