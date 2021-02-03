@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using GCPVDMS.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GCPVDMS.Controllers
 {
@@ -42,7 +43,18 @@ namespace GCPVDMS.Controllers
         //Method to display a table of all the current events. 
         //TODO: include locations dynamically
         [Authorize(Roles = "Global Admin")]
-        public IActionResult EventList() => View(repository.Events);
+       // public IActionResult EventList() => View(repository.Events);
+
+        public IActionResult EventList(int ID)
+        {
+            var viewModel = new CreateEventViewModel
+            {
+                Event = context.Events.Include(i => i.Location).FirstOrDefault(x => x.EventID == ID),
+                Locations = context.Locations.ToList(),
+                Events = context.Events.ToList()
+            };
+            return View(viewModel);
+        }
 
         //this is the old EventForm before we had the CreateEventViewModel.
         //public ViewResult EventForm(int eventId) =>

@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Event> 
-
+﻿@*@model IEnumerable<Event> *@
+@model GCPVDMS.Models.ViewModels.CreateEventViewModel
 @{
     ViewBag.Title = "All Events";
     Layout = "_Layout";
@@ -36,10 +36,10 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Events)
         {
 
-            string locationname;
+          /*  string locationname;
 
             if(item.LocationID == 1)
             {
@@ -60,11 +60,11 @@
             else
             {
                 locationname = "Offsite Palm Beach";
-            }
+            } */
 
             <tr>
                 <td>@item.EventTitle</td>
-                <td>@locationname</td>
+                <td>@item.Location.LocationName</td>
                 <td>@item.POCName</td>
                 <td>@item.EventDate.ToShortDateString()</td>
                 <td>@(@item.NumVolunteersNeeded - @item.NumVolunteersSignedUp)</td>
