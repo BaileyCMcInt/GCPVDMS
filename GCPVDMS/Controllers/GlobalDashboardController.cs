@@ -313,6 +313,12 @@ namespace GCPVDMS.Controllers
             return View(userManager.Users);
         }
 
+        [Authorize(Roles = "Global Admin")]
+        public IActionResult ViewDonors()
+        {
+            return View(userManager.Users);
+        }
+
 
         [Authorize(Roles = "Global Admin")]
         public ViewResult VolunteerInfo(string id) =>
@@ -322,10 +328,14 @@ namespace GCPVDMS.Controllers
         //the following methods are for the USER ACCOUNT MANAGEMENT portion of the Global Dashboard
 
         [Authorize(Roles = "Global Admin")]
-        public IActionResult ViewUsers()
-        {
-            return View(userManager.Users);
-        }
+        //public IActionResult ViewUsers()
+        //{
+        //    return View(userManager.Users);
+        //}
+        public ViewResult DonorInfo(string id) =>
+         View(userManager.Users
+                .FirstOrDefault(p => p.Id == id));
+
         [Authorize(Roles = "Global Admin")]
         public async Task<IActionResult> UpdateUser(string id)
         {
