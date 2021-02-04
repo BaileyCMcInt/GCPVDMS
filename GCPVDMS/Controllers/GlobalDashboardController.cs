@@ -43,7 +43,6 @@ namespace GCPVDMS.Controllers
         //Method to display a table of all the current events.
         [Authorize(Roles = "Global Admin")]
        // public IActionResult EventList() => View(repository.Events);
-
         public IActionResult EventList(int ID)
         {
             var viewModel = new CreateEventViewModel
@@ -68,7 +67,7 @@ namespace GCPVDMS.Controllers
             var viewModel = new CreateEventViewModel
             {
                 Locations = context.Locations.ToList(),
-                Location = context.Locations.FirstOrDefault(a => a.LocationID == eventId),
+               // Location = context.Locations.FirstOrDefault(a => a.LocationID == eventId),
                 Event = repository.Events.FirstOrDefault(p => p.EventID == eventId)
         };
             return View(viewModel);
@@ -98,28 +97,21 @@ namespace GCPVDMS.Controllers
 
 
         //Method for displaying the static event info. 
-        //TODO: add dynamic location, tasks, and volunteers who have signed-up. 
+        //TODO: add tasks, and volunteers who have signed-up to display in this view. 
         [Authorize(Roles = "Global Admin")]
-        public ViewResult DisplayEvent(int eventId) =>
-        View("~/Views/GlobalDashboard/EventInfo.cshtml", repository.Events
-         .FirstOrDefault(p => p.EventID == eventId));
-
-        //new DisplayEvent to be used. Working on fixing issue at the moment. - Rachael
-        //public ViewResult DisplayEvent(int ID)
-        //{
-        //    var viewModel = new CreateEventViewModel
-        //    {
-        //        Event = context.Events.Include(i => i.Location).FirstOrDefault(x => x.EventID == ID)
-
-        //    };
-        //    return View("~/Views/GlobalDashboard/EventInfo.cshtml", viewModel);
-
-        //}
-
+        public ViewResult DisplayEvent(int eventId)
+        {
+            var viewModel = new CreateEventViewModel
+            {
+                Event = context.Events.Include(i => i.Location).FirstOrDefault(x => x.EventID == eventId)
+            };
+            return View("~/Views/GlobalDashboard/EventInfo.cshtml", viewModel);
+        }
 
         //Method for creating a new event. The form will be blank.
+        //TODO: Add Tasks
         [Authorize(Roles = "Global Admin")]
-        //public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event());
+        //public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event()); //old version
         public ViewResult Create(int id)
         {
             var eventCreate = new Event();

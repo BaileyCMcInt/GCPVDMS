@@ -1,4 +1,4 @@
-﻿@model Event
+﻿@model CreateEventViewModel
 
 @{
     ViewBag.Title = "Event Info";
@@ -6,61 +6,36 @@
 }
 
     <partial name="_GlobalEventTabs" />
-<h1> @Model.EventTitle </h1>
+<h1> @Model.Event.EventTitle </h1>
 
 <div class="container">
 
-    @{ 
-        string locationname;
 
-        if (Model.LocationID == 1)
-        {
-            locationname = "Mandarin";
-        }
-        else if (Model.LocationID == 2)
-        {
-            locationname = "MLK Elementary";
-        }
-        else if (Model.LocationID == 3)
-        {
-            locationname = "Palm Beach";
-        }
-        else if (Model.LocationID == 4)
-        {
-            locationname = "Offsite Duval";
-        }
-        else
-        {
-            locationname = "Offsite Palm Beach";
-        }
-    }
-
-
-    <p class="card-text">Location: @locationname</p>
+    <p class="card-text">Location: @Model.Event.Location.LocationName</p>
 
     <br />
 
-    <p class="card-text">Event Date: @Model.EventDate.ToShortDateString()</p>
+    <p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
 
     <br />
 
-    <p class="card-text">Start Time: @Model.StartTime.ToShortTimeString()</p>
+    <p class="card-text">Start Time: @Model.Event.StartTime.ToShortTimeString()</p>
 
     <br />
 
-    <p class="card-text">End Time: @Model.EndTime.ToShortTimeString()</p>
+    <p class="card-text">End Time: @Model.Event.EndTime.ToShortTimeString()</p>
 
     <br />
 
-    <p class="card-text">Number of Volunteers Needed: @Model.NumVolunteersNeeded</p>
+    <p class="card-text">Number of Volunteers Needed: @Model.Event.NumVolunteersNeeded</p>
 
     <br />
 
-    <p class="card-text">Event Description: @Model.EventDescription</p>
+    <p class="card-text">Event Description: @Model.Event.EventDescription</p>
 
     <br />
 
-    <p class="card-text">Event is active: @Model.isEventActive</p>
+    <p class="card-text">Event is active: @Model.Event.isEventActive</p>
 
     <br />
 
@@ -69,22 +44,22 @@
     <br />
     <br />
 
-    <p class="card-text">Name: @Model.POCName</p>
+    <p class="card-text">Name: @Model.Event.POCName</p>
 
     <br />
 
-    <p class="card-text">Phone Number: @Model.POCPhone</p>
+    <p class="card-text">Phone Number: @Model.Event.POCPhone</p>
 
     <br />
 
-    <p class="card-text">Email: @Model.POCEmail</p>
+    <p class="card-text">Email: @Model.Event.POCEmail</p>
 
     <br />
 
     <div>
         <a asp-action="EventList" class="btn btn-outline-dark">Done</a>
         <a asp-action="EventForm" class="btn btn-outline-dark"
-           asp-route-eventId="@Model.EventID">
+           asp-route-eventId="@Model.Event.EventID">
             Edit
         </a>
     </div>
