@@ -10,13 +10,13 @@
             $('#volunteerTable').DataTable();
         });</script>
 }
-<partial name="_GlobalVolunteerTabs" />
+<partial name="_GlobalDonorTabs" />
 
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form method="post">
-    <center><h3 style="background-color: #009E00; color: white">GCP Volunteers</h3></center>
+    <center><h3 style="background-color: #009E00; color: white">GCP Donors</h3></center>
     <hr />
     <table id="volunteerTable" class="display">
         <thead>
@@ -30,7 +30,7 @@
             @foreach (ApplicationUser user in Model)
             {
 
-                @if (user.isVolunteer@*&& user.isApproved == true*@)
+                @if (user.isDonor@*&& user.isApproved == true*@)
 {
 
 <tr>
@@ -38,7 +38,7 @@
     <td>@user.LastName</td>
     <td>
         <center>
-            <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="VolunteerInfo" asp-route-id="@user.Id">View</button>
+            <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="DonorInfo" asp-route-id="@user.Id">View</button>
         </center>
     </td>
 </tr>
