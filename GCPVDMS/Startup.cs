@@ -26,7 +26,9 @@ namespace GCPVDMS
            
             Configuration = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json").Build();
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
+            .AddEnvironmentVariables().Build();
         }
         IConfigurationRoot Configuration;
 
@@ -42,9 +44,9 @@ namespace GCPVDMS
             services.AddTransient<IGCPTaskRepository, EFGCPTaskRepository>();
             services.AddTransient<IVolunteerHourRepository, EFVolunteerHourRepository>();
             //services.AddTransient<IDriveRepository, EFDriveRepository>(); //added missing package that enables these to interact with connection string
-            //opt =>
-            //   opt.SignIn.RequireConfirmedEmail = true
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+          
+            services.AddIdentity<ApplicationUser, IdentityRole>(  opt =>
+             opt.SignIn.RequireConfirmedEmail = true)
                     .AddEntityFrameworkStores<GCPVDMSContext>()
                     .AddDefaultUI()
                     .AddDefaultTokenProviders();
