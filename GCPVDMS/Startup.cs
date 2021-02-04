@@ -26,7 +26,9 @@ namespace GCPVDMS
            
             Configuration = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json").Build();
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
+            .AddEnvironmentVariables().Build();
         }
         IConfigurationRoot Configuration;
 
