@@ -1,4 +1,4 @@
-
+@model CreateEventViewModel
 @{
     ViewBag.Title = "All Events";
     Layout = "_Layout";
@@ -37,10 +37,6 @@
     <tbody>
         @foreach (var item in Model.Events)
         {
-
-
-
-
             <tr>
                 <td>@item.EventTitle</td>
                 <td>@item.Location.LocationName</td>

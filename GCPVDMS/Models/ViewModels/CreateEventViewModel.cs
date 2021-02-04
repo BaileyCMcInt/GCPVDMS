@@ -9,7 +9,7 @@ namespace GCPVDMS.Models.ViewModels
     {
        
         public Event Event { get; set; }
-        public List<Event> Events { get; set; } //testing, can delete if doesn't work :)
+        public List<Event> Events { get; set; } 
 
         public Location Location { get; set; }
 
