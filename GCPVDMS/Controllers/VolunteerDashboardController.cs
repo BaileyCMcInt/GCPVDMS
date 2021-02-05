@@ -28,6 +28,10 @@ namespace GCPVDMS.Controllers
         {
             return View();
         }
+        public IActionResult DonorHome()
+        {
+            return View("~/Views/DonorDashboard/DonorHome.cshtml");
+        }
         [HttpPost]
         public IActionResult MyLoggedHours(VolunteerHour @volunteerhour)
         {

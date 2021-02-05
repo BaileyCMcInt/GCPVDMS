@@ -1,0 +1,93 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+
+@*Script for JavaScript DataTables*@
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#yourTable2').DataTable();
+        });
+    </script>
+}
+<html>
+<body>
+
+    <br />
+    <br />
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" asp-action="Index">Volunteer</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" asp-action="DonorHome">Donor</a>
+        </li>
+    </ul>
+
+    <br />
+    <br />
+
+    <div style="text-align: center">
+
+    </div>
+
+    <br />
+
+    <div>
+        <h3>Transaction History</h3>
+        <table id="yourTable2" class="table table-bordered table-striped">
+            <thead style="width: 50px">
+                <tr>
+                    <th class="text-center">Date</th>
+                    <th class="text-center">Amount</th>
+                    <th class="text-center">Type</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <br />
+
+    <div style="text-align: center">
+        <input type="button" class="btn btn-outline-dark" value="Print My Transaction History" onclick="window.print()" />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+
+            <!-- Identify your business so that you can collect the payments. -->
+            <input type="hidden" name="business"
+                   value="donations@kcparkfriends.org">
+
+            <!-- Specify a Donate button. -->
+            <input type="hidden" name="cmd" value="_donations">
+
+            <!-- Specify details about the contribution -->
+            <input type="hidden" name="item_name" value="Friends of the Park">
+            <input type="hidden" name="item_number" value="Fall Cleanup Campaign">
+            <input type="hidden" name="currency_code" value="USD">
+
+            <!-- Display the payment button. -->
+            <div style="text-align: center">
+                <p>
+                    You can make monetary donations to The Giving Closet Project through your PayPal account, it's easy!<br />
+                    Just click the donate button below and you will be redirected to the organizations PayPal account to complete the transaction.
+                </p>
+                <input type="image" name="submit"
+                       src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
+                       alt="Donate" height="40" width="150">
+                <img alt="" width="1" height="1"
+                     src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
+
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>
