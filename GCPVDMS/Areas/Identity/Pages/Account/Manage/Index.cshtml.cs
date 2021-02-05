@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using GCPVDMS.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -63,6 +65,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
 
             public bool FirstTimeLogin { get; set; }
 
+            [Display(Name = "Profile Picture")]
+            public byte[] ProfilePicture { get; set; }
 
 
 
@@ -82,6 +86,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var birthday = user.Birthday;
             var firstTimeLogin = user.FirstTimeLogin;
             Username = userName;
+            var profilePicture = user.ProfilePicture;
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
@@ -94,7 +99,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 isVolunteer = IsVolunteer,
                 isDonor = IsDonor,
                 Birthday = birthday,
-                FirstTimeLogin = firstTimeLogin
+                FirstTimeLogin = firstTimeLogin,
+                ProfilePicture = profilePicture
             };
         }
 
@@ -186,7 +192,16 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-
+            if (Request.Form.Files.Count > 0)
+            {
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    user.ProfilePicture = dataStream.ToArray();
+                }
+                await _userManager.UpdateAsync(user);
+            }
             await _signInManager.RefreshSignInAsync(user);
             
             StatusMessage = "Your profile has been updated";
