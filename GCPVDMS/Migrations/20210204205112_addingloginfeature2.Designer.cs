@@ -4,14 +4,16 @@ using GCPVDMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GCPVDMS.Migrations
 {
     [DbContext(typeof(GCPVDMSContext))]
-    partial class GCPVDMSContextModelSnapshot : ModelSnapshot
+    [Migration("20210204205112_addingloginfeature2")]
+    partial class addingloginfeature2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

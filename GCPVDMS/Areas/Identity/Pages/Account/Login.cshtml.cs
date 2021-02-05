@@ -39,7 +39,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public string ReturnUrl { get; set; }
-
+        [TempData]
+        public string StatusMessage { get; set; }
         [TempData]
         public string ErrorMessage { get; set; }
 
@@ -88,7 +89,6 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
         }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
 
             var userApproval = await _userManager.FindByEmailAsync(Input.Email);
 
@@ -98,71 +98,80 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                 return Page();
             }
 
-            //if (userApproval != null && userApproval.isApproved == true)
-            //{
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+            if (userApproval.EmailConfirmed == false)
+            {
+                ErrorMessage = "Your account has not been confirmed. A confirmation email has been sent to your account.";
+                return Page();
+            }
 
+            if (userApproval.FirstTimeLogin == false)
+            {
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
                 if (ModelState.IsValid)
                 {
 
-                    //var userName = Input.Email;
-
-
-                    //if (IsValidEmail(Input.Email))
-                    //{
-                    //    var user = await _userManager.FindByEmailAsync(Input.Email);
-                    //    if (user != null)
-                    //    {
-                    //        userName = user.UserName;
-                    //    }
-                    //}
-
-
-                    //if (result.Succeeded && userApproval.isApproved == false)
-                    //{
-                    //    ErrorMessage = "Waiting on admin approval.";
-                    //    return Page();
-                    //}
-                    //var result = await _signInManager.PasswordSignInAsync(userName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User logged in.");
-                        return LocalRedirect(returnUrl);
+                        return RedirectToPage("./Index");
                     }
-                    // This doesn't count login failures towards account lockout
-                    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
                     if (result.IsLockedOut)
                     {
                         _logger.LogWarning("User account locked out.");
                         return RedirectToPage("./Lockout");
                     }
-                    var email = await _userManager.FindByEmailAsync(Input.Email);
-                    if (!await _userManager.IsEmailConfirmedAsync(email))
-                    {
-                        ModelState.AddModelError(string.Empty,
-                                  "You must have a confirmed email to log in. Check your email to confirm your account.");
-                        return Page(); ;
-                    }
-                    else
-                    {
-                        ErrorMessage = "Invalid login attempt. Please input correct email and password.";
-                        return Page();
-                    }
+                    //var email = await _userManager.FindByEmailAsync(Input.Email);
+                    //if (!await _userManager.IsEmailConfirmedAsync(email))
+                    //{
+                    //    ModelState.AddModelError(string.Empty,
+                    //              "You must have a confirmed email to log in. Check your email to confirm your account.");
+                    //    return Page();
+                    //}
                 }
-            //}
-            else
+            }
+            else if (userApproval.FirstTimeLogin == true)
             {
-                //if(userApproval.isApproved == false)
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                if (ModelState.IsValid)
+                {
+                    if (result.Succeeded)
+                    {
+                        StatusMessage = "Account confirmed! Please fill out your user profile.";
+                        _logger.LogInformation("User logged in.");
+                        return Redirect("/Identity/Account/Manage/Index");
+                    }
+                    userApproval.FirstTimeLogin = false;
+                    if (result.IsLockedOut)
+                    {
+                        _logger.LogWarning("User account locked out.");
+                        return RedirectToPage("./Lockout");
+                    }
+                    //var email = await _userManager.FindByEmailAsync(Input.Email);
+                    //if (!await _userManager.IsEmailConfirmedAsync(email))
+                    //{
+                    //    ModelState.AddModelError(string.Empty,
+                    //              "You must have a confirmed email to log in. Check your email to confirm your account.");
+                    //    return Page();
+                    //}
+                }
+            }
+
+           else
+            {
+                //var email = await _userManager.FindByEmailAsync(Input.Email);
+                //if (!await _userManager.IsEmailConfirmedAsync(email))
                 //{
-                //    ErrorMessage = "Account is awaiting admin approval. Once admin approves this account, login will be enabled.";
+                //    ModelState.AddModelError(string.Empty,
+                //              "You must have a confirmed email to log in. Check your email to confirm your account.");
                     return Page();
+                //}
                 //}
             }
 
             // If we got this far, something failed, redisplay form
-            //return Page();
+            return Page();
         }
     }
 

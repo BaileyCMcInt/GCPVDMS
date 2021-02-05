@@ -80,7 +80,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
 
             //[Display(Name = "Check to Approve User Account")]
 
-            //public bool isApproved { get; set; }
+            public bool FirstTimeLogin { get; set; }
 
 
         }
@@ -101,15 +101,15 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                     FirstName = Input.FirstName,//this is where we are assigning registration input to the database if input is valid
                     LastName = Input.LastName,
                     isVolunteer = Input.isVolunteer,
-                    isDonor = Input.isDonor
-                    //isApproved = Input.isApproved
+                    isDonor = Input.isDonor,
+                    FirstTimeLogin = true
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                    
                     _logger.LogInformation("User created a new account with password.");
-
+                    
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -129,7 +129,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                     {
                         
                         //StatusMessage = "Account created successfully. Login to your account will be enabled after admin approval.";
-                        //    await _signInManager.SignInAsync(user, isPersistent: false);
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
                         return Page();
                     }
                 }
