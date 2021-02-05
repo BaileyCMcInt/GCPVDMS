@@ -40,13 +40,15 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Email")]
             public string Username { get; set; }
             [Phone]
+            [Required]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            [Required]
             [Display(Name = "Primary Preferred method of Contact")]
             public string PreferredContact{ get; set; }
             [Display(Name = "Secondary Preferred method of Contact")]
             public string SecondPreferredContact { get; set; }
-
+            [Required]
             [Display(Name = "County Affiliation")]
             public string County { get; set; }
             [Display(Name = "Donor")]
@@ -56,7 +58,11 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
          
             [DataType(DataType.Date)]
             [Display(Name = "Date of birth")]
+            [Required]
             public DateTime Birthday { get; set; }
+
+            public bool FirstTimeLogin { get; set; }
+
 
 
 
@@ -74,6 +80,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var IsVolunteer = user.isVolunteer;
             var IsDonor = user.isDonor;
             var birthday = user.Birthday;
+            var firstTimeLogin = user.FirstTimeLogin;
             Username = userName;
             Input = new InputModel
             {
@@ -86,7 +93,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 County = county,
                 isVolunteer = IsVolunteer,
                 isDonor = IsDonor,
-                Birthday = birthday
+                Birthday = birthday,
+                FirstTimeLogin = firstTimeLogin
             };
         }
 
@@ -113,6 +121,9 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var IsVolunteer = user.isVolunteer;
             var IsDonor= user.isDonor;
             var birthday = user.Birthday;
+
+            var firstTimeLogin = false;
+            user.FirstTimeLogin = firstTimeLogin;
             if (Input.FirstName != firstName)
             {
                 user.FirstName = Input.FirstName;
@@ -163,6 +174,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 user.County = Input.County;
                 await _userManager.UpdateAsync(user);
             }
+           
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
@@ -176,6 +188,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
+            
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }

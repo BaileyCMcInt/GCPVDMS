@@ -4,14 +4,16 @@ using GCPVDMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GCPVDMS.Migrations
 {
     [DbContext(typeof(GCPVDMSContext))]
-    partial class GCPVDMSContextModelSnapshot : ModelSnapshot
+    [Migration("20210205001549_registrationrequirement")]
+    partial class registrationrequirement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

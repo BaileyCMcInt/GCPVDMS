@@ -346,27 +346,21 @@ namespace GCPVDMS.Controllers
                 return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "Global Admin")]
-        [HttpPost]
-        public async Task<IActionResult> UpdateUser(string id, bool accountStatus)
-        {
-            accountStatus = true;
-            ApplicationUser user = await userManager.FindByIdAsync(id);
-            if (user != null)
-            {
-                if (accountStatus != user.isApproved)
-                { 
-                    user.isApproved = accountStatus;
-                
-                    IdentityResult result = await userManager.UpdateAsync(user);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("ViewUsers");
-                    }
-                }
-            }
-            return View(user);
-        }
+        //[Authorize(Roles = "Global Admin")]
+        //[HttpPost]
+        //public async Task<IActionResult> UpdateUser(string id)
+        //{
+        //    ApplicationUser user = await userManager.FindByIdAsync(id);
+        //    if (user != null)
+        //    {
+        //            IdentityResult result = await userManager.UpdateAsync(user);
+        //            if (result.Succeeded)
+        //            {
+        //                return RedirectToAction("ViewUsers");
+        //            }
+        //    }
+        //    return View(user);
+        //}
 
         [Authorize(Roles = "Global Admin")]
         [HttpPost]

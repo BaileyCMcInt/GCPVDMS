@@ -21,13 +21,13 @@ namespace GCPVDMS.Models
         public bool isVolunteer { get; set; }
         public bool isDonor { get; set; }
 
-        public bool isApproved { get; set; }
-
         [DataType(DataType.Date)]
         [Display(Name = "Date of birth")]
         public DateTime Birthday { get; set; }
 
         public byte[] ProfilePicture { get; set; }
+
+        public bool FirstTimeLogin { get; set; }
 
     }
 
