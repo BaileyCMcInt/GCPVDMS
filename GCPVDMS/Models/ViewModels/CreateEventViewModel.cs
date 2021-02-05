@@ -14,6 +14,8 @@ namespace GCPVDMS.Models.ViewModels
         public Location Location { get; set; }
 
         public List<Location> Locations { get; set; }
+
+        public List<GCPTask> GCPTasks { get; set; }
         
     }
 }
