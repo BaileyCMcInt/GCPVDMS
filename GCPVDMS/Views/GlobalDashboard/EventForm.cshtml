@@ -35,14 +35,14 @@
 
 
                     @*<select name="County" id="County">
-            <option value="county">County</option>
-            <option value="Duval">Duval</option>
-            <option value="Palm Beach">Palm Beach</option>
-            <option value="Other">Other</option>
-        </select>
+                            <option value="county">County</option>
+                            <option value="Duval">Duval</option>
+                            <option value="Palm Beach">Palm Beach</option>
+                            <option value="Other">Other</option>
+                        </select>
 
-        <br />
-        <br />
+                        <br />
+                        <br />
                     *@
                     <div class="form-group">
                         <select class="form-control" asp-for="@Model.Event.LocationID">
@@ -54,97 +54,97 @@
                             }
 
                         </select>
-                       </div>
+                    </div>
 
-                        </tr>
+                    </tr>
 
-                        @*<option value=" " selected>Location</option>
-            <option value="1">Mandarin</option>
-            <option value="2">MLK Elementary</option>
-            <option value="3">Palm Beach</option>
-            <option value="5">Offsite Duval</option>
-            <option value="6">Offsite Palm Beach</option>*@
-                        </select>
+                    @*<option value=" " selected>Location</option>
+                        <option value="1">Mandarin</option>
+                        <option value="2">MLK Elementary</option>
+                        <option value="3">Palm Beach</option>
+                        <option value="5">Offsite Duval</option>
+                        <option value="6">Offsite Palm Beach</option>*@
+                    </select>
 
-                        <br />
-                        <br />
-
-
-                        <div class="form-group">
-                            <label asp-for="Event.EventDate">Event Date: </label>
-                            <input asp-for="Event.EventDate" class="form-control">
-                        </div>
-
-                        <br />
-
-                        <div class="form-group">
-                            <label asp-for="Event.StartTime">Start Time: </label>
-                            <input asp-for="Event.StartTime" type="time" min="06:00" max="18:00" class="form-control">
-                        </div>
-
-                        <br />
-
-                        <div class="form-group">
-                            <label asp-for="Event.EndTime">End Time: </label>
-                            <input asp-for="Event.EndTime" type="time" min="06:00" max="18:00" class="form-control">
-                        </div>
-
-                        <br />
+                    <br />
+                    <br />
 
 
-                        <div class="form-group">
-                            <label asp-for="Event.NumVolunteersNeeded">Number of Volunteers Needed: </label>
-                            <input asp-for="Event.NumVolunteersNeeded" min="1" class="form-control">
-                        </div>
+                    <div class="form-group">
+                        <label asp-for="Event.EventDate">Event Date: </label>
+                        <input asp-for="Event.EventDate" class="form-control">
+                    </div>
 
-                        <br />
+                    <br />
 
-                        <div class="form-group">
-                            <label asp-for="Event.EventTitle">Event Title: </label>
-                            <input asp-for="Event.EventTitle" class="form-control">
-                        </div>
+                    <div class="form-group">
+                        <label asp-for="Event.StartTime">Start Time: </label>
+                        <input asp-for="Event.StartTime" type="time" min="06:00" max="18:00" class="form-control">
+                    </div>
 
-                        <br />
-                        <br />
+                    <br />
 
-                        <div class="form-group">
-                            <label asp-for="Event.EventDescription">Description: </label>
-                            <textarea rows="4" cols="50" asp-for="Event.EventDescription" class="form-control"></textarea>
-                        </div>
+                    <div class="form-group">
+                        <label asp-for="Event.EndTime">End Time: </label>
+                        <input asp-for="Event.EndTime" type="time" min="06:00" max="18:00" class="form-control">
+                    </div>
 
-                        <br />
+                    <br />
 
-                        <h4> Point of Contact </h4>
 
-                        <div class="form-group">
-                            <label asp-for="Event.POCName">Name: </label>
-                            <input asp-for="Event.POCName" class="form-control">
-                        </div>
+                    <div class="form-group">
+                        <label asp-for="Event.NumVolunteersNeeded">Number of Volunteers Needed: </label>
+                        <input asp-for="Event.NumVolunteersNeeded" min="1" class="form-control">
+                    </div>
 
-                        <br />
+                    <br />
 
-                        <div class="form-group">
-                            <label asp-for="Event.POCPhone">Phone: </label>
-                            <input asp-for="Event.POCPhone" class="form-control">
-                        </div>
+                    <div class="form-group">
+                        <label asp-for="Event.EventTitle">Event Title: </label>
+                        <input asp-for="Event.EventTitle" class="form-control">
+                    </div>
 
-                        <br />
-                        <div class="form-group">
-                            <label asp-for="Event.POCEmail">Email: </label>
-                            <input asp-for="Event.POCEmail" class="form-control">
-                        </div>
+                    <br />
+                    <br />
 
-                        <br />
+                    <div class="form-group">
+                        <label asp-for="Event.EventDescription">Description: </label>
+                        <textarea rows="4" cols="50" asp-for="Event.EventDescription" class="form-control"></textarea>
+                    </div>
 
-                        <div class="form-group">
-                            <input asp-for="Event.isEventActive" class="custom-checkbox">
-                            <label>Event Active</label>
-                        </div>
+                    <br />
 
-                        <br />
-                        <div>
-                            <button class="btn btn-primary" type="submit">Save Event</button> <a asp-action="EventList" class="btn btn-outline-dark">Cancel</a>
-                        </div>
+                    <h4> Point of Contact </h4>
+
+                    <div class="form-group">
+                        <label asp-for="Event.POCName">Name: </label>
+                        <input asp-for="Event.POCName" class="form-control">
+                    </div>
+
+                    <br />
+
+                    <div class="form-group">
+                        <label asp-for="Event.POCPhone">Phone: </label>
+                        <input asp-for="Event.POCPhone" class="form-control">
+                    </div>
+
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Event.POCEmail">Email: </label>
+                        <input asp-for="Event.POCEmail" class="form-control">
+                    </div>
+
+                    <br />
+
+                    <div class="form-group">
+                        <input asp-for="Event.isEventActive" class="custom-checkbox">
+                        <label>Event Active</label>
+                    </div>
+
+                    <br />
+                    <div>
+                        <button class="btn btn-primary" type="submit">Save Event</button> <a asp-action="EventList" class="btn btn-outline-dark">Cancel</a>
+                    </div>
                 </form>
             </div>
 
@@ -153,10 +153,22 @@
 
                 <h2>Tasks</h2>
 
+                @foreach (var item in Model.GCPTasks)
+                {
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"
+                               name="SelectedFruits"
+                               value="@item.GCPTaskID"
+                               id="@item.GCPTaskID" /> @item.TaskName
+                        </label>
+                    </div>
+                    }
+
+                </div>
+
             </div>
 
         </div>
 
-    </div>
-
-</body>
+    </body>

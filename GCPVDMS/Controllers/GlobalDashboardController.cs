@@ -109,7 +109,7 @@ namespace GCPVDMS.Controllers
         }
 
         //Method for creating a new event. The form will be blank.
-        //TODO: Add Tasks
+        //TODO: The Tasks display in the Tasks column. Need to have them save to the GCPEventTask table.
         [Authorize(Roles = "Global Admin")]
         //public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event()); //old version
         public ViewResult Create(int id)
@@ -117,6 +117,7 @@ namespace GCPVDMS.Controllers
             var eventCreate = new Event();
             var viewModel = new CreateEventViewModel
             {
+               GCPTasks = context.GCPTasks.ToList(),
                Locations = context.Locations.ToList(),
                Location = context.Locations.FirstOrDefault(a => a.LocationID == id),
                Event = eventCreate
