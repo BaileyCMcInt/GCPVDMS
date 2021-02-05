@@ -1,4 +1,5 @@
-﻿
+﻿<!--This View page displays a table that shows the information from the Log My Hours form, as well as the status of the form.-->
+
 @{
     Layout = "_Layout";
 }
@@ -14,22 +15,27 @@
 
 <html>
 <body>
+
     <br />
     <br />
 
     <ul class="nav nav-tabs">
+        <!--Navigation tabs.-->
         <li class="nav-item">
-            <a class="nav-link active" asp-action="Index">Volunteer</a>
+            <a class="nav-link active" asp-action="Index">Volunteer</a><!--Navigation tab that directs the user to the Volunteer Dashboard home page whenever it is clicked.-->
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Donor</a>
+            <a class="nav-link active" asp-action="DonorHome">Donor</a><!--Navigation tab that directs the user to the Donor Dashboard home page whenever it is clicked.-->
         </li>
     </ul>
+
     <br />
     <br />
+
     <h3>My Logged Hours</h3>
     <div>
         <table id="yourTable" class="table table-bordered table-striped display">
+            <!--This table displays the information from the Log My Hours form.-->
             <thead style="width: 50px">
                 <tr>
                     <th class="text-center">Date</th>
@@ -50,10 +56,119 @@
             </tbody>
         </table>
     </div>
+
     <br />
+
     <div style="text-align: center">
-        <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="window.print()" />
-        <a asp-action="LogMyHours" class="btn btn-outline-dark">Log My Hours</a>
+        <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="printDiv('printableArea')" /<!--This button allows the user to see their logged hours on a printable pdf.-->
+        <a asp-action="LogMyHours" class="btn btn-outline-dark">Log My Hours</a><!--This button redirects the user to the Log My Hours View page.-->
     </div>
+
+    <br />
+    <br />
+
+    <div style="display:none">
+        <!--This div is hidden from the view of the user, it only acts as the information that will be displayed in the prontable pdf of the page.-->
+        <div id="printableArea">
+
+            <br />
+            <br />
+
+            <p style="text-align:center"><img src="~/images/logo.png" height="200" width="200"></p><!--GCP logo-->
+
+            <br />
+            <br />
+
+            <h1 style="text-align:center">Volunteer Work Hours</h1>
+            <div>
+                <table id="yourTable" class="table table-bordered table-striped display">
+                    <!--This table displays the information from the Log My Hours form, minus the status column.-->
+                    <thead style="width: 50px">
+                        <tr>
+                            <th class="text-center">Date</th>
+                            <th class="text-center">Event</th>
+                            <th class="text-center">Hours Worked</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>00/00/0000</td>
+                            <td>GCP Event</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>00/00/0000</td>
+                            <td>GCP Event</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>00/00/0000</td>
+                            <td>GCP Event</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>00/00/0000</td>
+                            <td>GCP Event</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>00/00/0000</td>
+                            <td>GCP Event</td>
+                            <td>5</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br />
+                <br />
+
+                <table>
+                    <!--This table only acts as a format tool for the signature/date lines on the printable pdf.-->
+                    <tr>
+                        <td style="padding-right: 120px ; padding-left: 120px">____________________________________________</td>
+                        <td style="padding-right: 120px">____________________________________________</td>
+                        <td style="padding-right: 120px">________________</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 120px">Print Volunteer Name</td>
+                        <td>Volunteer Signature</td>
+                        <td>Date</td>
+                    </tr>
+                    <tr>
+                        <td><br /></td>
+                    </tr>
+                    <tr>
+                        <td><br /></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 120px">____________________________________________</td>
+                        <td>____________________________________________</td>
+                        <td>________________</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 120px">Print GCP Admin Name</td>
+                        <td>GCP Admin Signature</td>
+                        <td>Date</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <!--This Javascript function is active when the user clicks the Print My Logged Volunteer Hours button.-->
+    <script>
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+
 </body>
 </html>
