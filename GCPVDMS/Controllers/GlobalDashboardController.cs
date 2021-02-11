@@ -69,7 +69,7 @@ namespace GCPVDMS.Controllers
                 Locations = context.Locations.ToList(),
                // Location = context.Locations.FirstOrDefault(a => a.LocationID == eventId),
                 Event = repository.Events.FirstOrDefault(p => p.EventID == eventId)
-        };
+            };
             return View(viewModel);
         }
 
@@ -200,18 +200,18 @@ namespace GCPVDMS.Controllers
 
         //the following methods are related to ROLE MODELS utilized on the ADMIN tab of the dashboard
 
-        [Authorize(Roles = "Global Admin")]
+        //[Authorize(Roles = "Global Admin")]
         public ViewResult RoleIndex() => View(roleManager.Roles);
         public IActionResult RoleCreate() => View();
 
-        [Authorize(Roles = "Global Admin")]
+        //[Authorize(Roles = "Global Admin")]
         private void Errors(IdentityResult result)
         {
             foreach (IdentityError error in result.Errors)
                 ModelState.AddModelError("", error.Description);
         }
 
-        [Authorize(Roles = "Global Admin")]
+        //[Authorize(Roles = "Global Admin")]
         [HttpPost]
         public async Task<IActionResult> RoleCreate([Required]string name)
         {
@@ -244,7 +244,7 @@ namespace GCPVDMS.Controllers
             return View("Index", roleManager.Roles);
         }
 
-        [Authorize(Roles = "Global Admin")]
+        //[Authorize(Roles = "Global Admin")]
         public async Task<IActionResult> RoleUpdate(string id)
         {
             IdentityRole role = await roleManager.FindByIdAsync(id);
@@ -263,7 +263,7 @@ namespace GCPVDMS.Controllers
             });
         }
 
-        [Authorize(Roles = "Global Admin")]
+        //[Authorize(Roles = "Global Admin")]
         [HttpPost]
         public async Task<IActionResult> RoleUpdate(RoleModification model)
         {

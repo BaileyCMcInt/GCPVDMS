@@ -1,61 +1,43 @@
-﻿@model Event
-
+﻿@model SignedUpEventsViewModel
 @{
     ViewBag.Title = "Sign up confirmation";
     Layout = "_Layout";
 }
+<!--This class references the event controller to display confirmation of event sign up. See ConfirmationPage
+    methods in the eventController.-->
 
+<h1>Thank You!</h1>
 
-<h1>Thank You</h1>
-@{
-    string locationname;
+<form asp-action="ConfirmationPage" method="post">
+    <input type="hidden" asp-for="@Model.EventRegistration.EventID" />
 
-    if (Model.LocationID == 1)
-    {
-        locationname = "Mandarin";
-    }
-    else if (Model.LocationID == 2)
-    {
-        locationname = "MLK Elementary";
-    }
-    else if (Model.LocationID == 3)
-    {
-        locationname = "Palm Beach";
-    }
-    else if (Model.LocationID == 4)
-    {
-        locationname = "Offsite Duval";
-    }
-    else
-    {
-        locationname = "Offsite Palm Beach";
-    }
-}
-<div class="container">
-    <p>We can't wait to see you at the event!</p>
-    <p class="card-text">Event Date: @Model.EventDate.ToShortDateString()</p>
+    <div class="container">
+        <p>We can't wait to see you at the event!</p>
+        <p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
 
-    <p class="card-text">Start Time: @Model.StartTime.ToShortTimeString()</p>
+        <p class="card-text">Start Time: @Model.Event.StartTime.ToShortTimeString()</p>
 
-    <p class="card-text">End Time: @Model.EndTime.ToShortTimeString()</p>
+        <p class="card-text">End Time: @Model.Event.EndTime.ToShortTimeString()</p>
 
-    <p class="card-text">Location: @locationname</p>
-    <br />
+        <p class="card-text">Location: @Model.Event.Location.LocationName</p>
+        <br />
 
-    <h2> Questions? </h2>
-    <br />
-    <p class="card-text">Contact Name: @Model.POCName</p>
+        <h2> Questions? </h2>
+        <br />
+        <p class="card-text">Contact Name: @Model.EventRegistration.Event.POCName</p>
 
-    <p class="card-text">Contact Phone Number: @Model.POCPhone</p>
+        <p class="card-text">Contact Phone Number: @Model.EventRegistration.Event.POCPhone</p>
 
-    <p class="card-text">Contact Email: @Model.POCEmail</p>
+        <p class="card-text">Contact Email: @Model.EventRegistration.Event.POCEmail</p>
 
-    <br />
+        <br />
 
-    <div>
-        <a asp-controller="VolunteerDashboard" asp-action="Index" class="btn btn-outline-dark">
-            View my sign-ups
-        </a>
+        <div>
+            <!--returns user to their volunteer event dashboard after confirming event sign-up-->
+            <a asp-controller="VolunteerDonorDashboard" asp-action="Index" class="btn btn-outline-dark">
+                My Volunteer Dashboard
+            </a>
+        </div>
+
     </div>
-
-</div>
+    </form>
