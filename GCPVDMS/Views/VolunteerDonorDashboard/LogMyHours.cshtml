@@ -1,0 +1,105 @@
+﻿<!--This View page displays a form that collects data from the volunteer's past events.-->
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model LogMyHoursViewModel
+<!--I did not do much editing to your html. You will need to hide the user ID at the bottom, ensure
+    the user is logged in before the log their hours, and make sure the user ID is being passed for all logged hours 
+    event stuff on your dashboard.-->
+<html>
+<body>
+    <partial name="_VolunteerEventsTab" /><!--This is the html tag for the navigation tabs located in shared folder-->
+
+    <br />
+    <div>
+        <h3>Log Hours Request Form</h3>
+        <br />
+        <form asp-action="LogMyHours" method="post">
+
+            <input type="hidden" asp-for="VolunteerHour.VolunteerHourID" />
+            <div class="form-group">
+                <label asp-for="@Model.Event.EventID">Event</label>
+
+                <div class="form-group">
+                    <select class="form-control" asp-for="@Model.VolunteerHour.EventID">
+
+                        @foreach (var _event in Model.Events)
+                        {
+                            <option value="@_event.EventID">@_event.EventTitle</option>
+
+                        }
+
+                    </select>
+                </div>
+                <!--<input asp-for="" class="form-control" id="EventDropdown" required>--><!--This dropdown lists the past events that the volunteer has signed up for.-->
+            </div>
+            <br />
+            <div class="form-group">
+                <p>
+                    Check the box below if you are requesting approval for volunteer work that is not tied to an event.
+                    <br />
+                    <input type="checkbox" id="check" /> Non-Event Volunteer Hours<!--This checkbox, if checked, will disable the above Event dropdown and allow the volunteer to enter in Non-Event Volunteer Work.-->
+                </p>
+                <p id="NonEvent" style="display:none">
+                    Provide a brief description of the volunteer work you've done.<br />
+                    <textarea id="textarea" name="textarea" rows="5" cols="100" required disabled></textarea>
+                </p>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="VolunteerHour.Date">Date</label>
+                <input type="date" asp-for="VolunteerHour.Date" asp-format="{0:dd/MM/yyyy}" class="form-control" required><!--The user inputs the date that the event was worked.-->
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="VolunteerHour.NumberOfHours">Number of Hours</label>
+                <input asp-for="VolunteerHour.NumberOfHours" min="1" max="24" class="form-control" required><!--The user inputs the number of hours they worked at the event.-->
+            </div>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                var userId = UserManager.GetUserId(User);
+                <div class="form-group">
+                    <input asp-for="VolunteerHour.UserId" value="@userId"><!--The user inputs the number of hours they worked at the event.-->
+                </div>
+
+            }
+
+            <br />
+
+
+            <div style="text-align: center">
+                <button class="btn btn-primary" type="submit">Submit Form</button><!--This button allows the user tp submit the form.-->
+                <a asp-action="Index" class="btn btn-outline-dark">Cancel</a><!--This button allows the user to cancel their form submission and redirects them to the Volunteer Dashbaord home page.-->
+            </div>
+        </form>
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <!--This JavaScript applies to the checkbox/textarea in the html form. By default the textarea is hidden to  the user, once the checkbox is selected the textarea will be visible to the user-->
+            <script>
+                //variable declarations
+                var cb = document.getElementById("check");
+                var ne = document.getElementById("NonEvent");
+                var ta = document.getElementById("textarea");
+                var ed = document.getElementById("EventDropdown");
+
+                cb.onchange = function () {
+                    if (cb.checked) {
+                        ne.style.display = "block";//Displays the textarea and the checkbox is checked
+                        ed.disabled = true;//Disables the event dropdown
+                        ta.disabled = false;//Enables the textarea
+                    }
+                    else {
+                        ne.style.display = "none";//The textarea is not displayed and the checkbox is unchecked
+                        ed.disabled = false;//Enables the event dropdown
+                        ta.disabled = true;//Disables the textarea
+                    }
+                }
+            </script>
+
+        </body>
+    </html>

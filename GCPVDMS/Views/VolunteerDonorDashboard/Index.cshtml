@@ -1,0 +1,61 @@
+﻿@*This View page displays the home page for the Volunteer Dashboard that includes a table of events the volunteer has signed up for.*@
+
+@{
+    Layout = "_Layout";
+}
+
+@*Script for JavaScript DataTables*@
+@model SignedUpEventsViewModel
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#yourTable2').DataTable();
+        });
+    </script>
+}
+<partial name="_VolunteerEventsTab" /><!--This is the html tag for the navigation tabs-->
+<html>
+<body>
+    <br/>
+
+    <div>
+        <h3>Events I'm Signed Up For</h3>
+        <table id="yourTable2" class="table table-bordered table-striped">@*This table displays the GCP events that the volunteer is signed up for.*@
+            <thead style="width: 50px">
+                <tr>
+                    <th class="text-center">Date</th>
+                    <th class="text-center">Event Title</th>
+                    <th class="text-center">Event Location</th>
+                    <th class="text-center">Start Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--This loop utilizes the ViewModel tagged in this page to achieve Event Registration data from
+                    the event controller You will need to set up the html to only accept the current volunteerID
+                    I believe.-->
+                @foreach (var item in Model.EventRegistrations)
+                {
+                    <tr>
+                        <td>@item.Event.EventDate</td>
+                        <td>@item.Event.EventTitle</td>
+                        <td>@item.Event.Location.LocationName</td>
+                        <td>@item.Event.StartTime</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <br />
+        
+    <div style="text-align: center">
+        <a asp-action="MyLoggedHours" class="btn btn-outline-dark">View My Logged Hours</a>
+        @*This button redirects the user to the My Logged Hours View page.*@
+        <a asp-action="LogMyHoursCreate" class="btn btn-outline-dark">Log My Hours</a>
+        @*This button redirects the user to the Log My Hours View page.*@
+    </div>
+
+    <br />
+
+</body>
+</html>

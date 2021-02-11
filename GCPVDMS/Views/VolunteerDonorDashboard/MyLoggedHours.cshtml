@@ -3,6 +3,7 @@
 @{
     Layout = "_Layout";
 }
+@model LogMyHoursViewModel
 
 @*Script for JavaScript DataTables*@
 @section Scripts{
@@ -16,22 +17,8 @@
 <html>
 <body>
 
+    <partial name="_VolunteerEventsTab" /><!--This is the html tag for the navigation tabs located in shared folder-->
     <br />
-    <br />
-
-    <ul class="nav nav-tabs">
-        <!--Navigation tabs.-->
-        <li class="nav-item">
-            <a class="nav-link active" asp-action="Index">Volunteer</a><!--Navigation tab that directs the user to the Volunteer Dashboard home page whenever it is clicked.-->
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" asp-action="DonorHome">Donor</a><!--Navigation tab that directs the user to the Donor Dashboard home page whenever it is clicked.-->
-        </li>
-    </ul>
-
-    <br />
-    <br />
-
     <h3>My Logged Hours</h3>
     <div>
         <table id="yourTable" class="table table-bordered table-striped display">
@@ -45,14 +32,14 @@
                 </tr>
             </thead>
             <tbody>
-                @*@foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.Date</td>
-                            <td>@item.Event</td>
-                            <td>@item.NumberOfHours</td>
-                        </tr>
-                    }*@
+                @foreach (var item in Model.VolunteerHours)
+                {
+                    <tr>
+                        <td>@item.Date</td>
+                        <td>@item.Event.EventTitle</td>
+                        <td>@item.NumberOfHours</td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

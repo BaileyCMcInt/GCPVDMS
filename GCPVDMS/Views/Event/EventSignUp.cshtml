@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Event>
+﻿@model SignedUpEventsViewModel
 
 @{
     ViewBag.Title = "GCP Volunteer Events";
@@ -53,48 +53,28 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-
-            string locationname;
-
-            if (item.LocationID == 1)
+            @foreach (var item in Model.Events)
             {
-                locationname = "Mandarin";
-            }
-            else if (item.LocationID == 2)
-            {
-                locationname = "MLK Elementary";
-            }
-            else if (item.LocationID == 3)
-            {
-                locationname = "Palm Beach";
-            }
-            else if (item.LocationID == 4)
-            {
-                locationname = "Offsite Duval";
-            }
-            else
-            {
-                locationname = "Offsite Palm Beach";
-            }
-
-            <tr>
+        <tr>
+            <center>
                 <td>@item.EventTitle</td>
-                <td>@locationname</td>
+                <td>@item.Location.LocationName</td>
                 <td>@item.EventDate.ToShortDateString()</td>
                 <td>@(@item.NumVolunteersNeeded - @item.NumVolunteersSignedUp)</td>
                 <td>
+
+
                     <form method="post">
                         <input type="hidden" name="EventID" value=" " />
-                        <a asp-action="EventInfoPage" class="btn btn-light btn-sm"
+                        <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
                            asp-route-eventId="@item.EventID">
                             View Event Information
                         </a>
                     </form>
                 </td>
-            </tr>
-        }
-    </tbody>
+            </center>
+        </tr>
+            }
+        </tbody>
 </table>
 

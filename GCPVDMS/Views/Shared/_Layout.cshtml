@@ -68,11 +68,9 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
                             @if (SignInManager.IsSignedIn(User))
-                                {
+                            {
                                 <a id="manage" class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Account</a>
-                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                    <button id="logout" type="submit" class="dropdown-item">Logout</button>
-                                </form>
+
                                 var globalAdmin = "Global Admin";
                                 if (User.IsInRole(globalAdmin))
                                 {
@@ -86,11 +84,12 @@
                                 }
                                 if (!User.IsInRole(globalAdmin))
                                 {
-                                    <a class="dropdown-item" asp-controller="VolunteerDashboard" asp-action="Index">Volunteer/Donor Home</a>
-                                    <a class="dropdown-item" asp-controller="VolunteerDashboard" asp-action="LogMyHours">Log My Hours</a>
-                                    <a class="dropdown-item" asp-controller="VolunteerDashboard" asp-action="MyLoggedHours">View My Hours</a>
+                                    <a class="dropdown-item" asp-controller="VolunteerDonorDashboard" asp-action="Index">Volunteer/Donor Dashboard</a>
+                              
                                 }
-
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button id="logout" type="submit" class="dropdown-item">Logout</button>
+                                </form>
                             }
                             else
                             {

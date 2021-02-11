@@ -17,14 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200925231902_dfuglestadAccountFirstNameLast.cs" />
-    <Compile Remove="Migrations\20200925231902_dfuglestadAccountFirstNameLast.Designer.cs" />
-    <Compile Remove="Migrations\20201124234153_dfugle_addingProfileFields.cs" />
-    <Compile Remove="Migrations\20201124234153_dfugle_addingProfileFields.Designer.cs" />
-    <Compile Remove="Migrations\ApplicationDb\20201124162209_dfugle_addingFKtoLocationTable.cs" />
-    <Compile Remove="Migrations\ApplicationDb\20201124162209_dfugle_addingFKtoLocationTable.Designer.cs" />
-    <Compile Remove="Migrations\ApplicationDb\20201217195623_rcook_GCPtasks.cs" />
-    <Compile Remove="Migrations\ApplicationDb\20201217195623_rcook_GCPtasks.Designer.cs" />
+    <Compile Remove="Migrations\20210211002618_1.cs" />
+    <Compile Remove="Migrations\20210211002618_1.Designer.cs" />
+    <Compile Remove="Migrations\20210211004059_dfugregistration.cs" />
+    <Compile Remove="Migrations\20210211004059_dfugregistration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +44,8 @@
     
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Migrations\ApplicationDb\" />
+    <Folder Include="Migrations\GCPVDMS\" />
     <Folder Include="Views\Drive\Admin\" />
     <Folder Include="Views\Drive\Volunteer\" />
   </ItemGroup>

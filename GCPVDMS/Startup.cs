@@ -26,7 +26,7 @@ namespace GCPVDMS
            
             Configuration = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.json")//next two lines allowed azure to override two connection strings and userSecrets
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
             .AddEnvironmentVariables().Build();
         }
@@ -43,8 +43,9 @@ namespace GCPVDMS
             services.AddTransient<IEventRepository, EFEventRepository>();
             services.AddTransient<IGCPTaskRepository, EFGCPTaskRepository>();
             services.AddTransient<IVolunteerHourRepository, EFVolunteerHourRepository>();
+            services.AddTransient<IEventRegistrationRepository, EFEventRegistrationRepository>();
             //services.AddTransient<IDriveRepository, EFDriveRepository>(); //added missing package that enables these to interact with connection string
-          
+
             services.AddIdentity<ApplicationUser, IdentityRole>(  opt =>
              opt.SignIn.RequireConfirmedEmail = true)
                     .AddEntityFrameworkStores<GCPVDMSContext>()
