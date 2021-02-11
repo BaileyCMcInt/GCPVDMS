@@ -53,7 +53,8 @@ namespace GCPVDMS.Controllers
                 //list of event registrations
                 EventRegistrations = context.EventRegistrations.ToList(),
                 //event list view
-                Events = context.Events.ToList()
+                Events = context.Events.ToList(),
+                UserId = userId
 
             };
             //returns all the items passed into the viewmodel object to refence in the view.

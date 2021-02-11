@@ -4,7 +4,8 @@
     Layout = "_Layout";
 }
 @model LogMyHoursViewModel
-
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @*Script for JavaScript DataTables*@
 @section Scripts{
     <script>
@@ -32,13 +33,21 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.VolunteerHours)
+                <!----This loop utilizes the ViewModel tagged in this page to retrieve logged hour data for a specific volunteer.-->
+                @foreach (var item in Model.VolunteerHours)//loops through volunteerHour table data
                 {
-                    <tr>
-                        <td>@item.Date</td>
-                        <td>@item.Event.EventTitle</td>
-                        <td>@item.NumberOfHours</td>
-                    </tr>
+                    @if (SignInManager.IsSignedIn(User))//checks that user is Signed in
+                    {
+                        var user = UserManager.GetUserId(User);//get signed in user's UserID
+                        if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
+                        {
+                <tr>
+                    <td>@item.Date</td><!--Model.VolunteerHours.Date-->
+                    <td>@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                    <td>@item.NumberOfHours</td>
+                </tr>
+                        }
+                    }
                 }
             </tbody>
         </table>
