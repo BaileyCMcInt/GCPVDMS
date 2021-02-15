@@ -16,6 +16,7 @@ namespace GCPVDMS.Controllers
     {
         //adding in model repositories to reference database tables
         private IVolunteerHourRepository repository;
+        private IEventRegistrationRepository registrationRepository;
         private IEventRepository eventRepository;
         private UserManager<ApplicationUser> userManager;
         private ApplicationDbContext context;
@@ -24,6 +25,7 @@ namespace GCPVDMS.Controllers
         public VolunteerDonorDashboardController(IVolunteerHourRepository hourRepo, IEventRegistrationRepository regRepo, IEventRepository eventRepo, IGCPTaskRepository taskRepo, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx)
         {
             repository = hourRepo;
+            registrationRepository = regRepo;
             eventRepository = eventRepo;
             userManager = userMrg;
             context = ctx;
@@ -75,7 +77,10 @@ namespace GCPVDMS.Controllers
                 Event = eventRepository.Events
                     .FirstOrDefault(a => a.EventID == Id),
                 //provides a list of events for the user to select from
-                Events = context.Events.ToList()
+                Events = context.Events.ToList(),
+                EventRegistration = registrationRepository.EventRegistrations
+                    .FirstOrDefault(a => a.EventID == Id),
+                EventRegistrations = registrationRepository.EventRegistrations.ToList()
 
             };
             //returns the new/blank viewmodel object to the view with data to populate the form with
@@ -99,7 +104,10 @@ namespace GCPVDMS.Controllers
                 Events = eventRepository.Events.ToList(),
                 Event = eventRepository.Events
                     .FirstOrDefault(a => a.EventID == Id),
-                User = user
+                User = user,
+                EventRegistration = registrationRepository.EventRegistrations
+                    .FirstOrDefault(a => a.EventID == Id),
+                EventRegistrations = registrationRepository.EventRegistrations.ToList()
             };
 
             //returns the viewmodel with the user-populated data
