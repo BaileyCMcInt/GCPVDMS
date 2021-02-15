@@ -18,15 +18,24 @@
 
             <input type="hidden" asp-for="VolunteerHour.VolunteerHourID" />
             <div class="form-group">
-                <label asp-for="@Model.Event.EventID">Event</label>
+                <label asp-for="@Model.Event.EventID">Select From Your Registered Event</label>
 
                 <div class="form-group">
+
                     <select class="form-control" asp-for="@Model.VolunteerHour.EventID">
-
-                        @foreach (var _event in Model.Events)
+                        <option value="null">Select Event</option>
+                        @foreach (var _event in Model.EventRegistrations)
                         {
-                            <option value="@_event.EventID">@_event.EventTitle</option>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
 
+                                var userId = UserManager.GetUserId(User);
+                                if (_event.UserId == userId)
+                                {
+                                    <option value="@_event.EventID">@_event.Event.EventTitle</option>
+                                }
+
+                            }
                         }
 
                     </select>

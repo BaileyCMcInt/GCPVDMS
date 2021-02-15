@@ -16,5 +16,7 @@ namespace GCPVDMS.Models.ViewModels
         //utilize code-first approach but the relationship is seeded in the datbase.
 
         public ApplicationUser User { get; set; } //user object
+        public EventRegistration EventRegistration { get; set; }
+        public List<EventRegistration> EventRegistrations { get; set; }
     }
 }
