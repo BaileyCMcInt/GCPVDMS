@@ -376,5 +376,41 @@ namespace GCPVDMS.Controllers
             return View("Index", userManager.Users);
         }
 
+        //the following methods are for admin editing volunteer hours
+
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public async Task<IActionResult> HoursApproval(string id, int eventId)
+        {
+            ApplicationUser user = await userManager.FindByIdAsync(id);
+            var hours = new ApproveHoursViewModel()
+            {
+                VolunteerHours = context.VolunteerHours.ToList(),
+                Users = userManager.Users.ToList(),
+                User = user,
+                Event = repository.Events
+                    .FirstOrDefault(a => a.EventID == eventId),
+            };
+            return View(hours);
+        }
+
+        [Authorize(Roles = "Global Admin")]
+        [HttpPost]
+        public async Task<IActionResult> HoursApproval(int id, string userId)
+        {
+            ApplicationUser user = await userManager.FindByIdAsync(userId);
+            var hours = new ApproveHoursViewModel()
+            {
+                VolunteerHours = context.VolunteerHours.ToList(),
+                VolunteerHour = context.VolunteerHours.FirstOrDefault(a => a.VolunteerHourID == id),
+                User = user,
+
+            };
+            hours.VolunteerHour.isApproved = true;
+            context.SaveChanges();
+            return RedirectToAction("HoursApproval", hours);
+        }
+
+
     }
 }
