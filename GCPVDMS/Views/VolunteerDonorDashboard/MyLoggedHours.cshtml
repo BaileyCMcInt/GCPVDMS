@@ -29,7 +29,7 @@
                     <th class="text-center">Date</th>
                     <th class="text-center">Event</th>
                     <th class="text-center">Hours Worked</th>
-                    <th class="text-center">Form Status</th>
+                    <th class="text-center">Approval Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +45,14 @@
                     <td>@item.Date</td><!--Model.VolunteerHours.Date-->
                     <td>@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
                     <td>@item.NumberOfHours</td>
+                    @if (item.isApproved == true)
+                    {
+                        <td>Approved</td>
+                    }
+                    @if (item.isApproved == false)
+                    {
+                        <td>Pending</td>
+                    }
                 </tr>
                         }
                     }

@@ -1,0 +1,58 @@
+﻿@model ApproveHoursViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#approvalTable').DataTable();
+        });</script>
+}
+
+<partial name="_GlobalApprovalTabs" />
+<br/>
+<center><h3 style="background-color: #009E00; color: white">Volunteer Hours Pending Approval</h3></center>
+<br />
+<table id="approvalTable" class="display">
+    <thead>
+        <tr>
+            <th><center>Request Date</center></th>
+            <th><center>Name</center></th>
+            <th><center>Event</center></th>
+            <th><center>Number of Hours</center></th>
+            <th><center>Action</center></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.VolunteerHours)
+        {
+            if (item.isApproved == false)
+            {
+        <tr>
+            <td>@item.Date</td>
+            @foreach (var user in Model.Users)
+            {
+                if (item.UserId == user.Id)
+                {
+                    <td>
+                        @user.FirstName @user.LastName
+                    </td>
+                }
+            }
+
+            <td>@item.Event.EventTitle</td>
+            <td>@item.NumberOfHours</td>
+            <td>
+                <center>
+                    <form asp-action="HoursApproval" asp-route-id="@item.VolunteerHourID" method="post" onclick="return confirm('Are you sure you want to approve these volunteer hours?')">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            Approve
+                        </button>
+                    </form>
+                </center>
+            </td>
+        </tr>
+            }
+        }
+        </tbody>
+</table>

@@ -21,6 +21,10 @@
     <Compile Remove="Migrations\20210211002618_1.Designer.cs" />
     <Compile Remove="Migrations\20210211004059_dfugregistration.cs" />
     <Compile Remove="Migrations\20210211004059_dfugregistration.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210215233842_3.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210215233842_3.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210216040417_7.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210216040417_7.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,7 +48,6 @@
     
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\ApplicationDb\" />
     <Folder Include="Migrations\GCPVDMS\" />
     <Folder Include="Views\Drive\Admin\" />
     <Folder Include="Views\Drive\Volunteer\" />
