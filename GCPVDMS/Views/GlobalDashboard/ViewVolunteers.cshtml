@@ -23,6 +23,7 @@
             <tr>
                 <th><center>First Name </center></th>
                 <th><center>Last Name </center></th>
+                <th><center>Email </center></th>
                 <th><center>Actions </center></th>
             </tr>
         </thead>
@@ -30,15 +31,16 @@
             @foreach (ApplicationUser user in Model)
             {
 
-                @if (user.isVolunteer@*&& user.isApproved == true*@)
+                @if (user.isVolunteer)
 {
 
 <tr>
-    <td>@user.FirstName</td>
-    <td>@user.LastName</td>
+    <td><center>@user.FirstName</center></td>
+    <td><center>@user.LastName</center></td>
+    <td><center>@user.Email</center></td>
     <td>
         <center>
-            <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="VolunteerInfo" asp-route-id="@user.Id">View</button>
+            <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="VolunteerInfo" asp-route-id="@user.Id">View Volunteer Info</button>
         </center>
     </td>
 </tr>
