@@ -102,6 +102,9 @@ namespace GCPVDMS.Controllers
         public IActionResult ConfirmationPage(EventRegistration eventRegistration, int eventId, string Id)
         {
             var counter = 0;
+            Event passedEvent = context.Events
+                      .FirstOrDefault(x => x.EventID == eventId);
+
             if (ModelState.IsValid)
             {
                 //Saving the event registration data to the database
@@ -133,6 +136,11 @@ namespace GCPVDMS.Controllers
                 //returns the confirmation page viewmodel data  
                 if (counter > 0)
                 {
+                    int newSignUpNum = passedEvent.NumVolunteersSignedUp + 1;
+                    passedEvent.NumVolunteersSignedUp = newSignUpNum;
+                    int newSignUpNum2 = passedEvent.NumVolunteersNeeded - 1;
+                    passedEvent.NumVolunteersNeeded = newSignUpNum2;
+                    context.SaveChanges();
                     return View("ConfirmationPage", viewModel);
                 }
                 else

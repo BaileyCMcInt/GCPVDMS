@@ -25,6 +25,8 @@
     <Compile Remove="Migrations\ApplicationDb\20210215233842_3.Designer.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210216040417_7.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210216040417_7.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210218215619_dfugle_eventregFK.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210218215619_dfugle_eventregFK.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

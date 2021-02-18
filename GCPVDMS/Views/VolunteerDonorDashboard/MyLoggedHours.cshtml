@@ -42,20 +42,20 @@
                         if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
                         {
                 <tr>
-                    <td>@item.Date</td><!--Model.VolunteerHours.Date-->
-                    <td>@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                    <td>@item.NumberOfHours</td>
-                    @if (item.isApproved == true)
+                    <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                    <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                    <td class="text-center">@item.NumberOfHours</td>
+                    @if (item.isApproved == true && item.isDenied == false )
                     {
-                        <td>Approved</td>
+                        <td class="text-center">Approved</td>
                     }
                     @if (item.isApproved == false && item.isDenied == false)
                     {
-                        <td>Pending</td>
+                        <td class="text-center">Pending</td>
                     }
                     @if (item.isDenied == true)
                     {
-                        <td>Denied</td>
+                        <td class="text-center">Denied</td>
                     }
                 </tr>
                         }
@@ -68,7 +68,7 @@
     <br />
 
     <div style="text-align: center">
-        <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="printDiv('printableArea')" /<!--This button allows the user to see their logged hours on a printable pdf.-->
+        <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="printDiv('printableArea')" <!--This button allows the user to see their logged hours on a printable pdf.-->
         <a asp-action="LogMyHours" class="btn btn-outline-dark">Log My Hours</a><!--This button redirects the user to the Log My Hours View page.-->
     </div>
 
