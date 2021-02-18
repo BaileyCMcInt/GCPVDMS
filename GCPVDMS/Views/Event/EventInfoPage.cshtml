@@ -8,6 +8,7 @@
 
 
 <div class="container">
+<h4>@ViewBag.ErrorMessage</h4>
     <table>
         <th><h1> @Model.Event.EventTitle </h1></th>
         <tr>
@@ -36,8 +37,6 @@
 
                 <br />
 
-                <p class="card-text">Event is active: @Model.Event.isEventActive</p>
-
         </tr>
         </td>
         <th><h4> Point of Contact </h4></th>
@@ -62,12 +61,12 @@
     @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
     @if (SignInManager.IsSignedIn(User))
     {
-
+        
         var userId = UserManager.GetUserId(User);
         <form asp-action="ConfirmationPage" method="post">
-
-            <input asp-for="@Model.EventRegistration.UserId" value="@userId">
-            <input asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
+            <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
+            <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
+             
             <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark">
                 Sign-up
             </button>

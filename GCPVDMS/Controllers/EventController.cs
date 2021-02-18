@@ -14,6 +14,8 @@ namespace GCPVDMS.Controllers
 {
     public class EventController : Controller
     {
+        [TempData]
+        string ErrorMessage { get; set; }
         //added in all repositories needed for the viewmodels/models/views
         private IEventRepository repository;
         private IEventRegistrationRepository registrationRepository;
@@ -37,12 +39,12 @@ namespace GCPVDMS.Controllers
         public ViewResult EventSignUp(int eventId)
         {
             //this is the EventRegistration object where the EventID and UserID are stored.
-            EventRegistration myEvent = new EventRegistration();
+            //EventRegistration myEvent = new EventRegistration();
 
            //this is the viewModel. I used one viewmodel for the sign up process for consistency.
             var viewModel = new SignedUpEventsViewModel
             {
-                EventRegistration = myEvent,
+                //EventRegistration = myEvent,
                 Event = context.Events
                     .Include(i => i.Location)
                     .FirstOrDefault(x => x.EventID == eventId),
@@ -70,8 +72,9 @@ namespace GCPVDMS.Controllers
         }
         public async Task<ViewResult> ConfirmationPage(int eventId, string Id)
         {
-            //inserting using object and obtaining userID from usermanager identity class
+            //inserting user object and obtaining userID from usermanager identity class
             var user = await userManager.FindByIdAsync(Id);
+
             //inserting new EventRegistration Object
             EventRegistration myEvent = new EventRegistration();
             
@@ -80,8 +83,6 @@ namespace GCPVDMS.Controllers
                 EventRegistration = myEvent,
                 Event = repository.Events
                     .FirstOrDefault(x => x.EventID == eventId),
-                Location = context.Locations
-                    .FirstOrDefault(a => a.LocationID == eventId),
                 UserId = Id
 
             };
@@ -100,11 +101,20 @@ namespace GCPVDMS.Controllers
         //After saving, redirects to the table of Events. 
         public IActionResult ConfirmationPage(EventRegistration eventRegistration, int eventId, string Id)
         {
-
+            var counter = 0;
             if (ModelState.IsValid)
             {
                 //Saving the event registration data to the database
-                registrationRepository.SaveEventRegistration(eventRegistration);
+                try
+                {
+                    registrationRepository.SaveEventRegistration(eventRegistration);
+                    counter++;
+                }
+                catch
+                {
+                    //handles exception for unique key pair constraint
+                }
+
                 //creating viewModel object to return all event signed-up data for displaying on confirmation
                 //page and dashboard.
                 var viewModel = new SignedUpEventsViewModel
@@ -117,10 +127,19 @@ namespace GCPVDMS.Controllers
                     Location = context.Locations
                         .FirstOrDefault(a => a.LocationID == eventId),
                     Locations = context.Locations.ToList(),
-                    UserId = Id
+                    UserId = Id,
+                    
                 };
-                //returns the confirmation page viewmodel data
-                return View("ConfirmationPage", viewModel);
+                //returns the confirmation page viewmodel data  
+                if (counter > 0)
+                {
+                    return View("ConfirmationPage", viewModel);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "You have already signed up for your event. View this event registration in your volunteer dashboard.";
+                    return View("EventInfoPage", viewModel);
+                }
             }
             else
             {

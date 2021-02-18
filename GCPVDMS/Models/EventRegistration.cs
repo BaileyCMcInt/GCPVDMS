@@ -15,6 +15,7 @@ namespace GCPVDMS.Models
         //public int Id { get; set; }
         //public ApplicationUser ApplicationUser { get; set; }
         [ForeignKey("UserId")]
+        
         public string UserId { get; set; } //added here for ef-code first approach, FK relationship
         //is seeded in the database. This was easiest approach to take to merge IdentityDbContext and
         //applicationDbContext
