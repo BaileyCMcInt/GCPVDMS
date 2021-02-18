@@ -29,32 +29,32 @@
             if (item.isApproved == false && item.isDenied != true)
             {
         <tr>
-            <td><center>@item.Date</center></td>
-            @foreach (var user in Model.Users)
-            {
-                if (item.UserId == user.Id)
+                <td><center>@item.Date.ToShortDateString()</center></td>
+                @foreach (var user in Model.Users)
                 {
-                    <td>
-                       <center>@user.FirstName @user.LastName</center> 
-                    </td>
+                    if (item.UserId == user.Id)
+                    {
+                        <td>
+                            <center>@user.FirstName @user.LastName</center>
+                        </td>
+                    }
                 }
-            }
 
-            <td><center>@item.Event.EventTitle</center></td>
-            <td><center>@item.NumberOfHours</center></td>
-            <td>
-                <center>
-                    <form asp-action="HoursApproval" asp-route-id="@item.VolunteerHourID" method="post">
-                        <button type="submit" name="approve" value="approve" class="btn btn-sm btn-outline-dark" onclick="return confirm('Are you sure you want to approve these volunteer hours?')">
-                            Approve
-                        </button>
-                        <button type="submit" name="approve" value="deny" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to deny these volunteer hours?')">
-                            Deny
-                        </button>
-                    </form>
-                </center>
-            </td>
-        </tr>
+                <td><center>@item.Event.EventTitle</center></td>
+                <td><center>@item.NumberOfHours</center></td>
+                <td>
+                    <center>
+                        <form asp-action="HoursApproval" asp-route-id="@item.VolunteerHourID" method="post">
+                            <button type="submit" name="approve" value="approve" class="btn btn-sm btn-outline-dark" onclick="return confirm('Are you sure you want to approve these volunteer hours?')">
+                                Approve
+                            </button>
+                            <button type="submit" name="approve" value="deny" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to deny these volunteer hours?')">
+                                Deny
+                            </button>
+                        </form>
+                    </center>
+                </td>
+            </tr>
             }
         }
         </tbody>

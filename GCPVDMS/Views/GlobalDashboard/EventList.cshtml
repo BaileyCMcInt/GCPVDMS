@@ -42,7 +42,7 @@
                 <td>@item.Location.LocationName</td>
                 <td>@item.POCName</td>
                 <td>@item.EventDate.ToShortDateString()</td>
-                <td>@(@item.NumVolunteersNeeded - @item.NumVolunteersSignedUp)</td>
+                <td>@item.NumVolunteersNeeded</td>
                 <td>
 
                     @*<form asp-action="Delete" method="post">

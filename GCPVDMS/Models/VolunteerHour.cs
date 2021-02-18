@@ -16,14 +16,10 @@ namespace GCPVDMS.Models
 
         public string UserId { get; set; } //FK relationship to IdentityDBContext is seeded in the database
 
-        //[ForeignKey("Id")]
-        //public int Id { get; set; }
-        //public ApplicationUser ApplicationUser { get; set; }
-        //Foreign key
+    
         //[ForeignKey("VolunteerGroupID")]
         //public int VolunteerGroupID { get; set; }
         public VolunteerGroup VolunteerGroup { get; set; }
-
         [ForeignKey("EventID")]
         public int EventID { get; set; }
         public Event Event { get; set; }
