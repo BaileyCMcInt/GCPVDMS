@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace GCPVDMS.Models
+
 {
-        public class EFEventRegistrationRepository : IEventRegistrationRepository
+    public class EFEventRegistrationRepository : IEventRegistrationRepository
         {
-            private ApplicationDbContext context;
+
+       
+
+        private ApplicationDbContext context;
             public EFEventRegistrationRepository(ApplicationDbContext ctx)
             {
                 context = ctx;
@@ -33,6 +40,10 @@ namespace GCPVDMS.Models
                     }
                 }
                 context.SaveChanges();
-            }
+        
         }
+
     }
+
+}
+

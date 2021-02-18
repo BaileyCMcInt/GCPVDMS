@@ -30,8 +30,14 @@ namespace GCPVDMS.Models
 
 
         public DbSet<VolunteerHour> VolunteerHours { get; set; }
-
-
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EventRegistration>().HasIndex(p => new 
+            {
+                p.EventID, p.UserId
+            })
+                .IsUnique();
+        }
+    
     }
 }

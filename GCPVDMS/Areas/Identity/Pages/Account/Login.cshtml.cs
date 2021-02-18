@@ -64,7 +64,10 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
-
+            else
+            {
+                StatusMessage = "Invalid login attempt";
+            }
             returnUrl = returnUrl ?? Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
@@ -103,11 +106,12 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                 ErrorMessage = "Your account has not been confirmed. A confirmation email has been sent to your account.";
                 return Page();
             }
+          
 
             if (userApproval.FirstTimeLogin == false)
             {
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-
+                
                 if (ModelState.IsValid)
                 {
 
@@ -116,12 +120,16 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                         _logger.LogInformation("User logged in.");
                         return RedirectToPage("./Index");
                     }
-
                     if (result.IsLockedOut)
                     {
                         _logger.LogWarning("User account locked out.");
                         return RedirectToPage("./Lockout");
                     }
+                    else
+                    {
+                        ErrorMessage = "Password entered is invalid. Please enter a valid password to sign in to your account.";
+                    }
+
                     //var email = await _userManager.FindByEmailAsync(Input.Email);
                     //if (!await _userManager.IsEmailConfirmedAsync(email))
                     //{
@@ -129,7 +137,9 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                     //              "You must have a confirmed email to log in. Check your email to confirm your account.");
                     //    return Page();
                     //}
+
                 }
+
             }
             else if (userApproval.FirstTimeLogin == true)
             {
@@ -148,27 +158,30 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                         _logger.LogWarning("User account locked out.");
                         return RedirectToPage("./Lockout");
                     }
-                    //var email = await _userManager.FindByEmailAsync(Input.Email);
-                    //if (!await _userManager.IsEmailConfirmedAsync(email))
-                    //{
-                    //    ModelState.AddModelError(string.Empty,
-                    //              "You must have a confirmed email to log in. Check your email to confirm your account.");
-                    //    return Page();
-                    //}
+                    else
+                    {
+                        ErrorMessage = "Password entered is invalid. Please enter a valid password to sign in to your account.";
+                    }
+
                 }
+                else
+                {
+                    ErrorMessage = "Invalid login attempt";
+                }
+
             }
 
-           else
-            {
-                //var email = await _userManager.FindByEmailAsync(Input.Email);
-                //if (!await _userManager.IsEmailConfirmedAsync(email))
-                //{
-                //    ModelState.AddModelError(string.Empty,
-                //              "You must have a confirmed email to log in. Check your email to confirm your account.");
-                    return Page();
-                //}
-                //}
-            }
+            //else
+            // {
+            //     //var email = await _userManager.FindByEmailAsync(Input.Email);
+            //     //if (!await _userManager.IsEmailConfirmedAsync(email))
+            //     //{
+            //     //    ModelState.AddModelError(string.Empty,
+            //     //              "You must have a confirmed email to log in. Check your email to confirm your account.");
+
+            //     //}
+            //     //}
+            // }
 
             // If we got this far, something failed, redisplay form
             return Page();

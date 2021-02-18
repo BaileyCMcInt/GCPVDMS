@@ -39,11 +39,6 @@ namespace GCPVDMS.Controllers
             //referencing identity usermanger class passed into the constructor. This retrieves
             //the userID from the IdentityDbContext.
             var user = await userManager.FindByIdAsync(userId);
-
-            //creating a new EventRegistration object to reference the events 
-            //that the user is signed up for
-            EventRegistration myEvents = new EventRegistration();
-
             //Create viewmodel object for the view
             var viewModel = new SignedUpEventsViewModel()
             {

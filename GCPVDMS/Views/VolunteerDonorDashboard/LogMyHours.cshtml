@@ -56,7 +56,7 @@
             </div>
             <br />
             <div class="form-group">
-                <label asp-for="VolunteerHour.Date">Date</label>
+                <label asp-for="VolunteerHour.Date">Date of Request</label>
                 <input type="date" asp-for="VolunteerHour.Date" asp-format="{0:dd/MM/yyyy}" class="form-control" required><!--The user inputs the date that the event was worked.-->
             </div>
             <br />
@@ -68,7 +68,7 @@
             {
                 var userId = UserManager.GetUserId(User);
                 <div class="form-group">
-                    <input asp-for="VolunteerHour.UserId" value="@userId"><!--The user inputs the number of hours they worked at the event.-->
+                    <input type="hidden" asp-for="VolunteerHour.UserId" value="@userId"><!--The user inputs the number of hours they worked at the event.-->
                 </div>
 
             }
