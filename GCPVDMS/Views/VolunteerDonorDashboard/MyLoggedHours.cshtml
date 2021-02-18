@@ -49,9 +49,13 @@
                     {
                         <td>Approved</td>
                     }
-                    @if (item.isApproved == false)
+                    @if (item.isApproved == false && item.isDenied == false)
                     {
                         <td>Pending</td>
+                    }
+                    @if (item.isDenied == true)
+                    {
+                        <td>Denied</td>
                     }
                 </tr>
                         }
