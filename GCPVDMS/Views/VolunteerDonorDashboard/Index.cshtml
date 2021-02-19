@@ -29,7 +29,7 @@
                 <th class="text-center">Event Title</th>
                 <th class="text-center">Event Location</th>
                 <th class="text-center">Start Time</th>
-                <th class="text-center">Cancel Registration</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +50,14 @@
                                 <form asp-action="CancelMyEvent" asp-route-id="@item.EventRegistrationID" method="post">
                                     <input type="hidden" asp-for="@Model.Event.EventID" name="eventId" value="@item.Event.EventID" />
                                     <button type="submit" class="btn btn-outline-danger" name="Id" value="@item.EventRegistrationID" onclick="return confirm('Are you sure you want to cancel this event registration?')">Cancel</button>
+
+                                    <input type="hidden" name="EventID" value=" " />
+                                    <a asp-action="EventInfoPage" class="btn btn-outline-dark"
+                                       asp-route-eventId="@item.EventID">
+                                        View Event Info
+                                    </a>
                                 </form>
+
                             </td>
                         </tr>
                        

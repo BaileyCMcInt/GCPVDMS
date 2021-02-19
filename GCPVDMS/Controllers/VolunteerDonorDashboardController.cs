@@ -198,6 +198,19 @@ namespace GCPVDMS.Controllers
             return View(viewModel);
         }
 
+        public ViewResult EventInfoPage(int eventId)
+        {
+            //inserting viewmodel object
+            var viewModel = new SignedUpEventsViewModel
+            {
+                Event = context.Events
+                    .Include(i => i.Location)
+                    .FirstOrDefault(x => x.EventID == eventId),
+                Events = context.Events.ToList(),
+            };
+            //Returns viewModel object with Event data
+            return View(viewModel);
+        }
         public IActionResult DonorHome()
         {
             return View();

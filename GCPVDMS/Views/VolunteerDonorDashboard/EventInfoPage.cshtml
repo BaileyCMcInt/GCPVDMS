@@ -8,7 +8,7 @@
 
 
 <div class="container">
-<h4>@ViewBag.ErrorMessage</h4>
+    <h4>@ViewBag.ErrorMessage</h4>
     <table>
         <th><h1> @Model.Event.EventTitle </h1></th>
         <tr>
@@ -58,28 +58,27 @@
         </tr>
     </table>
 </div>
-    @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
-    @if (SignInManager.IsSignedIn(User))
-    {
-        
-        var userId = UserManager.GetUserId(User);
-<form asp-action="ConfirmationPage" method="post">
-    <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
-    <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
+@*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
+@if (SignInManager.IsSignedIn(User))
+{
 
-    <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark">
-        Sign-up
-    </button>
-    <button asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">Back to Events</button>
-</form>
-    }
-    else
-    {
-        <p>You need a volunteer account in order to volunteer at an event.</p>
-        <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
-        <br />
-        <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
-    }
+    var userId = UserManager.GetUserId(User);
+    <form asp-action="ConfirmationPage" method="post">
+        <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
+        <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
+
+        <a asp-action="Index" class="btn btn-outline-dark">
+            My Volunteer Dashboard
+        </a>
+    </form>
+}
+else
+{
+    <p>You need a volunteer account in order to volunteer at an event.</p>
+    <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
+    <br />
+    <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
+}
 
 </div>
 
