@@ -156,6 +156,8 @@ namespace GCPVDMS.Controllers
             }
         }
 
+
+
         //Method that displays the HostaDrive page
         public ViewResult HostaDrive() => View("~/Views/Event/HostaDrive.cshtml");
 

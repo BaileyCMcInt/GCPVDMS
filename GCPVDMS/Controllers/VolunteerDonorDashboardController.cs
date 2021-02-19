@@ -57,7 +57,32 @@ namespace GCPVDMS.Controllers
             //returns all the items passed into the viewmodel object to refence in the view.
             return View(viewModel);
         }
-        
+
+        [HttpPost]
+        public IActionResult CancelMyEvent(int Id, int eventId)
+        {
+            Event passedEvent = context.Events
+                .FirstOrDefault(x => x.EventID == eventId);
+           
+            var eventReg = new EventRegistration
+            {
+                EventRegistrationID = Id
+            };
+
+            int numSignedUp = passedEvent.NumVolunteersSignedUp - 1;
+            passedEvent.NumVolunteersSignedUp = numSignedUp;
+            int numNeeded = passedEvent.NumVolunteersNeeded + 1;
+            passedEvent.NumVolunteersNeeded = numNeeded;
+
+            context.EventRegistrations.Attach(eventReg);
+            context.EventRegistrations.Remove(eventReg);
+            context.SaveChanges();
+
+            //returns all the items passed into the viewmodel object to refence in the view.
+            return RedirectToAction("Index");
+        }
+
+
         //this method creates a new log my hours object request
         public ViewResult LogMyHoursCreate(int Id)
         {

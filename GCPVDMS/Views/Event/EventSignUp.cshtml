@@ -45,34 +45,32 @@
 <table id="myTable" class="display">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Location</th>
-            <th>Date</th>
-            <th>Spots available</th>
-            <th>Actions</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Title</th>
+            <th class="text-center">Location</th>
+            <th class="text-center">Spots available</th>
+            <th class="text-center">Actions</th>
         </tr>
     </thead>
     <tbody>
             @foreach (var item in Model.Events)
             {
         <tr>
-            <center>
-                <td>@item.EventTitle</td>
-                <td>@item.Location.LocationName</td>
-                <td>@item.EventDate.ToShortDateString()</td>
-                <td>@item.NumVolunteersNeeded</td>
-                <td>
+            <td class="text-center">@item.EventDate.ToShortDateString()</td>
+            <td class="text-center">@item.EventTitle</td>
+            <td class="text-center">@item.Location.LocationName</td>
+            <td class="text-center">@item.NumVolunteersNeeded</td>
+            <td class="text-center">
 
 
-                    <form method="post">
-                        <input type="hidden" name="EventID" value=" " />
-                        <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
-                           asp-route-eventId="@item.EventID">
-                            View Event Information
-                        </a>
-                    </form>
-                </td>
-            </center>
+                <form method="post">
+                    <input type="hidden" name="EventID" value=" " />
+                    <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
+                       asp-route-eventId="@item.EventID">
+                        View Event Information
+                    </a>
+                </form>
+            </td>
         </tr>
             }
         </tbody>
