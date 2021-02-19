@@ -68,7 +68,7 @@ namespace GCPVDMS.Controllers
                 Events = context.Events.ToList(),
             };
             //Returns viewModel object with Event data
-            return View(viewModel);
+            return View("~/Views/Event/EventInfoPage.cshtml", viewModel);
         }
         public async Task<ViewResult> ConfirmationPage(int eventId, string Id)
         {
@@ -155,6 +155,8 @@ namespace GCPVDMS.Controllers
                 return View(eventRegistration);
             }
         }
+
+
 
         //Method that displays the HostaDrive page
         public ViewResult HostaDrive() => View("~/Views/Event/HostaDrive.cshtml");

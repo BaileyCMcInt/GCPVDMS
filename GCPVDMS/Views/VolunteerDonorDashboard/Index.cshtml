@@ -29,6 +29,7 @@
                 <th class="text-center">Event Title</th>
                 <th class="text-center">Event Location</th>
                 <th class="text-center">Start Time</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -41,12 +42,25 @@
                     if (user == item.UserId)//checks that the userId retrieved matches eventRegistration userId
                     {
                         <tr>
-                            <td> @item.Event.EventDate </td><!--So this is really Model.EventRegistration.Event.EventDate. Referencing Viewmodels are basically pointers.-->
-                            <td> @item.Event.EventTitle </td>
-                            <td> @item.Event.Location.LocationName </td>
-                            <td> @item.Event.StartTime </td>
-                        </tr>
+                            <td class="text-center"> @item.Event.EventDate.ToShortDateString() </td><!--So this is really Model.EventRegistration.Event.EventDate. Referencing Viewmodels are basically pointers.-->
+                            <td class="text-center"> @item.Event.EventTitle </td>
+                            <td class="text-center"> @item.Event.Location.LocationName </td>
+                            <td class="text-center"> @item.Event.StartTime.ToShortTimeString() </td>
+                            <td class="text-center">
+                                <form asp-action="CancelMyEvent" asp-route-id="@item.EventRegistrationID" method="post">
+                                    <input type="hidden" asp-for="@Model.Event.EventID" name="eventId" value="@item.Event.EventID" />
+                                    <button type="submit" class="btn btn-outline-danger" name="Id" value="@item.EventRegistrationID" onclick="return confirm('Are you sure you want to cancel this event registration?')">Cancel</button>
 
+                                    <input type="hidden" name="EventID" value=" " />
+                                    <a asp-action="EventInfoPage" class="btn btn-outline-dark"
+                                       asp-route-eventId="@item.EventID">
+                                        View Event Info
+                                    </a>
+                                </form>
+
+                            </td>
+                        </tr>
+                       
                     }
 
                 }

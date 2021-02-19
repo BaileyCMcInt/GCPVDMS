@@ -27,8 +27,8 @@
     some time to get back to you! We greatly appreciate your interest in volunteering with the GCP
     and we can't wait to work with you!*
 </p>
-<hr />
-<h2>Host a Drive</h2>
+@*<hr />*@
+@*<h2>Host a Drive</h2>
  <p>We are always looking for individuals, businesses, and organizations that want to make a difference in their
         community. Our goal is to keep our district hubs stocked throughout the school year, so we can continue to provide
         clothing and other basic essentials to students in need all year long.</p>
@@ -38,41 +38,39 @@
         Host a Drive
     </a>
 </form>
-<hr />
+<hr />*@
 <h2>List of Upcoming Events</h2>
 <br />
 
 <table id="myTable" class="display">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Location</th>
-            <th>Date</th>
-            <th>Spots available</th>
-            <th>Actions</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Title</th>
+            <th class="text-center">Location</th>
+            <th class="text-center">Spots available</th>
+            <th class="text-center">Actions</th>
         </tr>
     </thead>
     <tbody>
             @foreach (var item in Model.Events)
             {
         <tr>
-            <center>
-                <td>@item.EventTitle</td>
-                <td>@item.Location.LocationName</td>
-                <td>@item.EventDate.ToShortDateString()</td>
-                <td>@item.NumVolunteersNeeded</td>
-                <td>
+            <td class="text-center">@item.EventDate.ToShortDateString()</td>
+            <td class="text-center">@item.EventTitle</td>
+            <td class="text-center">@item.Location.LocationName</td>
+            <td class="text-center">@item.NumVolunteersNeeded</td>
+            <td class="text-center">
 
 
-                    <form method="post">
-                        <input type="hidden" name="EventID" value=" " />
-                        <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
-                           asp-route-eventId="@item.EventID">
-                            View Event Information
-                        </a>
-                    </form>
-                </td>
-            </center>
+                <form method="post">
+                    <input type="hidden" name="EventID" value=" " />
+                    <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
+                       asp-route-eventId="@item.EventID">
+                        View Event Information
+                    </a>
+                </form>
+            </td>
         </tr>
             }
         </tbody>
