@@ -18,5 +18,7 @@ namespace GCPVDMS.Models
         [ForeignKey("TaskID")]
         public int GCPTaskID { get; set; }
         public GCPTask GCPTask { get; set; }
+
+        public bool isSelected { get; set; }
     }
 }

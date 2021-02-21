@@ -5,19 +5,19 @@
 }
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+    <partial name="_VolunteerEventsTab" />
+<br/>
+    <center><h3 style="background-color: #D4EDDA;">@Model.Event.EventTitle</h3></center>
 
-
-<div class="container">
-    <h4>@ViewBag.ErrorMessage</h4>
-    <table>
-        <th><h1> @Model.Event.EventTitle </h1></th>
-        <tr>
-            <td>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Event Information</h3>
                 <p class="card-text">Location: @Model.Event.Location.LocationName</p>
 
                 <br />
 
-                </tf><p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
+                <p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
 
                 <br />
 
@@ -36,51 +36,49 @@
                 <p class="card-text">Event Description: @Model.Event.EventDescription</p>
 
                 <br />
-
-        </tr>
-        </td>
-        <th><h4> Point of Contact </h4></th>
-        <tr>
+            </div>
+            <div>
+            <h3> Point of Contact </h3>
             <br />
-            <td>
-                <p class="card-text">Name: @Model.Event.POCName</p>
+            <p class="card-text">Name: @Model.Event.POCName</p>
 
-                <br />
+            <br />
 
-                <p class="card-text">Phone Number: @Model.Event.POCPhone</p>
+            <p class="card-text">Phone Number: @Model.Event.POCPhone</p>
 
-                <br />
+            <br />
 
-                <p class="card-text">Email: @Model.Event.POCEmail</p>
+            <p class="card-text">Email: @Model.Event.POCEmail</p>
 
-                <br />
-            </td>
-        </tr>
-    </table>
-</div>
-@*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
-@if (SignInManager.IsSignedIn(User))
-{
+            <br />
+        </div>
+            </div>
+    </div>
+        @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
+        @if (SignInManager.IsSignedIn(User))
+        {
 
-    var userId = UserManager.GetUserId(User);
-    <form asp-action="ConfirmationPage" method="post">
-        <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
-        <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
+            var userId = UserManager.GetUserId(User);
+<form asp-action="ConfirmationPage" method="post">
+    <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
+    <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
 
+    <center>
         <a asp-action="Index" class="btn btn-outline-dark">
             My Volunteer Dashboard
         </a>
-    </form>
-}
-else
-{
-    <p>You need a volunteer account in order to volunteer at an event.</p>
-    <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
-    <br />
-    <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
-}
+    </center>
+</form>
+        }
+        else
+        {
+            <p>You need a volunteer account in order to volunteer at an event.</p>
+            <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
+            <br />
+            <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
+        }
 
-</div>
 
-@*onclick="return confirm('Are you sure you want to sign up?')"
-    I commented this out because I didn't want to mess with it before adding viewmodels*@
+
+    @*onclick="return confirm('Are you sure you want to sign up?')"
+        I commented this out because I didn't want to mess with it before adding viewmodels*@
