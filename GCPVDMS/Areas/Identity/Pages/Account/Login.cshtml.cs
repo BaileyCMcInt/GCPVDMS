@@ -64,10 +64,10 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
-            else
-            {
-                StatusMessage = "Invalid login attempt";
-            }
+            //else
+            //{
+            //    StatusMessage = "Invalid login attempt";
+            //}
             returnUrl = returnUrl ?? Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
@@ -164,10 +164,10 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                     }
 
                 }
-                else
-                {
-                    ErrorMessage = "Invalid login attempt";
-                }
+                //else
+                //{
+                //    ErrorMessage = "Invalid login attempt";
+                //}
 
             }
 

@@ -47,7 +47,7 @@
                     <td class="text-center">@item.NumberOfHours</td>
                     @if (item.isApproved == true && item.isDenied == false )
                     {
-                        <td class="text-center">Approved</td>
+                        <td class="text-center" style="color:green;">Approved</td>
                     }
                     @if (item.isApproved == false && item.isDenied == false)
                     {
@@ -55,7 +55,7 @@
                     }
                     @if (item.isDenied == true)
                     {
-                        <td class="text-center">Denied</td>
+                        <td class="text-center" style="color:red">Denied</td>
                     }
                 </tr>
                         }

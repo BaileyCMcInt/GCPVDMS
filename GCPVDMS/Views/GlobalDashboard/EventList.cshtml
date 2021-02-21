@@ -14,64 +14,70 @@
 }
 
 <partial name="_GlobalEventTabs" />
-<div class="text-center" style="margin-top: 10px; padding: 13px 0 10px 0;">
-    <a asp-action="Create" class="btn btn-outline-dark">Create New Event</a>
-    <button class="btn btn-outline-dark">Export Data</button>
-    <a asp-action="MasterTask" class="btn btn-outline-dark">Tasks</a>
-</div>
+<body>
+    <div>
+        <br/>
+        <center><h3 style="background-color: #D4EDDA;">Giving Closet Project Events</h3></center>
+        <hr />
+        <div class="text-center" style="margin-top: 10px; padding: 13px 0 10px 0;">
+            <a asp-action="Create" class="btn btn-outline-dark">Create New Event</a>
+            <button class="btn btn-outline-dark">Export Data</button>
+            <a asp-action="MasterTask" class="btn btn-outline-dark">Tasks</a>
+        </div>
 
 
-<br />
+        <br />
 
-<table id="myTable" class="display">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Location</th>
-            <th>Contact</th>
-            <th>Date</th>
-            <th>Spots available</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Events)
-        {
-            <tr>
-                <td>@item.EventTitle</td>
-                <td>@item.Location.LocationName</td>
-                <td>@item.POCName</td>
-                <td>@item.EventDate.ToShortDateString()</td>
-                <td>@item.NumVolunteersNeeded</td>
-                <td>
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th class="text-center">Title</th>
+                    <th class="text-center">Location</th>
+                    <th class="text-center">Contact</th>
+                    <th class="text-center">Date</th>
+                    <th class="text-center">Spots available</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Events)
+                {
+                    <tr>
+                        <td class="text-center">@item.EventTitle</td>
+                        <td class="text-center">@item.Location.LocationName</td>
+                        <td class="text-center">@item.POCName</td>
+                        <td class="text-center">@item.EventDate.ToShortDateString()</td>
+                        <td class="text-center">@item.NumVolunteersNeeded</td>
+                        <td>
 
-                    @*<form asp-action="Delete" method="post">
-                        <a asp-action="Index" class="btn btn-sm btn-warning"
-                           asp-route-eventId="@item.EventID">
-                            Edit
-                        </a>
-                        <input type="hidden" name="ProductID" value="@item.EventID" />
-                        <button type="submit" class="btn btn-danger btn-sm">
-                            Delete
-                        </button>*@
-                    <form method="post">
-                        @*<button class="btn btn-sm btn-light">
-                                View
+                            @*<form asp-action="Delete" method="post">
+                            <a asp-action="Index" class="btn btn-sm btn-warning"
+                               asp-route-eventId="@item.EventID">
+                                Edit
+                            </a>
+                            <input type="hidden" name="ProductID" value="@item.EventID" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Delete
                             </button>*@
-                        <input type="hidden" name="EventID" value="" />
-                        <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
-                           asp-route-eventId="@item.EventID">
-                            View
-                        </a>
-                        <input type="hidden" name="EventID" value=" " />
-                        <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
-                           asp-route-eventId="@item.EventID">
-                            Edit
-                        </a>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+                            <form method="post">
+                                @*<button class="btn btn-sm btn-light">
+                                    View
+                                </button>*@
+                                <input type="hidden" name="EventID" value="" />
+                                <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
+                                   asp-route-eventId="@item.EventID">
+                                    View
+                                </a>
+                                <input type="hidden" name="EventID" value=" " />
+                                <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
+                                   asp-route-eventId="@item.EventID">
+                                    Edit
+                                </a>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
