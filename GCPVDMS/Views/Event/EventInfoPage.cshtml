@@ -10,68 +10,60 @@
 <div class="container">
 <h4>@ViewBag.ErrorMessage</h4>
     <table>
-        <th><h1> @Model.Event.EventTitle </h1></th>
         <tr>
+            <th>
+                <h1> @Model.Event.EventTitle</h1>
+            </th>
             <td>
                 <p class="card-text">Location: @Model.Event.Location.LocationName</p>
 
-                <br />
-
-                </tf><p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
-
-                <br />
+                <p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
 
                 <p class="card-text">Start Time: @Model.Event.StartTime.ToShortTimeString()</p>
 
-                <br />
-
                 <p class="card-text">End Time: @Model.Event.EndTime.ToShortTimeString()</p>
-
-                <br />
 
                 <p class="card-text">Number of Volunteers Needed: @Model.Event.NumVolunteersNeeded</p>
 
-                <br />
-
                 <p class="card-text">Event Description: @Model.Event.EventDescription</p>
 
-                <br />
+            </td>
 
         </tr>
-        </td>
-        <th><h4> Point of Contact </h4></th>
         <tr>
-            <br />
+            <th>
+                <h4> Point of Contact</h4>
+            </th>
             <td>
                 <p class="card-text">Name: @Model.Event.POCName</p>
 
-                <br />
-
                 <p class="card-text">Phone Number: @Model.Event.POCPhone</p>
 
-                <br />
-
                 <p class="card-text">Email: @Model.Event.POCEmail</p>
-
-                <br />
             </td>
         </tr>
     </table>
 </div>
-    @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
-    @if (SignInManager.IsSignedIn(User))
+      @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
+   @if (SignInManager.IsSignedIn(User))
     {
         
-        var userId = UserManager.GetUserId(User);
-<form asp-action="ConfirmationPage" method="post">
-    <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
-    <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
-
-    <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark">
-        Sign-up
-    </button>
-    <button asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">Back to Events</button>
-</form>
+    var userId = UserManager.GetUserId(User);
+    <form asp-action="ConfirmationPage" method="post">
+        <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId" readonly>
+        <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" readonly/>
+        @if (Model.Event.NumVolunteersNeeded - Model.Event.NumVolunteersSignedUp == 0)
+        {
+            <p>This event is full</p>
+        }
+        else
+        {
+            <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark">
+                Sign-up
+            </button>
+        }
+        <button asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">Back to Events</button>
+    </form>
     }
     else
     {
@@ -81,7 +73,7 @@
         <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
     }
 
-</div>
+
 
 @*onclick="return confirm('Are you sure you want to sign up?')"
     I commented this out because I didn't want to mess with it before adding viewmodels*@

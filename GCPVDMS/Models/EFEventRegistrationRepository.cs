@@ -14,7 +14,7 @@ namespace GCPVDMS.Models
 
        
 
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext context;
             public EFEventRegistrationRepository(ApplicationDbContext ctx)
             {
                 context = ctx;

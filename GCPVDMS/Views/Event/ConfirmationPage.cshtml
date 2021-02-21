@@ -12,25 +12,27 @@
     <input type="hidden" asp-for="@Model.EventRegistration.EventID" />
 
     <div class="container">
-        <p>We can't wait to see you at the event!</p>
-        <p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
+        <div class="row">
+            <div class="col-md-4">
+                <p>We can't wait to see you at the event!</p>
+                <p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
 
-        <p class="card-text">Start Time: @Model.Event.StartTime.ToShortTimeString()</p>
+                <p class="card-text">Start Time: @Model.Event.StartTime.ToShortTimeString()</p>
 
-        <p class="card-text">End Time: @Model.Event.EndTime.ToShortTimeString()</p>
+                <p class="card-text">End Time: @Model.Event.EndTime.ToShortTimeString()</p>
 
-        <p class="card-text">Location: @Model.Event.Location.LocationName</p>
-        <br />
+                <p class="card-text">Location: @Model.Event.Location.LocationName</p>
+            </div>
+            <div>
+                <h2> Questions? </h2>
+                <br />
+                <p class="card-text">Contact Name: @Model.EventRegistration.Event.POCName</p>
 
-        <h2> Questions? </h2>
-        <br />
-        <p class="card-text">Contact Name: @Model.EventRegistration.Event.POCName</p>
+                <p class="card-text">Contact Phone Number: @Model.EventRegistration.Event.POCPhone</p>
 
-        <p class="card-text">Contact Phone Number: @Model.EventRegistration.Event.POCPhone</p>
-
-        <p class="card-text">Contact Email: @Model.EventRegistration.Event.POCEmail</p>
-
-        <br />
+                <p class="card-text">Contact Email: @Model.EventRegistration.Event.POCEmail</p>
+            </div>
+        </div>
 
         <div>
             <!--returns user to their volunteer event dashboard after confirming event sign-up-->
