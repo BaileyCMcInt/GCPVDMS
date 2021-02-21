@@ -52,7 +52,7 @@
     <form asp-action="ConfirmationPage" method="post">
         <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId" readonly>
         <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" readonly/>
-        @if (Model.Event.NumVolunteersNeeded - Model.Event.NumVolunteersSignedUp == 0)
+        if (@Model.Event.NumVolunteersNeeded - @Model.Event.NumVolunteersSignedUp == 0)
         {
             <p>This event is full</p>
         }
