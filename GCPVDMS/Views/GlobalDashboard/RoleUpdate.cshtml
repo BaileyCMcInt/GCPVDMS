@@ -21,15 +21,14 @@
         });</script>
 }
 <partial name="_GlobalRoleTabs" />
-<hr />
-
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form method="post">
     <input type="hidden" name="roleName" value="@Model.Role.Name" />
     <input type="hidden" name="roleId" value="@Model.Role.Id" />
 
-    <center><h3 style="background-color: #009E00; color: white">Current @Model.Role.Name</h3></center>
+    <center><h3 style="background-color: #D4EDDA;">Current @Model.Role.Name</h3></center>
+    <hr/>
     <table id="roleTable3" class="display">
         <thead>
             <tr>
@@ -65,7 +64,9 @@
         </tbody>
     </table>
     </br></br>
-    <center><h3 style="background-color: #009E00; color: white">Add User(s) To @Model.Role.Name</h3></center>
+    <hr/>
+    <center><h3 style="background-color: #D4EDDA;">Add User(s) To @Model.Role.Name</h3></center>
+    <hr/>
     <table id="roleTable2" class="display">
         <thead>
             <tr>

@@ -1,7 +1,7 @@
 ﻿@model SignedUpEventsViewModel
 
 @{
-    ViewBag.Title = "GCP Volunteer Events";
+    ViewBag.Title = "The Giving Closet Project's Volunteer Events";
     Layout = "_Layout";
 }
 
@@ -14,7 +14,7 @@
     </script>
 }
 
-<h1>GCP Volunteer Events</h1>
+<h1>The Giving Closet Project's Volunteer Events</h1>
 <p>
     Students, we're glad you're here! The GCP loves having student volunteers! Our student volunteers help
     with filling orders (picking out clothes for students in need), sorting clothes, and organizing at our
@@ -59,7 +59,15 @@
             <td class="text-center">@item.EventDate.ToShortDateString()</td>
             <td class="text-center">@item.EventTitle</td>
             <td class="text-center">@item.Location.LocationName</td>
-            <td class="text-center">@item.NumVolunteersNeeded</td>
+            @if (@item.NumVolunteersNeeded <= 0)
+            {
+                <td class="text-center">None</td>
+            }
+            else
+            {
+                <td class="text-center">@item.NumVolunteersNeeded</td>
+            }
+
             <td class="text-center">
 
 

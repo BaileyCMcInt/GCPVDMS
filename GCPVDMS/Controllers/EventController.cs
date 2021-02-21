@@ -145,7 +145,7 @@ namespace GCPVDMS.Controllers
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "You have already signed up for your event. View this event registration in your volunteer dashboard.";
+                    ViewBag.ErrorMessage = "You have already signed up for this event. You can view this event registration in your volunteer dashboard.";
                     return View("EventInfoPage", viewModel);
                 }
             }
