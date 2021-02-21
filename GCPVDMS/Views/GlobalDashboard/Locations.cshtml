@@ -49,10 +49,10 @@
             <input type="hidden" asp-for="GCPLocationData.LocationID" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-            <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
-            <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
-            <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
-        </div>*@
+                    <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
+                    <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
+                    <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <label asp-for="GCPLocationData.LocationName" class="control-label">Location Name: </label>
                 <input asp-for="GCPLocationData.LocationName" class="form-control" />
@@ -83,34 +83,36 @@
             </div>
         </form>
     </div>
+
+    <table class="styled-table" id="tasktable">
+        <thead>
+            <tr>
+                <th>Location Name</th>
+                <th>Street Address</th>
+                <th>Street Address 2</th>
+                <th>City</th>
+                <th>Zip</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LocationList)
+            {
+                <tr>
+                    <td>@item.LocationName</td>
+                    <td>@item.StreetAddress</td>
+                    <td>@item.StreetAddress2</td>
+                    <td>@item.City</td>
+                    <td>@item.Zip</td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "GCPTaskEdit", new { id = item.GCPTaskID })
+                        </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
-<table class="styled-table" id="tasktable">
-    <thead>
-        <tr>
-            <th>Location Name</th>
-            <th>Street Address</th>
-            <th>Street Address 2</th>
-            <th>City</th>
-            <th>Zip</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.LocationList)
-        {
-            <tr>
-                <td>@item.LocationName</td>
-                <td>@item.StreetAddress</td>
-                <td>@item.StreetAddress2</td>
-                <td>@item.City</td>
-                <td>@item.Zip</td>
-                @*<td>
-                    @Html.ActionLink("Edit", "GCPTaskEdit", new { id = item.GCPTaskID })
-                </td>*@
-            </tr>
-        }
-    </tbody>
-</table>
+
 
 
 @section Scripts {
