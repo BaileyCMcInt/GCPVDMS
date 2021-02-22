@@ -13,26 +13,29 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <p class="card-text">Location: @Model.Event.Location.LocationName</p>
+                <h4> Event Info</h4>
+                <br />
+                <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
 
-                <p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
+                <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
 
-                <p class="card-text">Start Time: @Model.Event.StartTime.ToShortTimeString()</p>
+                <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
 
-                <p class="card-text">End Time: @Model.Event.EndTime.ToShortTimeString()</p>
+                <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
 
-                <p class="card-text">Number of Volunteers Needed: @Model.Event.NumVolunteersNeeded</p>
+                <p class="card-text"><b>Number of Volunteers Needed:</b> @Model.Event.NumVolunteersNeeded</p>
 
-                <p class="card-text">Event Description: @Model.Event.EventDescription</p>
+                <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
 
             </div>
             <div>
                 <h4> Point of Contact</h4>
-                <p class="card-text">Name: @Model.Event.POCName</p>
+                <br/>
+                <p class="card-text"><b>Name:</b> @Model.Event.POCName</p>
 
-                <p class="card-text">Phone Number: @Model.Event.POCPhone</p>
+                <p class="card-text"><b>Phone Number: </b> @Model.Event.POCPhone</p>
 
-                <p class="card-text">Email: @Model.Event.POCEmail</p>
+                <p class="card-text"><b>Email:</b> @Model.Event.POCEmail</p>
 
 
                 <br />
@@ -42,8 +45,8 @@
 
                     var userId = UserManager.GetUserId(User);
                     <form asp-action="ConfirmationPage" method="post">
-                        <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId" readonly>
-                        <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" readonly />
+                        <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId" >
+                        <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
                         @if (Model.Event.NumVolunteersNeeded <= 0)
                         {
                             <p style="color:red;">Sign-up unavailable. This event is full.</p>

@@ -7,53 +7,55 @@
 @inject UserManager<ApplicationUser> UserManager
     <partial name="_VolunteerEventsTab" />
 <br/>
-    <center><h3 style="background-color: #D4EDDA;">@Model.Event.EventTitle</h3></center>
-
+    <center><h3 style="background-color: #D4EDDA;" >@Model.Event.EventTitle</h3></center>
+<br/>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <h3>Event Information</h3>
-                <p class="card-text">Location: @Model.Event.Location.LocationName</p>
+                <br/>
+                <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
 
                 <br />
 
-                <p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
+                <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
 
                 <br />
 
-                <p class="card-text">Start Time: @Model.Event.StartTime.ToShortTimeString()</p>
+                <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
 
                 <br />
 
-                <p class="card-text">End Time: @Model.Event.EndTime.ToShortTimeString()</p>
+                <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
 
                 <br />
 
-                <p class="card-text">Number of Volunteers Needed: @Model.Event.NumVolunteersNeeded</p>
+                <p class="card-text"><b>Number of Volunteers Needed:<</b> @Model.Event.NumVolunteersNeeded</p>
 
                 <br />
 
-                <p class="card-text">Event Description: @Model.Event.EventDescription</p>
+                <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
 
                 <br />
             </div>
             <div>
             <h3> Point of Contact </h3>
             <br />
-            <p class="card-text">Name: @Model.Event.POCName</p>
+            <p class="card-text"><b>Name:</b> @Model.Event.POCName</p>
 
             <br />
 
-            <p class="card-text">Phone Number: @Model.Event.POCPhone</p>
+            <p class="card-text"><b>Phone Number:</b> @Model.Event.POCPhone</p>
 
             <br />
 
-            <p class="card-text">Email: @Model.Event.POCEmail</p>
+            <p class="card-text"><b>Email:</b> @Model.Event.POCEmail</p>
 
             <br />
         </div>
             </div>
     </div>
+<br/>
         @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
         @if (SignInManager.IsSignedIn(User))
         {
