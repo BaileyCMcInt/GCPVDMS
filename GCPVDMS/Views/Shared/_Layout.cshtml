@@ -107,10 +107,10 @@
                     <li class="nav-item">
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            @*@if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
+                            @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
                             {
                                 <img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
-                            }*@
+                            }
                         }
                     </li>
                     <li class="nav-item">
