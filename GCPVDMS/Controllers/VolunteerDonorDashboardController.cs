@@ -143,6 +143,13 @@ namespace GCPVDMS.Controllers
                 //calls repository method to save event to the database
                 repository.SaveVolunteerHour(@volunteerhour);
                 //returns to the myLogged hours page to validate the hours were submitted
+                EventRegistration dbEventReg = context.EventRegistrations
+                .FirstOrDefault(p => p.EventID == volunteerhour.EventID && p.UserId == volunteerhour.UserId);
+                if (dbEventReg != null)
+                {
+                    dbEventReg.isLogged = true;
+                    context.SaveChanges();
+                }
                 return RedirectToAction("MyLoggedHours");
             }
             else
