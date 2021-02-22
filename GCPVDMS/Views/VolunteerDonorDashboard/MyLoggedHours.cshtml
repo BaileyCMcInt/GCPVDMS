@@ -19,8 +19,7 @@
 <body>
 
     <partial name="_VolunteerEventsTab" /><!--This is the html tag for the navigation tabs located in shared folder-->
-    <br />
-    <h3>My Logged Hours</h3>
+    <br />    <center><h3 style="background-color: #D4EDDA;">My Logged Hours</h3></center>
     <div>
         <table id="yourTable" class="table table-bordered table-striped display">
             <!--This table displays the information from the Log My Hours form.-->
@@ -41,23 +40,23 @@
                         var user = UserManager.GetUserId(User);//get signed in user's UserID
                         if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
                         {
-                <tr>
-                    <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
-                    <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                    <td class="text-center">@item.NumberOfHours</td>
-                    @if (item.isApproved == true && item.isDenied == false )
-                    {
-                        <td class="text-center" style="color:green;">Approved</td>
-                    }
-                    @if (item.isApproved == false && item.isDenied == false)
-                    {
-                        <td class="text-center">Pending</td>
-                    }
-                    @if (item.isDenied == true)
-                    {
-                        <td class="text-center" style="color:red">Denied</td>
-                    }
-                </tr>
+                            <tr>
+                                <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                                <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                                <td class="text-center">@item.NumberOfHours</td>
+                                @if (item.isApproved == true && item.isDenied == false)
+                                {
+                                    <td class="text-center" style="color:green;">Approved</td>
+                                }
+                                @if (item.isApproved == false && item.isDenied == false)
+                                {
+                                    <td class="text-center">Pending</td>
+                                }
+                                @if (item.isDenied == true)
+                                {
+                                    <td class="text-center" style="color:red">Denied</td>
+                                }
+                            </tr>
                         }
                     }
                 }
