@@ -11,7 +11,7 @@
 <hr />
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <b>First Name:</b> @Model.FirstName
             <br />
             <br />
@@ -25,7 +25,7 @@
             <br />
             <br />
         </div>
-        <div>
+        <div class="col-md-4">
             <b>Primary Method of Contact:</b> @Model.PreferredContact
             <br />
             <br />
@@ -39,7 +39,20 @@
             <br />
             <br />
         </div>
+        <div class="col-md-3">
+            @if (Model.ProfilePicture != null)
+            {
+
+                <b>User Photo: </b>
+                <img id="profilePicture" style="width:300px;height:300px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
+            }
+            else
+            {
+                <b>User Photo: </b> <p>User does not have a photo.</p>
+            }
+        </div>
+        </div>
     </div>
-</div>
+
             <br />
             <center><a asp-action="viewDonors" class="btn btn-outline-dark">Back to Donor List</a></center>
