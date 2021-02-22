@@ -26,5 +26,7 @@ namespace GCPVDMS.Models
         public bool isApproved { get; set; }
         public bool isDenied { get; set; }
 
+        public string nonEventInfo { get; set; }
+
     }
 }
