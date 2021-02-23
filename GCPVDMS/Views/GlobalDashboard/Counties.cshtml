@@ -1,0 +1,159 @@
+﻿@model GCPVDMS.Models.CountyDTO
+
+@{
+    ViewData["Title"] = "Counties";
+}
+
+<head>
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+            .styled-table thead tr {
+                color: black;
+                text-align: left;
+                border-bottom: 1px solid #dddddd;
+            }
+
+            .styled-table th,
+            .styled-table td {
+                padding: 12px 15px;
+            }
+
+            .styled-table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+
+                .styled-table tbody tr:nth-of-type(odd) {
+                    background-color: #f3f3f3;
+                }
+    </style>
+</head>
+
+<!DOCTYPE html>
+<partial name="_GlobalLocationTabs" />
+<br />
+<center><h3 style="background-color: #D4EDDA;">Giving Closet Project Locations</h3></center>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <a asp-action="" class="btn btn-outline-dark">Add New County</a>
+        <br />
+        <br />
+        <form asp-action="Counties">
+            <input type="hidden" asp-for="CountyData.CountyID" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                    <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
+                    <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
+                    <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <select class="form-control" asp-for="CountyData.CountyState">
+                        <option value="Default">Select State</option>
+                        <option value="Alabama">Alabama</option>
+                        <option value="Alaska">Alaska</option>
+                        <option value="Arizona">Arizona</option>
+                        <option value="Arkansas">Arkansas</option>
+                        <option value="California">California</option>
+                        <option value="Colorado">Colorado</option>
+                        <option value="Connecticut">Connecticut</option>
+                        <option value="Delaware">Delaware</option>
+                        <option value="District of Columbia">District of Columbia</option>
+                        <option value="Florida">Florida</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Guam">Guam</option>
+                        <option value="Hawaii">Hawaii</option>
+                        <option value="Idaho">Idaho</option>
+                        <option value="Illinois">Illinois</option>
+                        <option value="Indiana">Indiana</option>
+                        <option value="Iowa">Iowa</option>
+                        <option value="Kansas">Kansas</option>
+                        <option value="Kentucky">Kentucky</option>
+                        <option value="Louisiana">Louisiana</option>
+                        <option value="Maine">Maine</option>
+                        <option value="Maryland">Maryland</option>
+                        <option value="Massachusetts">Massachusetts</option>
+                        <option value="Michigan">Michigan</option>
+                        <option value="Minnesota">Minnesota</option>
+                        <option value="Mississippi">Mississippi</option>
+                        <option value="Missouri">Missouri</option>
+                        <option value="Montana">Montana</option>
+                        <option value="Nebraska">Nebraska</option>
+                        <option value="Nevada">Nevada</option>
+                        <option value="New Hampshire">New Hampshire</option>
+                        <option value="New Jersey">New Jersey</option>
+                        <option value="New Mexico">New Mexico</option>
+                        <option value="New York">New York</option>
+                        <option value="North Carolina">North Carolina</option>
+                        <option value="North Dakota">North Dakota</option>
+                        <option value="Northern Marianas Islands">Northern Marianas Islands</option>
+                        <option value="Ohio">Ohio</option>
+                        <option value="Oklahoma">Oklahoma</option>
+                        <option value="Oregon">Oregon</option>
+                        <option value="Pennsylvania">Pennsylvania</option>
+                        <option value="Puerto Rico">Puerto Rico</option>
+                        <option value="Rhode Island">Rhode Island</option>
+                        <option value="South Carolina">South Carolina</option>
+                        <option value="South Dakota">South Dakota</option>
+                        <option value="Tennessee">Tennessee</option>
+                        <option value="Texas">Texas</option>
+                        <option value="Utah">Utah</option>
+                        <option value="Vermont">Vermont</option>
+                        <option value="Virginia">Virginia</option>
+                        <option value="Virgin Islands">Virgin Islands</option>
+                        <option value="Washington">Washington</option>
+                        <option value="West Virginia">West Virginia</option>
+                        <option value="Wisconsin">Wisconsin</option>
+                        <option value="Wyoming">Wyoming</option>
+                    </select>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountyData.CountyName" class="control-label">Location Name: </label>
+                <input asp-for="CountyData.CountyName" class="form-control" />
+                <span asp-validation-for="CountyData.CountyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <center><input type="submit" value="Save" class="btn btn-outline-dark" /></center>
+            </div>
+        </form>
+    </div>
+
+    <table class="styled-table" id="countytable">
+        <thead>
+            <tr>
+                <th>County</th>
+                <th>State</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CountyList)
+            {
+                <tr>
+                    <td>@item.CountyName</td>
+                    <td>@item.CountyState</td>
+                    <td>
+                        @Html.ActionLink("Edit", "CountyEdit", new { id = item.CountyID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,4 +1,6 @@
-﻿@model GCPVDMS.Models.ViewModels.CreateEventViewModel
+﻿EventForm.cshtml
+
+@model GCPVDMS.Models.ViewModels.CreateEventViewModel
 
 @{
     ViewBag.Title = "Edit Event";
@@ -18,156 +20,117 @@
 <!DOCTYPE html>
 <partial name="_GlobalEventTabs" />
 
+
 <body>
-    <br/>
-    <center><h3 style="background-color: #D4EDDA;">New Event Form</h3></center>
+
+    <h1> Event </h1>
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    <div class="container">
+
+    <form asp-action="EventForm" method="post">
         <div class="row">
-
-            <div class="col px-md-5">
-
-                <form asp-action="EventForm" method="post">
-                    <input type="hidden" asp-for="Event.EventID" />
+            @*<div class="col px-md-5">*@
+            <div class="col-md-6">
 
 
-                    @*<select name="County" id="County">
-                            <option value="county">County</option>
-                            <option value="Duval">Duval</option>
-                            <option value="Palm Beach">Palm Beach</option>
-                            <option value="Other">Other</option>
-                        </select>
+                <input type="hidden" asp-for="Event.EventID" />
 
-                        <br />
-                        <br />
-                    *@
-                    <div class="form-group">
-                        <select class="form-control" asp-for="@Model.Event.LocationID">
+                <div class="form-group">
+                    <select class="form-control" asp-for="@Model.Event.LocationID">
 
-                            @foreach (var location in Model.Locations)
-                            {
-                                <option value="@location.LocationID">@location.LocationName</option>
+                        @foreach (var location in Model.Locations)
+                        {
+                            <option value="@location.LocationID">@location.LocationName</option>
 
-                            }
+                        }
 
-                        </select>
-                    </div>
-
-                    </tr>
-
-                    @*<option value=" " selected>Location</option>
-                        <option value="1">Mandarin</option>
-                        <option value="2">MLK Elementary</option>
-                        <option value="3">Palm Beach</option>
-                        <option value="5">Offsite Duval</option>
-                        <option value="6">Offsite Palm Beach</option>*@
                     </select>
-
-                    <br />
-                    <br />
+                </div>
 
 
-                    <div class="form-group">
-                        <label asp-for="Event.EventDate">Event Date: </label>
-                        <input asp-for="Event.EventDate" class="form-control">
-                    </div>
+                <div class="form-group">
+                    <label asp-for="Event.EventDate">Event Date: </label>
+                    <input asp-for="Event.EventDate" class="form-control">
+                </div>
 
-                    <br />
+                <div class="form-group">
+                    <label asp-for="Event.StartTime">Start Time: </label>
+                    <input asp-for="Event.StartTime" type="time" class="form-control">
+                </div>
 
-                    <div class="form-group">
-                        <label asp-for="Event.StartTime">Start Time: </label>
-                        <input asp-for="Event.StartTime" type="time" min="06:00" max="18:00" class="form-control">
-                    </div>
-
-                    <br />
-
-                    <div class="form-group">
-                        <label asp-for="Event.EndTime">End Time: </label>
-                        <input asp-for="Event.EndTime" type="time" min="06:00" max="18:00" class="form-control">
-                    </div>
-
-                    <br />
+                <div class="form-group">
+                    <label asp-for="Event.EndTime">End Time: </label>
+                    <input asp-for="Event.EndTime" type="time" class="form-control">
+                </div>
 
 
-                    <div class="form-group">
-                        <label asp-for="Event.NumVolunteersNeeded">Number of Volunteers Needed: </label>
-                        <input asp-for="Event.NumVolunteersNeeded" min="1" class="form-control">
-                    </div>
-
-                    <br />
-
-                    <div class="form-group">
-                        <label asp-for="Event.EventTitle">Event Title: </label>
-                        <input asp-for="Event.EventTitle" class="form-control">
-                    </div>
-
-                    <br />
-                    <br />
-
-                    <div class="form-group">
-                        <label asp-for="Event.EventDescription">Description: </label>
-                        <textarea rows="4" cols="50" asp-for="Event.EventDescription" class="form-control"></textarea>
-                    </div>
-
-                    <br />
-
-                    <h4> Point of Contact </h4>
-
-                    <div class="form-group">
-                        <label asp-for="Event.POCName">Name: </label>
-                        <input asp-for="Event.POCName" class="form-control">
-                    </div>
-
-                    <br />
-
-                    <div class="form-group">
-                        <label asp-for="Event.POCPhone">Phone: </label>
-                        <input asp-for="Event.POCPhone" class="form-control">
-                    </div>
-
-                    <br />
-                    <div class="form-group">
-                        <label asp-for="Event.POCEmail">Email: </label>
-                        <input asp-for="Event.POCEmail" class="form-control">
-                    </div>
-
-                    <br />
-
-                    <div class="form-group">
-                        <input asp-for="Event.isEventActive" class="custom-checkbox">
-                        <label>Event Active</label>
-                    </div>
-
-                    <br />
-                    <div>
-                        <button class="btn btn-outline-dark" type="submit">Save Event</button> <a asp-action="EventList" class="btn btn-outline-dark">Cancel</a>
-                    </div>
-                </form>
-            </div>
+                <div class="form-group">
+                    <label asp-for="Event.NumVolunteersNeeded">Number of Volunteers Needed: </label>
+                    <input asp-for="Event.NumVolunteersNeeded" min="1" class="form-control">
+                </div>
 
 
-            <div class="col col-md-3">
+                <div class="form-group">
+                    <label asp-for="Event.EventTitle">Event Title: </label>
+                    <input asp-for="Event.EventTitle" class="form-control">
+                </div>
 
-                <h2>Tasks</h2>
 
-                @foreach (var item in Model.GCPTasks)
-                {
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"
-                                   name="SelectedFruits"
-                                   value="@item.GCPTaskID"
-                                   id="@item.GCPTaskID" /> @item.TaskName
-                            </label>
-                        </div>
-                    }
+                <div class="form-group">
+                    <label asp-for="Event.EventDescription">Description: </label>
+                    <textarea rows="4" cols="50" asp-for="Event.EventDescription" class="form-control"></textarea>
+                </div>
+
+
+                <h4> Point of Contact </h4>
+
+                <div class="form-group">
+                    <label asp-for="Event.POCName">Name: </label>
+                    <input asp-for="Event.POCName" class="form-control">
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="Event.POCPhone">Phone: </label>
+                    <input asp-for="Event.POCPhone" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Event.POCEmail">Email: </label>
+                    <input asp-for="Event.POCEmail" class="form-control">
+                </div>
+
+
+                <div class="form-group">
+                    <input asp-for="Event.isEventActive" class="custom-checkbox">
+                    <label>Event Active</label>
+                </div>
 
             </div>
+            <div class="col-md-6 justify-content-end">
+                <div class="form-group">
 
+                    <h2>Tasks</h2>
+
+
+                    @foreach (var item in Model.GCPTasks)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       name="selectedTasks"
+                                       value="@item.GCPTaskID"
+                                       id="@item.GCPTaskID" /> @item.TaskName
+                                </label>
+                            </div>
+                        }
+                </div>
+            </div>
         </div>
-
-    </div>
+        <div>
+            <button class="btn btn-primary" type="submit">Save Event</button> <a asp-action="EventList" class="btn btn-outline-dark">Cancel</a>
+        </div>
+    </form>
 
 </body>

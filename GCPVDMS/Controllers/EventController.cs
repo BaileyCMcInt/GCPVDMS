@@ -99,9 +99,6 @@ namespace GCPVDMS.Controllers
         //            .FirstOrDefault(p => p.EventID == eventId));
 
         [HttpPost]
-        //this method saves the event after creating a new event or updating an existing event
-        //SaveEvent() is in EFEventRepository.cs. 
-        //After saving, redirects to the table of Events. 
         public IActionResult ConfirmationPage(EventRegistration eventRegistration, int eventId, string Id)
         {
             var counter = 0;
