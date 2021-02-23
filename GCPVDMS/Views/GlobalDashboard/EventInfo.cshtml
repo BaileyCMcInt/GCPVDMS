@@ -4,42 +4,56 @@
     ViewBag.Title = "Event Info";
     Layout = "_Layout";
 }
-
+<html>
+=
+<body>
     <partial name="_GlobalEventTabs" />
-<br/>
-<center><h3 style="background-color: #D4EDDA;">@Model.Event.EventTitle</h3></center>
+    <br />
+    <center><h3 style="background-color: #D4EDDA;">@Model.Event.EventTitle</h3></center>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <h3>Event Information</h3>
-            <br/>
-            <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
-
-            <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
-
-            <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
-
-            <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
-
-            <p class="card-text"><b>Number of Volunteers Needed:</b> @Model.Event.NumVolunteersNeeded</p>
-
-
-            <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
-
-
-            <p class="card-text"><b>Event is active:</b> @Model.Event.isEventActive</p>
-
-        </div>
+    <div class="container">
         <div>
-            <h3> Point of Contact </h3>
-            <br/>
-            <p class="card-text"><b>Name:</b> @Model.Event.POCName</p>
-            <p class="card-text"><b>Phone Number:</b> @Model.Event.POCPhone</p>
+            <div class="row">
+                <div class="col-md-5">
+                    <br />
+                    <h4>Event Information</h4>
+                    <br />
+                    <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
 
 
-            <p class="card-text"><b>Email:</b> @Model.Event.POCEmail</p>
-            <br/>
+                    <p class="card-text"><b>Number of Volunteers Needed:</b> @Model.Event.NumVolunteersNeeded</p>
+
+
+                    <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
+
+
+                    <p class="card-text"><b>Event is active:</b> @Model.Event.isEventActive</p>
+
+                </div>
+                <div class="col-md-3">
+                    <br />
+                    <h4>Date and Time</h4>
+                    <br />
+                    <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
+
+                    <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
+
+                    <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
+                </div>
+                <div class="col-md-4">
+                    <br />
+                    <h4> Point of Contact </h4>
+                    <br />
+                    <p class="card-text"><b>Name:</b> @Model.Event.POCName</p>
+                    <p class="card-text"><b>Phone Number:</b> @Model.Event.POCPhone</p>
+
+
+                    <p class="card-text"><b>Email:</b> @Model.Event.POCEmail</p>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <center>
             <div>
                 <a asp-action="EventList" class="btn btn-outline-dark">Back To Events</a>
                 <a asp-action="EventForm" class="btn btn-outline-dark"
@@ -47,7 +61,7 @@
                     Edit
                 </a>
             </div>
+        </center>
         </div>
-        </div>
-    </div>
-
+</body>
+</html>
