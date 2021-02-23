@@ -8,7 +8,7 @@
     event stuff on your dashboard.-->
 <html>
 <body>
-    <partial name="_VolunteerEventsTab" /><!--This is the html tag for the navigation tabs located in shared folder-->
+    <partial name="_VolunteerHoursTab" /><!--This is the html tag for the navigation tabs located in shared folder-->
 
     <div>
         <br />
@@ -16,11 +16,16 @@
             <center><h3 style="background-color: #D4EDDA;">Log Hours Request Form</h3></center>
             <input type="hidden" asp-for="VolunteerHour.VolunteerHourID" />
             <div class="form-group">
+                <label asp-for="VolunteerHour.Date">Date of Request</label>
+                <input type="text" asp-for="VolunteerHour.Date" class="form-control" style="width: 20%" value="@DateTime.Now" required readonly><!--The user inputs the date that the event was worked.-->
+            </div>
+            <br />
+            <div class="form-group">
                 <label asp-for="@Model.Event.EventID">Select From Your Registered Events</label>
 
                 <div class="form-group">
 
-                    <select class="form-control" asp-for="@Model.VolunteerHour.EventID">
+                    <select class="form-control" asp-for="@Model.VolunteerHour.EventID" id="EventDropdown" style="width: 40%">
                         <option value="null">Select Event</option>
                         @foreach (var _event in Model.EventRegistrations)
                         {
@@ -49,18 +54,13 @@
                 </p>
                 <p id="NonEvent" style="display:none">
                     Provide a brief description of the volunteer work you've done.<br />
-                    <textarea id="textarea" name="textarea" rows="5" cols="100" required disabled></textarea>
+                    <textarea id="textarea" name="textarea" rows="5" cols="75" required disabled></textarea>
                 </p>
             </div>
             <br />
             <div class="form-group">
-                <label asp-for="VolunteerHour.Date">Date of Request</label>
-                <input type="date" asp-for="VolunteerHour.Date" asp-format="{0:dd/MM/yyyy}" class="form-control" required><!--The user inputs the date that the event was worked.-->
-            </div>
-            <br />
-            <div class="form-group">
                 <label asp-for="VolunteerHour.NumberOfHours">Number of Hours</label>
-                <input asp-for="VolunteerHour.NumberOfHours" min="1" max="24" class="form-control" required><!--The user inputs the number of hours they worked at the event.-->
+                <input type="number" asp-for="VolunteerHour.NumberOfHours" min="0.5" max="24" class="form-control" style="width: 10%" placeholder="0.00" value="" required><!--The user inputs the number of hours they worked at the event.-->
             </div>
             @if (SignInManager.IsSignedIn(User))
             {
@@ -74,9 +74,9 @@
             <br />
 
 
-            <div style="text-align: center">
+            <div style="text-align: left">
                 <button class="btn btn-outline-dark" type="submit">Submit Form</button><!--This button allows the user tp submit the form.-->
-                <a asp-action="Index" class="btn btn-outline-dark">Cancel</a><!--This button allows the user to cancel their form submission and redirects them to the Volunteer Dashbaord home page.-->
+                <a asp-action="MyLoggedHours" class="btn btn-outline-dark">Cancel</a><!--This button allows the user to cancel their form submission and redirects them to the My Logged Hours View.-->
             </div>
         </form>
             </div>

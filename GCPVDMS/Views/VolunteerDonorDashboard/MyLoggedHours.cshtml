@@ -15,11 +15,13 @@
     </script>
 }
 
+<partial name="_VolunteerHoursTab" /><!--This is the html tag for the navigation tabs-->
 <html>
 <body>
 
-    <partial name="_VolunteerEventsTab" /><!--This is the html tag for the navigation tabs located in shared folder-->
+
     <br />    <center><h3 style="background-color: #D4EDDA;">My Logged Hours</h3></center>
+
     <div>
         <table id="yourTable" class="table table-bordered table-striped display">
             <!--This table displays the information from the Log My Hours form.-->
@@ -46,7 +48,9 @@
                                 <td class="text-center">@item.NumberOfHours</td>
                                 @if (item.isApproved == true && item.isDenied == false)
                                 {
+
                                     <td class="text-center" style="color:green;">Approved</td>
+
                                 }
                                 @if (item.isApproved == false && item.isDenied == false)
                                 {
@@ -54,7 +58,9 @@
                                 }
                                 @if (item.isDenied == true)
                                 {
+
                                     <td class="text-center" style="color:red">Denied</td>
+
                                 }
                             </tr>
                         }
@@ -88,43 +94,50 @@
 
             <h1 style="text-align:center">Volunteer Work Hours</h1>
             <div>
-                <table id="yourTable" class="table table-bordered table-striped display">
-                    <!--This table displays the information from the Log My Hours form, minus the status column.-->
-                    <thead style="width: 50px">
-                        <tr>
-                            <th class="text-center">Date</th>
-                            <th class="text-center">Event</th>
-                            <th class="text-center">Hours Worked</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>00/00/0000</td>
-                            <td>GCP Event</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td>00/00/0000</td>
-                            <td>GCP Event</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td>00/00/0000</td>
-                            <td>GCP Event</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td>00/00/0000</td>
-                            <td>GCP Event</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td>00/00/0000</td>
-                            <td>GCP Event</td>
-                            <td>5</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div>
+        <table id="yourTable" class="table table-bordered table-striped display">
+            <!--This table displays the information from the Log My Hours form.-->
+            <thead style="width: 50px">
+                <tr>
+                    <th class="text-center">Date</th>
+                    <th class="text-center">Event</th>
+                    <th class="text-center">Hours Worked</th>
+                    <th class="text-center">Approval Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!----This loop utilizes the ViewModel tagged in this page to retrieve logged hour data for a specific volunteer.-->
+                @foreach (var item in Model.VolunteerHours)//loops through volunteerHour table data
+                {
+                    @if (SignInManager.IsSignedIn(User))//checks that user is Signed in
+                    {
+                        var user = UserManager.GetUserId(User);//get signed in user's UserID
+                        if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
+                        {
+                            <tr>
+                                @if (item.isApproved == true && item.isDenied == false)
+                                {
+                                <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                                <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                                <td class="text-center">@item.NumberOfHours</td>
+
+                                    <td class="text-center">Approved</td>
+                                }
+                                @*@if (item.isApproved == false && item.isDenied == false)
+                                {
+                                    <td class="text-center">Pending</td>
+                                }
+                                @if (item.isDenied == true)
+                                {
+                                    <td class="text-center">Denied</td>
+                                }*@
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
 
                 <br />
                 <br />
