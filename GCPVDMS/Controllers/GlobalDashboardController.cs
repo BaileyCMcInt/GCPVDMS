@@ -54,13 +54,9 @@ namespace GCPVDMS.Controllers
             return View(viewModel);
         }
 
-        //this is the old EventForm before we had the CreateEventViewModel.
-        //public ViewResult EventForm(int eventId) =>
-        //    View(repository.Events
-        //        .FirstOrDefault(p => p.EventID == eventId));
 
         [Authorize(Roles = "Global Admin")]
-        //this method updates the event. When the admin clicks edit this method is called.
+        //When the admin clicks edit on an existing event this method is called.
         //Prefills the Event form with the event info
         public ViewResult EventForm(int eventId)
         {
@@ -111,7 +107,6 @@ namespace GCPVDMS.Controllers
         //Method for creating a new event. The form will be blank.
         //TODO: The Tasks display in the Tasks column. Need to have them save to the GCPEventTask table.
         [Authorize(Roles = "Global Admin")]
-        //public ViewResult Create() => View("~/Views/GlobalDashboard/EventForm.cshtml", new Event()); //old version
         public ViewResult Create(int id)
         {
             var eventCreate = new Event();
@@ -170,6 +165,7 @@ namespace GCPVDMS.Controllers
         //    context.SaveChanges();
         //    return RedirectToAction("MasterTask");
         //}
+
         //This method allows the admin to edit an existing task
         [Authorize(Roles = "Global Admin")]
         [HttpGet]
@@ -186,15 +182,113 @@ namespace GCPVDMS.Controllers
 
         //the following methods are related to LOCATION and COUNTY MODELS utilized on the Locations tab of the dashboard
 
+        //This method allows the admin to add a new location
+        [Authorize(Roles = "Global Admin")]
+        [HttpPost]
+        public IActionResult Locations(LocationDTO Location)
+        {
+            if (Location.GCPLocationData.LocationID == 0)
+            {
+                context.Locations.Add(Location.GCPLocationData);
+            }
+            else
+            {
+                Location dbEntry = context.Locations
+                .FirstOrDefault(p => p.LocationID == Location.GCPLocationData.LocationID);
+                if (dbEntry != null)
+                {
+                    dbEntry.LocationName = Location.GCPLocationData.LocationName;
+                    dbEntry.StreetAddress = Location.GCPLocationData.StreetAddress;
+                    dbEntry.StreetAddress2 = Location.GCPLocationData.StreetAddress2;
+                    dbEntry.City = Location.GCPLocationData.City;
+                    dbEntry.Zip = Location.GCPLocationData.Zip;
+                    dbEntry.CountyID = Location.GCPLocationData.CountyID;
+                }
+            }
+            context.SaveChanges();
+            return RedirectToAction("Locations");
+        }
+
+
+        //provides list of locations in the location table
         [Authorize(Roles = "Global Admin")]
         [HttpGet]
         public IActionResult Locations()
         {
             var gcpLocation = new LocationDTO()
             {
-                LocationList = context.Locations.ToList()
+                LocationList = context.Locations.ToList(),
+                Counties = context.Counties.ToList()
             };
             return View(gcpLocation);
+        }
+
+        //This method allows the admin to edit an existing location
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult LocationEdit(int id)
+        {
+
+            var locationdata = new LocationDTO()
+            {
+                LocationList = context.Locations.ToList(),
+                GCPLocationData = context.Locations.FirstOrDefault(a => a.LocationID == id),
+                Counties = context.Counties.ToList()
+
+            };
+            return View("Locations", locationdata);
+        }
+
+
+        //This method allows the admin to add a new county
+        [Authorize(Roles = "Global Admin")]
+        [HttpPost]
+        public IActionResult Counties(CountyDTO County)
+        {
+            if (County.CountyData.CountyID == 0)
+            {
+                context.Counties.Add(County.CountyData);
+            }
+            else
+            {
+                County dbEntry = context.Counties
+                .FirstOrDefault(p => p.CountyID == County.CountyData.CountyID);
+                if (dbEntry != null)
+                {
+                    dbEntry.CountyName = County.CountyData.CountyName;
+                    dbEntry.CountyState = County.CountyData.CountyState;
+                }
+            }
+            context.SaveChanges();
+            return RedirectToAction("Counties");
+        }
+
+        //provides list of counties in the counties table
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult Counties()
+        {
+            var gcpCounty = new CountyDTO()
+            {
+                CountyList = context.Counties.ToList()
+            };
+            return View(gcpCounty);
+        }
+
+        //This method allows the admin to edit an existing county
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult CountyEdit(int id)
+        {
+
+            var countydata = new CountyDTO()
+            {
+
+                CountyList = context.Counties.ToList(),
+                CountyData = context.Counties.FirstOrDefault(a => a.CountyID == id)
+
+            };
+            return View("Counties", countydata);
         }
 
 

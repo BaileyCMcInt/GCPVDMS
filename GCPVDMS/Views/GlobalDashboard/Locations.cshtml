@@ -43,14 +43,29 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="MasterTask">
+        <a asp-action="Counties" class="btn btn-outline-dark">Add New County</a>
+        <br />
+        <br />
+        <form asp-action="Locations">
             <input type="hidden" asp-for="GCPLocationData.LocationID" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-                    <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
-                    <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
-                    <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
-                </div>*@
+                <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
+                <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
+                <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <select class="form-control" asp-for="GCPLocationData.CountyID">
+
+                    @foreach (var county in Model.Counties)
+                    {
+                        <option value="@county.CountyID">@county.CountyName</option>
+
+                    }
+
+                </select>
+            </div>
+
             <div class="form-group">
                 <label asp-for="GCPLocationData.LocationName" class="control-label">Location Name: </label>
                 <input asp-for="GCPLocationData.LocationName" class="form-control" />
@@ -77,12 +92,12 @@
                 <span asp-validation-for="GCPLocationData.Zip" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <center><input type="submit" value="Create" class="btn btn-outline-dark" /></center>
+                <center><input type="submit" value="Save" class="btn btn-outline-dark" /></center>
             </div>
         </form>
     </div>
 
-    <table class="styled-table" id="tasktable">
+    <table class="styled-table" id="locationtable">
         <thead>
             <tr>
                 <th>Location Name</th>
@@ -90,6 +105,7 @@
                 <th>Street Address 2</th>
                 <th>City</th>
                 <th>Zip</th>
+                <th>County</th>
             </tr>
         </thead>
         <tbody>
@@ -101,9 +117,10 @@
                     <td>@item.StreetAddress2</td>
                     <td>@item.City</td>
                     <td>@item.Zip</td>
-                    @*<td>
-                            @Html.ActionLink("Edit", "GCPTaskEdit", new { id = item.GCPTaskID })
-                        </td>*@
+                    <td>@item.County.CountyName</td>
+                    <td>
+                        @Html.ActionLink("Edit", "LocationEdit", new { id = item.LocationID })
+                    </td>
                 </tr>
             }
         </tbody>
