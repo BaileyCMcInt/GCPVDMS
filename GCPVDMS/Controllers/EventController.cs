@@ -47,10 +47,13 @@ namespace GCPVDMS.Controllers
                 //EventRegistration = myEvent,
                 Event = context.Events
                     .Include(i => i.Location)
+                    //.Where(x => x.isEventActive == true && x.EventDate > DateTime.Now),
                     .FirstOrDefault(x => x.EventID == eventId),
-                Events = context.Events.ToList(),
+                Events = context.Events.Where(x => x.isEventActive == true && x.EventDate > DateTime.Now).ToList(),
                 Locations = context.Locations.ToList()
             };
+            
+
             //Returns viewModel object with EventRegistration data
             return View(viewModel);
         }
