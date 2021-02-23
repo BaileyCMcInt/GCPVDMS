@@ -46,7 +46,7 @@
                     <td>
                         <center>
                             <form asp-action="HoursApproval" asp-route-id="@item.VolunteerHourID" method="post">
-                                <button type="submit" name="approve" value="approve" class="btn btn-sm btn-outline-dark" onclick="return confirm('Are you sure you want to approve these volunteer hours?')">
+                                <button type="submit" name="approve" value="approve" class="btn btn-sm btn-outline-success" onclick="return confirm('Are you sure you want to approve these volunteer hours?')">
                                     Approve
                                 </button>
                                 <button type="submit" name="approve" value="deny" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to deny these volunteer hours?')">

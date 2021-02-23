@@ -6,76 +6,106 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-
-<div class="container">
+<html>
+<head>
+    <style>
+        .myDiv {
+            border: 2px outset #D4EDDA;
+            background-color: #D4EDDA1C;
+            border-radius: 15px;
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <br />
 
     <h1> @Model.Event.EventTitle</h1>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h4> Event Info</h4>
-                <br />
-                <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
+    <div class="myDiv">
+        <br />
+        <div class="container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
 
-                <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
+                        <h4> Event Info</h4>
+                        <br />
+                        <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
+                        <p class="card-text"><b>Number of Volunteers Needed:</b> @Model.Event.NumVolunteersNeeded</p>
 
-                <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
+                        <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
 
-                <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Date and Time</h4>
+                        <br />
+                        <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
 
-                <p class="card-text"><b>Number of Volunteers Needed:</b> @Model.Event.NumVolunteersNeeded</p>
+                        <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
 
-                <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
+                        <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
 
+                    </div>
+                    <div class="col-md-3">
+                        <h4> Point of Contact</h4>
+                        <br />
+                        <p class="card-text"><b>Name:</b> @Model.Event.POCName</p>
+
+                        <p class="card-text"><b>Phone Number: </b> @Model.Event.POCPhone</p>
+
+                        <p class="card-text"><b>Email:</b> @Model.Event.POCEmail</p>
+
+
+                        <br />
+                        @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
+                        <br />
+
+
+                    </div>
+
+                </div>
             </div>
-            <div>
-                <h4> Point of Contact</h4>
-                <br/>
-                <p class="card-text"><b>Name:</b> @Model.Event.POCName</p>
 
-                <p class="card-text"><b>Phone Number: </b> @Model.Event.POCPhone</p>
+        </div>
+        <br />
+    </div>
+    <br />
+    <center>
+        @if (SignInManager.IsSignedIn(User))
+        {
 
-                <p class="card-text"><b>Email:</b> @Model.Event.POCEmail</p>
-
-
-                <br />
-                @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
-                @if (SignInManager.IsSignedIn(User))
+            var userId = UserManager.GetUserId(User);
+            <form asp-action="ConfirmationPage" method="post">
+                <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
+                <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
+                @if (Model.Event.NumVolunteersNeeded <= 0)
                 {
-
-                    var userId = UserManager.GetUserId(User);
-                    <form asp-action="ConfirmationPage" method="post">
-                        <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId" >
-                        <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
-                        @if (Model.Event.NumVolunteersNeeded <= 0)
-                        {
-                            <p style="color:red;">Sign-up unavailable. This event is full.</p>
-                            <button name="eventId" disabled value="@Model.Event.EventID" class="btn btn-outline-dark">
-                                Sign-up
-                            </button>
-                        }
-                        else
-                        {
-                            <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark">
-                                Sign-up
-                            </button>
-                        }
-                        <button asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">Back to Events</button>
-                    </form>
+                    <p style="color:red;">Sign-up unavailable. This event is full.</p>
+                    <button name="eventId" disabled value="@Model.Event.EventID" class="btn btn-outline-dark">
+                        Sign-up
+                    </button>
                 }
                 else
                 {
-                    <p>You need a volunteer account in order to volunteer at an event.</p>
-                    <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
-                    <br />
-                    <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
+                    <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark">
+                        Sign-up
+                    </button>
                 }
+                <button asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">Back to Events</button>
+            </form>
+        }
+        else
+        {
+            <p>You need a volunteer account in order to volunteer at an event.</p>
+            <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
+            <br />
+            <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
+        }
 
-            </div>
-        </div>
-    </div>
-</div>
-<br/>
-<h5 style="color:red">@ViewBag.ErrorMessage</h5>
+        <h5 style="color:red">@ViewBag.ErrorMessage</h5>
+    </center>
+
+</body>
+</html>
 @*onclick="return confirm('Are you sure you want to sign up?')"
     I commented this out because I didn't want to mess with it before adding viewmodels*@
