@@ -10,12 +10,10 @@
 <body>
     <partial name="_VolunteerHoursTab" /><!--This is the html tag for the navigation tabs located in shared folder-->
 
-    <br />
     <div>
-        <h3>Log Hours Request Form</h3>
         <br />
         <form asp-action="LogMyHours" method="post">
-
+            <center><h3 style="background-color: #D4EDDA;">Log Hours Request Form</h3></center>
             <input type="hidden" asp-for="VolunteerHour.VolunteerHourID" />
             <div class="form-group">
                 <label asp-for="VolunteerHour.Date">Date of Request</label>
@@ -35,7 +33,7 @@
                             {
 
                                 var userId = UserManager.GetUserId(User);
-                                if (_event.UserId == userId)
+                                if (_event.UserId == userId && _event.isLogged == false)
                                 {
                                     <option value="@_event.EventID">@_event.Event.EventTitle</option>
                                 }

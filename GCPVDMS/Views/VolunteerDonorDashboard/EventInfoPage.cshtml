@@ -5,82 +5,77 @@
 }
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+    <html>
+
+    <body>
+        <partial name="_VolunteerEventsTab" />
+        <br />
+        <center><h3 style="background-color: #D4EDDA;">@Model.Event.EventTitle</h3></center>
+        <br />
+        <div>
+            <div class="row">
+                <div class="col-md-5">
+                    <h4>Event Information</h4>
+                    <br />
+                    <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
+
+                    <p class="card-text"><b>Number of Volunteers Needed:</b> @Model.Event.NumVolunteersNeeded</p>
+
+                    <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
+
+                    <br />
+                </div>
+                <div class="col-md-3">
+                    <h4>Date and Time</h4>
+                    <br/>
+                    <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
+
+                    <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
+
+                    <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
+                </div>
+                <div class="col-md-3">
+                    <h4> Point of Contact </h4>
+                    <br />
+                    <p class="card-text"><b>Name:</b> @Model.Event.POCName</p>
 
 
-<div class="container">
-    <h4>@ViewBag.ErrorMessage</h4>
-    <table>
-        <th><h1> @Model.Event.EventTitle </h1></th>
-        <tr>
-            <td>
-                <p class="card-text">Location: @Model.Event.Location.LocationName</p>
+                    <p class="card-text"><b>Phone Number:</b> @Model.Event.POCPhone</p>
 
-                <br />
 
-                </tf><p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
+                    <p class="card-text"><b>Email:</b> @Model.Event.POCEmail</p>
 
-                <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+        @*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
+        @if (SignInManager.IsSignedIn(User))
+        {
 
-                <p class="card-text">Start Time: @Model.Event.StartTime.ToShortTimeString()</p>
+            var userId = UserManager.GetUserId(User);
+            <form asp-action="ConfirmationPage" method="post">
+                <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
+                <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
 
-                <br />
-
-                <p class="card-text">End Time: @Model.Event.EndTime.ToShortTimeString()</p>
-
-                <br />
-
-                <p class="card-text">Number of Volunteers Needed: @Model.Event.NumVolunteersNeeded</p>
-
-                <br />
-
-                <p class="card-text">Event Description: @Model.Event.EventDescription</p>
-
-                <br />
-
-        </tr>
-        </td>
-        <th><h4> Point of Contact </h4></th>
-        <tr>
+                <center>
+                    <a asp-action="Index" class="btn btn-outline-dark">
+                        My Volunteer Dashboard
+                    </a>
+                </center>
+            </form>
+        }
+        else
+        {
+            <p>You need a volunteer account in order to volunteer at an event.</p>
+            <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
             <br />
-            <td>
-                <p class="card-text">Name: @Model.Event.POCName</p>
+            <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
+        }
 
-                <br />
 
-                <p class="card-text">Phone Number: @Model.Event.POCPhone</p>
 
-                <br />
-
-                <p class="card-text">Email: @Model.Event.POCEmail</p>
-
-                <br />
-            </td>
-        </tr>
-    </table>
-</div>
-@*<asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return confirm('Are you sure?')" /> *@
-@if (SignInManager.IsSignedIn(User))
-{
-
-    var userId = UserManager.GetUserId(User);
-    <form asp-action="ConfirmationPage" method="post">
-        <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
-        <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
-
-        <a asp-action="Index" class="btn btn-outline-dark">
-            My Volunteer Dashboard
-        </a>
-    </form>
-}
-else
-{
-    <p>You need a volunteer account in order to volunteer at an event.</p>
-    <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
-    <br />
-    <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
-}
-
-</div>
-
-@*onclick="return confirm('Are you sure you want to sign up?')"
-    I commented this out because I didn't want to mess with it before adding viewmodels*@
+        @*onclick="return confirm('Are you sure you want to sign up?')"
+            I commented this out because I didn't want to mess with it before adding viewmodels*@
+        </body>
+</html>

@@ -16,7 +16,7 @@
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form method="post">
-    <center><h3 style="background-color: #009E00; color: white">GCP Donors</h3></center>
+    <center><h3 style="background-color: #D4EDDA;">Giving Closet Project Donors</h3></center>
     <hr />
     <table id="volunteerTable" class="display">
         <thead>
@@ -24,6 +24,7 @@
                 <th><center>First Name </center></th>
                 <th><center>Last Name </center></th>
                 <th><center>Email</center></th>
+                <th><center>County</center></th>
                 <th><center>Actions </center></th>
             </tr>
         </thead>
@@ -38,6 +39,7 @@
                 <td><center>@user.FirstName</center></td>
                 <td><center>@user.LastName</center></td>
                 <td><center>@user.Email </center></td>
+                <td><center>@user.County </center></td>
                 <td>
                     <center>
                         <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="DonorInfo" asp-route-id="@user.Id">View Donor Info</button>

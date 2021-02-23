@@ -20,9 +20,9 @@
 <body>
 
 
-    <br />
-    <h3>My Logged Hours</h3>
-    <br />
+    <partial name="_VolunteerEventsTab" /><!--This is the html tag for the navigation tabs located in shared folder-->
+    <br />    <center><h3 style="background-color: #D4EDDA;">My Logged Hours</h3></center>
+
     <div>
         <table id="yourTable" class="table table-bordered table-striped display">
             <!--This table displays the information from the Log My Hours form.-->
@@ -49,7 +49,9 @@
                                 <td class="text-center">@item.NumberOfHours</td>
                                 @if (item.isApproved == true && item.isDenied == false)
                                 {
-                                    <td class="text-center">Approved</td>
+
+                                    <td class="text-center" style="color:green;">Approved</td>
+
                                 }
                                 @if (item.isApproved == false && item.isDenied == false)
                                 {
@@ -57,7 +59,9 @@
                                 }
                                 @if (item.isDenied == true)
                                 {
-                                    <td class="text-center">Denied</td>
+
+                                    <td class="text-center" style="color:red">Denied</td>
+
                                 }
                             </tr>
                         }

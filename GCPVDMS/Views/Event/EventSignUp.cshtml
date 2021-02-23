@@ -1,7 +1,7 @@
 ﻿@model SignedUpEventsViewModel
 
 @{
-    ViewBag.Title = "GCP Volunteer Events";
+    ViewBag.Title = "The Giving Closet Project's Volunteer Events";
     Layout = "_Layout";
 }
 
@@ -14,7 +14,7 @@
     </script>
 }
 
-<h1>GCP Volunteer Events</h1>
+<h1>The Giving Closet Project's Volunteer Events</h1>
 <p>
     Students, we're glad you're here! The GCP loves having student volunteers! Our student volunteers help
     with filling orders (picking out clothes for students in need), sorting clothes, and organizing at our
@@ -29,17 +29,17 @@
 </p>
 @*<hr />*@
 @*<h2>Host a Drive</h2>
- <p>We are always looking for individuals, businesses, and organizations that want to make a difference in their
-        community. Our goal is to keep our district hubs stocked throughout the school year, so we can continue to provide
-        clothing and other basic essentials to students in need all year long.</p>
-<br />
-<form method="post">
-    <a asp-action="HostaDrive" class="btn btn-light btn-sm">
-        Host a Drive
-    </a>
-</form>
-<hr />*@
-<h2>List of Upcoming Events</h2>
+     <p>We are always looking for individuals, businesses, and organizations that want to make a difference in their
+            community. Our goal is to keep our district hubs stocked throughout the school year, so we can continue to provide
+            clothing and other basic essentials to students in need all year long.</p>
+    <br />
+    <form method="post">
+        <a asp-action="HostaDrive" class="btn btn-light btn-sm">
+            Host a Drive
+        </a>
+    </form>
+    <hr />*@
+<center><h3 style="background-color: #D4EDDA;">List of Upcoming Events</h3></center>
 <br />
 
 <table id="myTable" class="display">
@@ -53,26 +53,34 @@
         </tr>
     </thead>
     <tbody>
-            @foreach (var item in Model.Events)
-            {
-        <tr>
-            <td class="text-center">@item.EventDate.ToShortDateString()</td>
-            <td class="text-center">@item.EventTitle</td>
-            <td class="text-center">@item.Location.LocationName</td>
-            <td class="text-center">@item.NumVolunteersNeeded</td>
-            <td class="text-center">
+        @foreach (var item in Model.Events)
+        {
+            <tr>
+                <td class="text-center">@item.EventDate.ToShortDateString()</td>
+                <td class="text-center">@item.EventTitle</td>
+                <td class="text-center">@item.Location.LocationName</td>
+                @if (@item.NumVolunteersNeeded <= 0)
+                {
+                    <td class="text-center">None</td>
+                }
+                else
+                {
+                    <td class="text-center">@item.NumVolunteersNeeded</td>
+                }
+
+                <td class="text-center">
 
 
-                <form method="post">
-                    <input type="hidden" name="EventID" value=" " />
-                    <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
-                       asp-route-eventId="@item.EventID">
-                        View Event Information
-                    </a>
-                </form>
-            </td>
-        </tr>
-            }
-        </tbody>
+                    <form method="post">
+                        <input type="hidden" name="EventID" value=" " />
+                        <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
+                           asp-route-eventId="@item.EventID">
+                            View Event Information
+                        </a>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 

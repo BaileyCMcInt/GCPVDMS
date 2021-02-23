@@ -15,25 +15,25 @@
         <div class="row">
             <div class="col-md-4">
                 <p>We can't wait to see you at the event!</p>
-                <p class="card-text">Event Date: @Model.Event.EventDate.ToShortDateString()</p>
+                <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
 
-                <p class="card-text">Start Time: @Model.Event.StartTime.ToShortTimeString()</p>
+                <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
 
-                <p class="card-text">End Time: @Model.Event.EndTime.ToShortTimeString()</p>
+                <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
 
-                <p class="card-text">Location: @Model.Event.Location.LocationName</p>
+                <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
             </div>
             <div>
                 <h2> Questions? </h2>
                 <br />
-                <p class="card-text">Contact Name: @Model.EventRegistration.Event.POCName</p>
+                <p class="card-text"><b>Contact Name:</b> @Model.EventRegistration.Event.POCName</p>
 
-                <p class="card-text">Contact Phone Number: @Model.EventRegistration.Event.POCPhone</p>
+                <p class="card-text"><b>Contact Phone Number:</b> @Model.EventRegistration.Event.POCPhone</p>
 
-                <p class="card-text">Contact Email: @Model.EventRegistration.Event.POCEmail</p>
+                <p class="card-text"><b>Contact Email:</b> @Model.EventRegistration.Event.POCEmail</p>
             </div>
         </div>
-
+        <br/>
         <div>
             <!--returns user to their volunteer event dashboard after confirming event sign-up-->
             <a asp-controller="VolunteerDonorDashboard" asp-action="Index" class="btn btn-outline-dark">

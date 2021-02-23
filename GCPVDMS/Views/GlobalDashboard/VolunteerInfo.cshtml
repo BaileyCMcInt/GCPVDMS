@@ -7,18 +7,53 @@
 
 <partial name="_GlobalVolunteerTabs" />
 
-<br/>
-
-<center><h3 style="background-color: #009E00; color: white">@Model.FirstName @Model.LastName's Volunteer Information</h3></center>
-<hr />
-<b>First Name:</b> @Model.FirstName<br />
-<b>Last Name:</b> @Model.LastName <br />
-<b>DOB:</b> @Model.Birthday.ToShortDateString() <br />
-<b>County:</b> @Model.County <br/>
-<b>Primary Method of Contact:</b> @Model.PreferredContact <br/>
-<b>Secondary Method Contact:</b> @Model.SecondPreferredContact <br />
-<b>Phone Number: </b>@Model.PhoneNumber<br/>
-<b>Email:</b> @Model.Email<br/>
-
 <br />
-<center> <a asp-action="viewVolunteers" class="btn btn-outline-dark">Back to Volunteer List</a></center>
+
+<center><h3 style="background-color: #D4EDDA;">@Model.FirstName @Model.LastName's Volunteer Information</h3></center>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <b>First Name:</b> @Model.FirstName
+            <br />
+            <br />
+            <b>Last Name:</b> @Model.LastName
+            <br />
+            <br />
+            <b>DOB:</b> @Model.Birthday.ToShortDateString()
+            <br />
+            <br />
+            <b>County:</b> @Model.County
+            <br />
+            <br />
+        </div>
+        <div class="col-md-4">
+            <b>Primary Method of Contact:</b> @Model.PreferredContact
+            <br />
+            <br />
+            <b>Secondary Method Contact:</b> @Model.SecondPreferredContact
+            <br />
+            <br />
+            <b>Phone Number: </b>@Model.PhoneNumber
+            <br />
+            <br />
+            <b>Email:</b> @Model.Email
+            <br />
+            <br />
+        </div>
+        <div class="col-md-3">
+            @if (Model.ProfilePicture != null)
+            {
+
+                <b>User Photo: </b>
+                <img id="profilePicture" style="width:300px;height:300px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
+            }
+            else
+            {
+                <b>User Photo: </b> <p>User does not have a photo.</p>
+            }
+        </div>
+    </div>
+</div>
+            <br />
+            <center> <a asp-action="viewVolunteers" class="btn btn-outline-dark">Back to Volunteer List</a></center>

@@ -20,55 +20,56 @@
     <br />
 
     <div>
-        <h3>Events I'm Signed Up For</h3>
-        <br />
+
+        <center><h3 style="background-color: #D4EDDA;">Events I'm Signed Up For</h3></center>
+
         <table id="yourTable2" class="table table-bordered table-striped">
             @*This table displays the GCP events that the volunteer is signed up for.*@
-        <thead style="width: 50px">
-            <tr>
-                <th class="text-center">Date</th>
-                <th class="text-center">Event Title</th>
-                <th class="text-center">Event Location</th>
-                <th class="text-center">Start Time</th>
-                <th class="text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!--This loop utilizes the ViewModel tagged in this page to retrieve Event Registration data for a specific volunteer.-->
-            @foreach (var item in Model.EventRegistrations)//loops through evenregistration table data
-            {
-                @if (SignInManager.IsSignedIn(User))//confirms user is signed in
+            <thead style="width: 50px">
+                <tr>
+                    <th class="text-center">Date</th>
+                    <th class="text-center">Event Title</th>
+                    <th class="text-center">Event Location</th>
+                    <th class="text-center">Start Time</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--This loop utilizes the ViewModel tagged in this page to retrieve Event Registration data for a specific volunteer.-->
+                @foreach (var item in Model.EventRegistrations)//loops through evenregistration table data
                 {
-                    var user = UserManager.GetUserId(User);//retrieves the user id
-                    if (user == item.UserId)//checks that the userId retrieved matches eventRegistration userId
+                    @if (SignInManager.IsSignedIn(User))//confirms user is signed in
                     {
-                        <tr>
-                            <td class="text-center"> @item.Event.EventDate.ToShortDateString() </td><!--So this is really Model.EventRegistration.Event.EventDate. Referencing Viewmodels are basically pointers.-->
-                            <td class="text-center"> @item.Event.EventTitle </td>
-                            <td class="text-center"> @item.Event.Location.LocationName </td>
-                            <td class="text-center"> @item.Event.StartTime.ToShortTimeString() </td>
-                            <td class="text-center">
-                                <form asp-action="CancelMyEvent" asp-route-id="@item.EventRegistrationID" method="post">
-                                    <input type="hidden" asp-for="@Model.Event.EventID" name="eventId" value="@item.Event.EventID" />
-                                    <button type="submit" class="btn btn-outline-danger" name="Id" value="@item.EventRegistrationID" onclick="return confirm('Are you sure you want to cancel this event registration?')">Cancel</button>
+                        var user = UserManager.GetUserId(User);//retrieves the user id
+                        if (user == item.UserId)//checks that the userId retrieved matches eventRegistration userId
+                        {
+                            <tr>
+                                <td class="text-center"> @item.Event.EventDate.ToShortDateString() </td><!--So this is really Model.EventRegistration.Event.EventDate. Referencing Viewmodels are basically pointers.-->
+                                <td class="text-center"> @item.Event.EventTitle </td>
+                                <td class="text-center"> @item.Event.Location.LocationName </td>
+                                <td class="text-center"> @item.Event.StartTime.ToShortTimeString() </td>
+                                <td class="text-center">
+                                    <form asp-action="CancelMyEvent" asp-route-id="@item.EventRegistrationID" method="post">
+                                        <input type="hidden" asp-for="@Model.Event.EventID" name="eventId" value="@item.Event.EventID" />
+                                        <button type="submit" class="btn btn-outline-danger" name="Id" value="@item.EventRegistrationID" onclick="return confirm('Are you sure you want to cancel this event registration?')">Cancel</button>
 
-                                    <input type="hidden" name="EventID" value=" " />
-                                    <a asp-action="EventInfoPage" class="btn btn-outline-dark"
-                                       asp-route-eventId="@item.EventID">
-                                        View Event Info
-                                    </a>
-                                </form>
+                                        <input type="hidden" name="EventID" value=" " />
+                                        <a asp-action="EventInfoPage" class="btn btn-outline-dark"
+                                           asp-route-eventId="@item.EventID">
+                                            View Event Info
+                                        </a>
+                                    </form>
 
-                            </td>
-                        </tr>
-                       
+                                </td>
+                            </tr>
+
+                        }
+
                     }
-
                 }
-            }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
 <br />
 
