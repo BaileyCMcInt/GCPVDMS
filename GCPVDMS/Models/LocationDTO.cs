@@ -11,5 +11,9 @@ namespace GCPVDMS.Models
         public Location GCPLocationData { get; set; }
         public List<Location> LocationList { get; set; }
 
+        public County County { get; set; }
+
+        public List<County> Counties { get; set; }
+
     }
 }
