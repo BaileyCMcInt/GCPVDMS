@@ -55,6 +55,7 @@
                 <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
             </div>*@
             <div class="form-group">
+                <label>County</label>
                 <select class="form-control" asp-for="GCPLocationData.CountyID">
 
                     @foreach (var county in Model.Counties)
@@ -97,34 +98,36 @@
         </form>
     </div>
 
-    <table class="styled-table" id="locationtable">
-        <thead>
-            <tr>
-                <th>Location Name</th>
-                <th>Street Address</th>
-                <th>Street Address 2</th>
-                <th>City</th>
-                <th>Zip</th>
-                <th>County</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.LocationList)
-            {
+    <div class="col-md-8">
+        <table class="styled-table" id="locationtable">
+            <thead>
                 <tr>
-                    <td>@item.LocationName</td>
-                    <td>@item.StreetAddress</td>
-                    <td>@item.StreetAddress2</td>
-                    <td>@item.City</td>
-                    <td>@item.Zip</td>
-                    <td>@item.County.CountyName</td>
-                    <td>
-                        @Html.ActionLink("Edit", "LocationEdit", new { id = item.LocationID })
-                    </td>
+                    <th>Location Name</th>
+                    <th>Street Address</th>
+                    <th>Street Address 2</th>
+                    <th>City</th>
+                    <th>Zip</th>
+                    <th>County</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.LocationList)
+                {
+                    <tr>
+                        <td>@item.LocationName</td>
+                        <td>@item.StreetAddress</td>
+                        <td>@item.StreetAddress2</td>
+                        <td>@item.City</td>
+                        <td>@item.Zip</td>
+                        <td>@item.County.CountyName</td>
+                        <td>
+                            @Html.ActionLink("Edit", "LocationEdit", new { id = item.LocationID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 
