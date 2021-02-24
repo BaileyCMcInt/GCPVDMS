@@ -25,8 +25,8 @@
 
                 <div class="form-group">
 
-                    <select class="form-control" asp-for="@Model.VolunteerHour.EventID" id="EventDropdown" style="width: 40%">
-                        <option value="null">Select Event</option>
+                    <select class="form-control" asp-for="@Model.VolunteerHour.EventID" id="EventDropdown" style="width: 40%" required>
+                        <option value="">Select Event</option>
                         @foreach (var _event in Model.EventRegistrations)
                         {
                             @if (SignInManager.IsSignedIn(User))
@@ -60,7 +60,7 @@
             <br />
             <div class="form-group">
                 <label asp-for="VolunteerHour.NumberOfHours">Number of Hours</label>
-                <input type="number" asp-for="VolunteerHour.NumberOfHours" min="0.5" max="24" class="form-control" style="width: 10%" placeholder="0.00" value="" required><!--The user inputs the number of hours they worked at the event.-->
+                <input type="number" asp-for="VolunteerHour.NumberOfHours" min="0.5" max="24" class="form-control" style="width: 10%" placeholder="0.00" value="" step="0.5" required><!--The user inputs the number of hours they worked at the event.-->
             </div>
             @if (SignInManager.IsSignedIn(User))
             {
