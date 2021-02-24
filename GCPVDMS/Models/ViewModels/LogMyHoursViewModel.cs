@@ -14,6 +14,7 @@ namespace GCPVDMS.Models.ViewModels
         public Event Event { get; set; } //event object
         public string UserId { get; set; } //this is how we store the userID FK, added to code to 
         //utilize code-first approach but the relationship is seeded in the datbase.
+        public string nonEventInfo { get; set; }
 
         public ApplicationUser User { get; set; } //user object
         public EventRegistration EventRegistration { get; set; }
