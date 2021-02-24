@@ -62,6 +62,7 @@ namespace GCPVDMS.Controllers
         {
             var viewModel = new CreateEventViewModel
             {
+                GCPTasks = context.GCPTasks.ToList(),
                 Locations = context.Locations.ToList(),
                // Location = context.Locations.FirstOrDefault(a => a.LocationID == eventId),
                 Event = repository.Events.FirstOrDefault(p => p.EventID == eventId)

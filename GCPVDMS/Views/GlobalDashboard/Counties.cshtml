@@ -39,12 +39,10 @@
 <!DOCTYPE html>
 <partial name="_GlobalLocationTabs" />
 <br />
-<center><h3 style="background-color: #D4EDDA;">Giving Closet Project Locations</h3></center>
+<center><h3 style="background-color: #D4EDDA;">Giving Closet Project Counties</h3></center>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <a asp-action="" class="btn btn-outline-dark">Add New County</a>
-        <br />
         <br />
         <form asp-action="Counties">
             <input type="hidden" asp-for="CountyData.CountyID" />
@@ -55,6 +53,7 @@
                     <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
                 </div>*@
             <div class="form-group">
+                <label>State</label>
                 <select class="form-control" asp-for="CountyData.CountyState">
                         <option value="Default">Select State</option>
                         <option value="Alabama">Alabama</option>
