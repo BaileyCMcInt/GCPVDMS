@@ -11,8 +11,11 @@ namespace GCPVDMS.Models
     {
         //maps all volunteerhour table attributes with code-first approach
         public int VolunteerHourID { get; set; }
-        public DateTime Date { get; set; }
-        public decimal NumberOfHours { get; set; }
+        
+        public DateTime Date { get; set; } //date of volunteer hour request
+        [Required]
+        public DateTime volunteerHourDate { get; set; }
+        public double NumberOfHours { get; set; }
 
         public string UserId { get; set; } //FK relationship to IdentityDBContext is seeded in the database
 
@@ -25,8 +28,11 @@ namespace GCPVDMS.Models
         public Event Event { get; set; }
         public bool isApproved { get; set; }
         public bool isDenied { get; set; }
-
         public string nonEventInfo { get; set; }
 
+        [Required(ErrorMessage = "Must enter a time")]
+        public DateTime StartTime { get; set; }
+        [Required(ErrorMessage = "Must enter a time")]
+        public DateTime EndTime { get; set; }
     }
 }

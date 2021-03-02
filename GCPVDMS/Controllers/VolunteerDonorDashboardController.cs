@@ -141,6 +141,9 @@ namespace GCPVDMS.Controllers
             if (ModelState.IsValid)
             {
                 //calls repository method to save event to the database
+                TimeSpan numHours = @volunteerhour.EndTime - @volunteerhour.StartTime;
+                double totalHours = numHours.TotalHours;
+                @volunteerhour.NumberOfHours = Math.Round(totalHours, 2);
                 repository.SaveVolunteerHour(@volunteerhour);
                 //returns to the myLogged hours page to validate the hours were submitted
                 EventRegistration dbEventReg = context.EventRegistrations
