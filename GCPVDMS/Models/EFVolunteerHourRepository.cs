@@ -35,6 +35,9 @@ namespace GCPVDMS.Models
                     dbEntry.Date = @volunteerhour.Date;
                     dbEntry.NumberOfHours = @volunteerhour.NumberOfHours;
                     dbEntry.EventID = volunteerhour.EventID;
+                    dbEntry.StartTime = volunteerhour.StartTime;
+                    dbEntry.EndTime = volunteerhour.EndTime;
+                    dbEntry.volunteerHourDate = volunteerhour.volunteerHourDate;
                 }
 
             }

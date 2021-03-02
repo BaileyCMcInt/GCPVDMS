@@ -21,7 +21,11 @@
 
 
 
-    <br />    <center><h3 style="background-color: #D4EDDA;">My Logged Hours</h3></center>
+    <br />    <center><h3 style="background-color: #D4EDDA;">My Logged Hours</h3></center><br />
+    <div style="text-align: center">
+        <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="printDiv('printableArea')" <!--This button allows the user to see their logged hours on a printable pdf.-->
+        <a asp-action="LogMyHours" class="btn btn-outline-dark">Log My Hours</a><!--This button redirects the user to the Log My Hours View page.-->
+    </div>
 
     <div>
         <table id="yourTable" class="table table-bordered table-striped display">
@@ -71,12 +75,7 @@
         </table>
     </div>
 
-    <br />
 
-    <div style="text-align: center">
-        <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="printDiv('printableArea')" <!--This button allows the user to see their logged hours on a printable pdf.-->
-        <a asp-action="LogMyHours" class="btn btn-outline-dark">Log My Hours</a><!--This button redirects the user to the Log My Hours View page.-->
-    </div>
 
     <br />
     <br />
@@ -96,49 +95,49 @@
             <h1 style="text-align:center">Volunteer Work Hours</h1>
             <div>
                 <div>
-        <table id="yourTable" class="table table-bordered table-striped display">
-            <!--This table displays the information from the Log My Hours form.-->
-            <thead style="width: 50px">
-                <tr>
-                    <th class="text-center">Date</th>
-                    <th class="text-center">Event</th>
-                    <th class="text-center">Hours Worked</th>
-                    <th class="text-center">Approval Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!----This loop utilizes the ViewModel tagged in this page to retrieve logged hour data for a specific volunteer.-->
-                @foreach (var item in Model.VolunteerHours)//loops through volunteerHour table data
-                {
-                    @if (SignInManager.IsSignedIn(User))//checks that user is Signed in
-                    {
-                        var user = UserManager.GetUserId(User);//get signed in user's UserID
-                        if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
-                        {
+                    <table id="yourTable" class="table table-bordered table-striped display">
+                        <!--This table displays the information from the Log My Hours form.-->
+                        <thead style="width: 50px">
                             <tr>
-                                @if (item.isApproved == true && item.isDenied == false)
-                                {
-                                <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
-                                <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                                <td class="text-center">@item.NumberOfHours</td>
-
-                                    <td class="text-center">Approved</td>
-                                }
-                                @*@if (item.isApproved == false && item.isDenied == false)
-                                {
-                                    <td class="text-center">Pending</td>
-                                }
-                                @if (item.isDenied == true)
-                                {
-                                    <td class="text-center">Denied</td>
-                                }*@
+                                <th class="text-center">Date of Request</th>
+                                <th class="text-center">Event</th>
+                                <th class="text-center">Hours Worked</th>
+                                <th class="text-center">Approval Status</th>
                             </tr>
-                        }
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
+                        </thead>
+                        <tbody>
+                            <!----This loop utilizes the ViewModel tagged in this page to retrieve logged hour data for a specific volunteer.-->
+                            @foreach (var item in Model.VolunteerHours)//loops through volunteerHour table data
+                            {
+                                @if (SignInManager.IsSignedIn(User))//checks that user is Signed in
+                                {
+                                    var user = UserManager.GetUserId(User);//get signed in user's UserID
+                                    if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
+                                    {
+                                        <tr>
+                                            @if (item.isApproved == true && item.isDenied == false)
+                                            {
+                                                <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                                                <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                                                <td class="text-center">@item.NumberOfHours</td>
+
+                                                <td class="text-center">Approved</td>
+                                            }
+                                            @*@if (item.isApproved == false && item.isDenied == false)
+                                                {
+                                                    <td class="text-center">Pending</td>
+                                                }
+                                                @if (item.isDenied == true)
+                                                {
+                                                    <td class="text-center">Denied</td>
+                                                }*@
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
 
                 <br />
                 <br />
