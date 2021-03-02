@@ -42,7 +42,11 @@
                         }
                         @foreach (var nonEvent in Model.Events)
                         {
-                            if (nonEvent.EventID == 1011)
+                            if (nonEvent.EventID == 17)
+                            {
+                                <option value="@nonEvent.EventID">@nonEvent.EventTitle</option>
+                            }
+                            if (nonEvent.EventID == 20)
                             {
                                 <option value="@nonEvent.EventID">@nonEvent.EventTitle</option>
                             }
