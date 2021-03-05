@@ -142,9 +142,9 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             await _emailSender.SendEmailAsync(
                 email,
                 "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                $"Thank you for creating an account with the Giving Closet Project! Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "A confirmation email has been sent. Please click the link in your email to confirm your account.";
             return RedirectToPage();
         }
     }
