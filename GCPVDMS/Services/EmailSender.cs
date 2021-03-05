@@ -22,7 +22,7 @@ namespace GCPVDMS.Services
 
         public async Task Execute(string apiKey, string subject, string message, string email)
         {
-            //apiKey = "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";//I added this just to make it work
+            
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
