@@ -28,7 +28,7 @@ namespace GCPVDMS.Models
         public Event Event { get; set; }
         public bool isApproved { get; set; }
         public bool isDenied { get; set; }
-        public string nonEventInfo { get; set; }
+        public string volunteerDescription { get; set; }
 
         [Required(ErrorMessage = "Must enter a time")]
         public DateTime StartTime { get; set; }

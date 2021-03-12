@@ -20,7 +20,6 @@
             <th><center>Date of Request</center></th>
             <th><center>Name</center></th>
             <th><center>Event</center></th>
-            <th><center>Description</center></th>
             <th><center>Location</center></th>
             <th><center>Date Volunteered</center></th>
             <th><center>Timeframe Volunteered</center></th>
@@ -47,48 +46,20 @@
 
             <td><center>@item.Event.EventTitle</center></td>
 
-            @if (item.Event.EventID == 1011)
+            @if (@item.Event.EventTitle == "Offsite Duval")
             {
-                @if (@item.nonEventInfo == null)
-                {
-                    <td>No description provided.</td>
-                }
-                else
-                {
-                    <td><center>@item.nonEventInfo</center></td>
-                }
+                <td><center>Duval</center></td>
 
+            }
+            else if (@item.Event.EventTitle == "Offsite Palm Beach")
+            {
+                <td><center>Palm Beach</center></td>
             }
             else
             {
-                @if (@item.Event.EventDescription == null)
-                {
-                    <td>No description provided.</td>
-                }
-                else
-                {
-                    <td><center>@item.Event.EventDescription</center></td>
-                }
-
+                <td><center>@item.Event.Location.LocationName</center></td>
             }
 
-
-            @if (item.Event.EventID == 1011)
-            {
-                <td><center>See description column for non-event location information.</center></td>
-            }
-            else
-            {
-                if (@item.Event.Location != null)
-                {
-                    <td><center>@Model.Event.Location.LocationName</center></td>
-                }
-                else
-                {
-                    <td>No location provided</td>
-                }
-
-            }
             <td><center>@item.volunteerHourDate.ToShortDateString()</center></td>
             <td><center>@item.StartTime.ToShortTimeString() - @item.EndTime.ToShortTimeString()</center></td>
             <td><center>@item.NumberOfHours</center></td>

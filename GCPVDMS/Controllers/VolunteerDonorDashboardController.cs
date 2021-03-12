@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using GCPVDMS.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace GCPVDMS.Controllers
 {
@@ -133,6 +134,10 @@ namespace GCPVDMS.Controllers
             //returns the viewmodel with the user-populated data
             return View(viewModel);
         }
+
+
+
+
         [HttpPost]
         //this method saves the logged hours to the volunteerhour table
         public IActionResult LogMyHours(VolunteerHour @volunteerhour)
@@ -141,9 +146,9 @@ namespace GCPVDMS.Controllers
             if (ModelState.IsValid)
             {
                 //calls repository method to save event to the database
-                TimeSpan numHours = @volunteerhour.EndTime - @volunteerhour.StartTime;
-                double totalHours = numHours.TotalHours;
-                @volunteerhour.NumberOfHours = Math.Round(totalHours, 2);
+                double duration = Convert.ToDouble((volunteerhour.EndTime - volunteerhour.StartTime).TotalHours.ToString("#.00"));
+                TimeSpan interval = TimeSpan.FromMinutes(duration);
+                @volunteerhour.NumberOfHours = duration;
                 repository.SaveVolunteerHour(@volunteerhour);
                 //returns to the myLogged hours page to validate the hours were submitted
                 EventRegistration dbEventReg = context.EventRegistrations
@@ -162,7 +167,7 @@ namespace GCPVDMS.Controllers
                 return View(volunteerhour);
             }
         }
-
+       
         //method that retrieves the users logged hours
         public async Task<IActionResult> MyLoggedHours(int ID, string userId)
         {
