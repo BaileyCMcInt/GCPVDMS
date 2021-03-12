@@ -11,6 +11,7 @@ namespace GCPVDMS.Models.ViewModels
         public VolunteerHour VolunteerHour { get; set; }
         public List<VolunteerHour> VolunteerHours { get; set; }
         public List<ApplicationUser> Users { get; set; }
+        public List<Location> Locations { get; set; }
         public Event Event { get; set; }
     }
 }
