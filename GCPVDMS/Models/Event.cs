@@ -8,6 +8,7 @@ using GCPVDMS.CustomValidation;
 
 namespace GCPVDMS.Models
 {
+    [Table("Events")]
     public class Event
     {
         public int EventID { get; set; }
@@ -52,5 +53,7 @@ namespace GCPVDMS.Models
         public int LocationID { get; set; }
 
         public Location Location { get; set; }
+
+        public List<GCPEventTask> EventTasks { get; set; }
     }
 }

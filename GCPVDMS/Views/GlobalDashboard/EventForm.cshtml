@@ -1,6 +1,4 @@
-﻿
-
-@model GCPVDMS.Models.ViewModels.CreateEventViewModel
+﻿@model GCPVDMS.Models.ViewModels.CreateEventViewModel
 
 @{
     ViewBag.Title = "Edit Event";
@@ -114,14 +112,14 @@
                     <h2>Tasks</h2>
 
 
-                    @foreach (var item in Model.GCPTasks)
+                    @foreach (var item in Model.SelectedTasks)
                     {
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"
-                                       name="selectedTasks"
-                                       value="@item.GCPTaskID"
-                                       id="@item.GCPTaskID" /> @item.TaskName
+                                       name="SelectedTasks"
+                                       value="@item.GCPTaskId"
+                                       id="@item.GCPTaskId" /> @item.GCPTaskName
                                 </label>
                             </div>
                         }
