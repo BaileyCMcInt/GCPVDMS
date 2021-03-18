@@ -148,7 +148,6 @@ namespace GCPVDMS.Controllers
                 //calls repository method to save event to the database
 
                 double totalHours = Convert.ToDouble((volunteerhour.EndTime.Subtract(volunteerhour.StartTime).TotalHours));
-                //* 60 / .60));
                 string s = totalHours.ToString("0.00", CultureInfo.InvariantCulture);
                 string[] parts = s.Split('.');
                 int i1 = int.Parse(parts[0]);

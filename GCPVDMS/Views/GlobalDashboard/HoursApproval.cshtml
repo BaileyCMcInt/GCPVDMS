@@ -19,10 +19,10 @@
         <tr>
             <th><center>Date of Request</center></th>
             <th><center>Name</center></th>
-            <th><center>Event</center></th>
+            <th><center>Description</center></th>
             <th><center>Location</center></th>
             <th><center>Date Volunteered</center></th>
-            <th><center>Timeframe Volunteered</center></th>
+            <th><center>Time Volunteered</center></th>
             <th><center>Number of Hours/Minutes</center></th>
             <th><center>Approve/Deny</center></th>
         </tr>
@@ -44,7 +44,7 @@
                 }
             }
 
-            <td><center>@item.Event.EventTitle</center></td>
+            <td><center>@item.Event.EventTitle, @item.volunteerDescription</center></td>
 
             @if (@item.Event.EventTitle == "Offsite Duval")
             {
