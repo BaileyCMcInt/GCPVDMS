@@ -40,9 +40,8 @@ namespace GCPVDMS.Controllers
 
         //The following are methods related to EVENT MODELS. 
 
-        //Method to display a table of all the current events.
+        //Method to display a table of all the events.
         [Authorize(Roles = "Global Admin")]
-       // public IActionResult EventList() => View(repository.Events);
         public IActionResult EventList(int ID)
         {
             var viewModel = new CreateEventViewModel
@@ -77,7 +76,6 @@ namespace GCPVDMS.Controllers
         //this method saves the event after creating a new event or updating an existing event
         //SaveEvent() is in EFEventRepository.cs. 
         //After saving, redirects to the table of Events. 
-        //  public IActionResult EventForm(Event @event)
         public IActionResult EventForm(CreateEventViewModel viewModel)
         {
            // var counter = 0;
@@ -100,7 +98,6 @@ namespace GCPVDMS.Controllers
                 //if (counter > 0)
                 //{
 
-
                 //}//end counter if
 
                 return RedirectToAction("EventList");
@@ -108,27 +105,26 @@ namespace GCPVDMS.Controllers
             else
             {
                 //  if there is something wrong with the data values, do not save.
-                //   return View(@event);
                 return View(viewModel);
             }
         }
 
 
-
         //Method for displaying the static event info. 
-        //TODO: add tasks, and volunteers who have signed-up to display in this view. 
+        //TODO: display volunteers who have signed-up to display in this view. Have any volunteers under 18 yrs old display in red 
         [Authorize(Roles = "Global Admin")]
         public ViewResult DisplayEvent(int eventId)
         {
             var viewModel = new CreateEventViewModel
             {
-                Event = context.Events.Include(i => i.Location).FirstOrDefault(x => x.EventID == eventId)
+                Event = context.Events.Include(i => i.Location).FirstOrDefault(x => x.EventID == eventId),
+                GCPEventTasks = context.GCPEventTasks.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
+                GCPTasks = context.GCPTasks.ToList()
             };
             return View("~/Views/GlobalDashboard/EventInfo.cshtml", viewModel);
         }
 
         //Method for creating a new event. The form will be blank.
-        //TODO: The Tasks display in the Tasks column. Need to have them save to the GCPEventTask table.
         [Authorize(Roles = "Global Admin")]
         public ViewResult Create(int id)
         {
@@ -142,8 +138,6 @@ namespace GCPVDMS.Controllers
             var viewModel = new CreateEventViewModel
             {
                 GCPTasks = context.GCPTasks.ToList(),
-
-            //Put newly created list of EventTasks here
                 GCPEventTasks = eventTasks,
                 Locations = context.Locations.ToList(),
                 Location = context.Locations.FirstOrDefault(a => a.LocationID == id),
