@@ -82,23 +82,10 @@ namespace GCPVDMS.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
+
                     repository.SaveEvent(viewModel);
-                   // counter++; //if SaveEvent() is successful, will increase counter
-
-                    //    repository.SaveEvent(@event);
                     //   TempData["message"] = $"{event.EventTitle} has been saved";
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                //if counter>0, then the event saved successfully and want to save the tasks
-                //if (counter > 0)
-                //{
 
-                //}//end counter if
 
                 return RedirectToAction("EventList");
             }

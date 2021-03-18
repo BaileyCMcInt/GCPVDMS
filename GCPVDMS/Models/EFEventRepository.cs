@@ -30,7 +30,7 @@ namespace GCPVDMS.Models
                 context.SaveChanges();
 
             }
-            //if this is not a new event, pull the event info and the EventTasks from the context and update accordingly
+            //else this is not a new event, pull the event info and the EventTasks from the context and update accordingly
             else
             {
                 Event dbEntry = context.Events
