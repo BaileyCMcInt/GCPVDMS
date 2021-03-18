@@ -23,7 +23,7 @@ namespace GCPVDMS.Models.ViewModels
         public List<GCPEventTask> GCPEventTasks { get; set; } //not sure if needed?
 
 
-        public IEnumerable<SelectedTaskViewModel> SelectedTasks { get; set; }
+     //   public IEnumerable<SelectedTaskViewModel> SelectedTasks { get; set; }
 
 
     }

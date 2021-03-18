@@ -63,10 +63,12 @@ namespace GCPVDMS.Controllers
             var viewModel = new CreateEventViewModel
             {
                 GCPTasks = context.GCPTasks.ToList(),
+                GCPEventTasks = context.GCPEventTasks.Where(x => x.EventID == eventId).ToList(),
                 Locations = context.Locations.ToList(),
-               // Location = context.Locations.FirstOrDefault(a => a.LocationID == eventId),
-                Event = repository.Events.FirstOrDefault(p => p.EventID == eventId)
+                Event = repository.Events.FirstOrDefault(p => p.EventID == eventId),
+   
             };
+            viewModel.Location = context.Locations.FirstOrDefault(a => a.LocationID == viewModel.Event.LocationID);
             return View(viewModel);
         }
 
@@ -78,14 +80,14 @@ namespace GCPVDMS.Controllers
         //  public IActionResult EventForm(Event @event)
         public IActionResult EventForm(CreateEventViewModel viewModel)
         {
-            var counter = 0;
+           // var counter = 0;
 
             if (ModelState.IsValid)
             {
                 try
                 {
                     repository.SaveEvent(viewModel);
-                    counter++; //if SaveEvent() is successful, will increase counter
+                   // counter++; //if SaveEvent() is successful, will increase counter
 
                     //    repository.SaveEvent(@event);
                     //   TempData["message"] = $"{event.EventTitle} has been saved";
@@ -95,52 +97,11 @@ namespace GCPVDMS.Controllers
                     throw ex;
                 }
                 //if counter>0, then the event saved successfully and want to save the tasks
-                if (counter > 0)
-                {
-                    //update bridge table here using eventID. 
-                    //Get EventTask context. Create record for each task. Only create from blank when creating an event for the first time.
-                    //check eventask table where eventID is null. first or default and you want it to be null.
-                    // foreach (GCPTask gcpTask in SelectedTaskViewModel.SelectedTasks ?? new string[] { })  
-
-                    //****Save Event first. Then use EventID to save SelectedTasks
-                    //Don't forget to set isSelected.****
+                //if (counter > 0)
+                //{
 
 
-                    //var list = context.GCPTasks.ToList();
-
-
-                    //foreach (var id in list)
-                    //{
-                    //    GCPEventTask gcpEventTasks = new GCPEventTask()
-                    //    {
-                    //        EventID = viewModel.Event.EventID,
-                    //        GCPTaskID = id.GCPTaskID,
-                    //        isSelected = viewModel.IsSelected
-                    //    };
-                    //    context.GCPEventTasks.Attach(gcpEventTasks);
-                    //    context.SaveChanges();
-                    //}
-
-
-
-                    //var eventTaskList = context.GCPEventTasks.ToList();
-
-                    ////int[] gcpSelectedEventTasks;
-
-                    ////foreach task in the EventTask table where the eventID matches the current eventID
-                    //foreach (var Id in viewModel.SelectedTasks)
-                    //{
-                    //    //
-                    //    if(viewModel.GCPTask.GCPTaskID == viewModel.Event.EventID && Id.GCPTaskID == viewModel.GCPTask.GCPTaskID)
-                    //    {
-                    //        Id.isSelected = viewModel.IsSelected;
-                    //        context.SaveChanges();
-                    //    }
-                    //}
-
-
-
-                }//end counter if
+                //}//end counter if
 
                 return RedirectToAction("EventList");
             }
@@ -172,35 +133,21 @@ namespace GCPVDMS.Controllers
         public ViewResult Create(int id)
         {
             var eventCreate = new Event();
-            var eventTasks = new List<SelectedTaskViewModel>();
-            //foreach (var item in eventTasks)
-            //{
-
-            //}
-            //TODO: Use GCPTasks to create EventTasks
-            //Creating list of EventTasks to put into CreateEventViewModel
-            //default isSelected to false
-            //    eventTasks{
-            //         GCPTaskId = c.GCPTaskID,
-            //         IsSelected = false
-            //}
+            var eventTasks = context.GCPTasks.Select(gcpTask => new GCPEventTask() {
+                GCPTaskID = gcpTask.GCPTaskID,
+                isSelected = default,
+                GCPTask = gcpTask
+            }).ToList();
 
             var viewModel = new CreateEventViewModel
             {
-                //GCPTasks = context.GCPTasks.ToList(),
-                //Put newly created list of EventTasks here
+                GCPTasks = context.GCPTasks.ToList(),
+
+            //Put newly created list of EventTasks here
+                GCPEventTasks = eventTasks,
                 Locations = context.Locations.ToList(),
                 Location = context.Locations.FirstOrDefault(a => a.LocationID == id),
                 Event = eventCreate,
-                SelectedTasks = eventTasks  //this was done with Greg
-
-                // SelectedTasks = context.GCPTasks.Select(c => new SelectedTaskViewModel
-                // {
-                //     GCPTaskId = c.GCPTaskID,
-                //     GCPTaskName = c.TaskName,
-                //     IsSelected = false
-                // })
-                //.ToList()
             };
             return View("~/Views/GlobalDashboard/EventForm.cshtml", viewModel);
         }

@@ -63,10 +63,11 @@ namespace GCPVDMS.Models
             {
                 //   context.Events.Add(@event);
                 context.Events.Add(viewModel.Event);
-                //foreach (GCPTask gcptask in viewModel.GCPTasks)
-                //{
-                //    context.GCPEventTasks.Add(gcptask);
-                //}
+                context.SaveChanges();
+                viewModel.GCPEventTasks.ForEach(EventTask => EventTask.EventID = viewModel.Event.EventID);
+                context.GCPEventTasks.AddRange(viewModel.GCPEventTasks);
+                context.SaveChanges();
+
             }
             else
             {
@@ -86,19 +87,16 @@ namespace GCPVDMS.Models
                     dbEntry.isEventActive = viewModel.Event.isEventActive;
                     dbEntry.LocationID = viewModel.Event.LocationID;
                 }
-                //Get EventTask context. Create record for each task. Only create from blank when creating an event for the first time.
-                //check eventask table where eventID is null. first or default and you want it to be null.
-                //GCPEventTask dbEventTask = context.GCPEventTasks
-                //            .FirstOrDefault(p => p.EventID == viewModel.Event.EventID);
-                //if (dbEventTask != null)
-                //{
-                //    foreach (var lst in viewModel.SelectedTasks)
-                //    {
-                //        dbEventTask.isSelected = viewModel.GCPEventTask.isSelected;
-                //    }
-                //}
+
+                viewModel.GCPEventTasks.ForEach(taskFromViewModel =>
+                {
+                    var task = context.GCPEventTasks.Where(taskFromDatabase => taskFromViewModel.GCPEventTaskID == taskFromDatabase.GCPEventTaskID).FirstOrDefault();
+                    task.isSelected = taskFromViewModel.isSelected;
+                });
+                context.SaveChanges();
+
             }
-            context.SaveChanges();
+
         }
     }
 }
