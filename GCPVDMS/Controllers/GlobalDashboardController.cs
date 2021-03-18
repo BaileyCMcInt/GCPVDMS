@@ -498,6 +498,7 @@ namespace GCPVDMS.Controllers
                 User = user,
                 Event = repository.Events
                     .FirstOrDefault(a => a.EventID == eventId),
+                Locations = context.Locations.ToList()
             };
             return View(hours);
         }
