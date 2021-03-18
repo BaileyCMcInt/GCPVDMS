@@ -27,6 +27,22 @@
     <Compile Remove="Migrations\ApplicationDb\20210216040417_7.Designer.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210218215619_dfugle_eventregFK.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210218215619_dfugle_eventregFK.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318040142_requiredDescHour.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318040142_requiredDescHour.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318040623_volDescReq.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318040623_volDescReq.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318041230_updateVolHour.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318041230_updateVolHour.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318042618_test.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318042618_test.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318044311_volhour.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318044311_volhour.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318045335_new.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318045335_new.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318050803_updatehours2.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318050803_updatehours2.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318052046_test.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210318052046_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

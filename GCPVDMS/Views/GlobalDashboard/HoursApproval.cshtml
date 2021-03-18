@@ -19,11 +19,11 @@
         <tr>
             <th><center>Date of Request</center></th>
             <th><center>Name</center></th>
-            <th><center>Event</center></th>
+            <th><center>Description</center></th>
             <th><center>Location</center></th>
             <th><center>Date Volunteered</center></th>
-            <th><center>Timeframe Volunteered</center></th>
-            <th><center>Number of Hours</center></th>
+            <th><center>Time Volunteered</center></th>
+            <th><center>Number of Hours/Minutes</center></th>
             <th><center>Approve/Deny</center></th>
         </tr>
     </thead>
@@ -44,7 +44,7 @@
                 }
             }
 
-            <td><center>@item.Event.EventTitle</center></td>
+            <td><center>@item.Event.EventTitle, @item.volunteerDescription</center></td>
 
             @if (@item.Event.EventTitle == "Offsite Duval")
             {
@@ -62,7 +62,7 @@
 
             <td><center>@item.volunteerHourDate.ToShortDateString()</center></td>
             <td><center>@item.StartTime.ToShortTimeString() - @item.EndTime.ToShortTimeString()</center></td>
-            <td><center>@item.NumberOfHours</center></td>
+            <td><center>@item.NumberOfHours.ToString("0.00")</center></td>
             <td>
                 <center>
                     <form asp-action="HoursApproval" asp-route-id="@item.VolunteerHourID" method="post">

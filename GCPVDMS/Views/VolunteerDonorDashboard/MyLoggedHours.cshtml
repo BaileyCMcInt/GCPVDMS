@@ -34,7 +34,7 @@
                 <tr>
                     <th class="text-center">Date</th>
                     <th class="text-center">Event</th>
-                    <th class="text-center">Hours Worked</th>
+                    <th class="text-center">Hours/Minutes Worked</th>
                     <th class="text-center">Approval Status</th>
                 </tr>
             </thead>
@@ -50,7 +50,7 @@
                             <tr>
                                 <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
                                 <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                                <td class="text-center">@item.NumberOfHours</td>
+                                <td class="text-center">@item.NumberOfHours.ToString("0.00")</td>
                                 @if (item.isApproved == true && item.isDenied == false)
                                 {
 
