@@ -162,42 +162,5 @@ namespace GCPVDMS.Controllers
         public ViewResult HostaDrive() => View("~/Views/Event/HostaDrive.cshtml");
 
 
-        public IActionResult Test()
-        {
-            var testEvent = new Event()
-            {
-                EventDate = DateTime.Now,
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now,
-                EventTitle = "Test Event",
-                EventDescription = "Test Description",
-                POCEmail = "Test POC",
-                POCPhone = "555-555-5555",
-                isEventActive = default(bool),
-                NumVolunteersNeeded = 5,
-                LocationID = 1,
-                NumVolunteersSignedUp = 5,
-        };
-
-            context.Events.Add(testEvent);
-            context.SaveChanges();
-
-            var EventTasks = new List<GCPEventTask>();
-            EventTasks.Add(
-                new GCPEventTask()
-                {
-                    EventID = testEvent.EventID,
-                    GCPTaskID = 1,
-                    isSelected = default(bool),
-
-                }
-             );
-            context.GCPEventTasks.AddRange(EventTasks);
-            context.SaveChanges();
-
-
-            return Ok("DONE");
-        }
-
     }
 }
