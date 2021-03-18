@@ -8,6 +8,7 @@ using GCPVDMS.CustomValidation;
 
 namespace GCPVDMS.Models
 {
+    [Table("Events")]
     public class Event
     {
         public int EventID { get; set; }
@@ -25,17 +26,21 @@ namespace GCPVDMS.Models
         [Required(ErrorMessage = "Please choose an end time")]
         public DateTime EndTime { get; set; }
 
+        [MaxLength(250)]
         [Required(ErrorMessage = "Please enter an event title")]
         public string EventTitle { get; set; }
 
         public string EventDescription { get; set; }
 
+        [MaxLength(250)]
         public string POCName {get; set; }
 
+        [MaxLength(50)]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string POCPhone { get; set; }
 
+        [MaxLength(250)]
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Not a valid email")]
         public string POCEmail { get; set; }
@@ -52,5 +57,7 @@ namespace GCPVDMS.Models
         public int LocationID { get; set; }
 
         public Location Location { get; set; }
+
+        public List<GCPEventTask> EventTasks { get; set; }
     }
 }

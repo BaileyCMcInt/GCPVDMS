@@ -20,12 +20,22 @@
                     <br />
                     <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
 
-
                     <p class="card-text"><b>Number of Volunteers Needed:</b> @Model.Event.NumVolunteersNeeded</p>
-
 
                     <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
 
+                    <p class="card-text"><b>Tasks:</b>
+
+                        @for (Int32 i = 0; i < this.Model.GCPEventTasks.Count; i++)
+                        {
+                            // <input type="checkbox" asp-for="@Model.GCPEventTasks[i].isSelected" />
+                            <label>@Model.GCPEventTasks[i].GCPTask.TaskName</label>
+                            <input type="hidden" asp-for="@Model.GCPEventTasks[i].GCPTaskID" />
+                            //   <input type="hidden" asp-for="@Model.Roles[i].RoleName" />
+                            <br />
+                        }
+
+                    </p>
 
                     <p class="card-text"><b>Event is active:</b> @Model.Event.isEventActive</p>
 
@@ -45,8 +55,8 @@
                     <h4> Point of Contact </h4>
                     <br />
                     <p class="card-text"><b>Name:</b> @Model.Event.POCName</p>
-                    <p class="card-text"><b>Phone Number:</b> @Model.Event.POCPhone</p>
 
+                    <p class="card-text"><b>Phone Number:</b> @Model.Event.POCPhone</p>
 
                     <p class="card-text"><b>Email:</b> @Model.Event.POCEmail</p>
                     <br />

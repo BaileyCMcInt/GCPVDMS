@@ -37,6 +37,17 @@ namespace GCPVDMS.Models
                 p.EventID, p.UserId
             })
                 .IsUnique();
+
+
+         //   modelBuilder.Entity<Event>()
+           //   .HasMany<GCPEventTask>();
+          //    .WithOne(eventTask => eventTask.Event)
+          //    .HasForeignKey("EventID");
+
+            //modelBuilder.Entity<GCPEventTask>()
+            //  .HasOne<Event>()
+            //  .WithMany(evt => evt.EventTasks)
+            //  .HasForeignKey("GCPEventTaskID");
         }
     
     }

@@ -1,9 +1,7 @@
-﻿
-
-@model GCPVDMS.Models.ViewModels.CreateEventViewModel
+﻿@model GCPVDMS.Models.ViewModels.CreateEventViewModel
 
 @{
-    ViewBag.Title = "Edit Event";
+    ViewBag.Title = "Opportunity";
     Layout = "_Layout";
 }
 @section Scripts{
@@ -23,7 +21,7 @@
 
 <body>
 
-    <h1> Event </h1>
+    <h1 style="background-color: #D4EDDA;"> Opportunity Form </h1>
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -37,6 +35,7 @@
                 <input type="hidden" asp-for="Event.EventID" />
 
                 <div class="form-group">
+                    <label>Location: </label>
                     <select class="form-control" asp-for="@Model.Event.LocationID">
 
                         @foreach (var location in Model.Locations)
@@ -108,23 +107,21 @@
                 </div>
 
             </div>
-            <div class="col-md-3 justify-content-end" style="margin-left: 40px">
+            <div class="col-md-5 justify-content-end" style="margin-left: 40px">
                 <div class="form-group">
 
                     <h2>Tasks</h2>
 
-
-                    @foreach (var item in Model.GCPTasks)
+                    @for (Int32 i = 0; i < this.Model.GCPEventTasks.Count; i++)
                     {
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"
-                                       name="selectedTasks"
-                                       value="@item.GCPTaskID"
-                                       id="@item.GCPTaskID" /> @item.TaskName
-                                </label>
-                            </div>
-                        }
+                        <input type="checkbox" asp-for="@Model.GCPEventTasks[i].isSelected" />
+                        <label asp-for="@Model.GCPEventTasks[i].isSelected">@Model.GCPEventTasks[i].GCPTask.TaskName</label>
+                        <input type="hidden" asp-for="@Model.GCPEventTasks[i].GCPTaskID" />
+                        <input type="hidden" asp-for="@Model.GCPEventTasks[i].EventID" />
+                        <input type="hidden" asp-for="@Model.GCPEventTasks[i].GCPEventTaskID" />
+                        <br />
+                    }
+
                 </div>
             </div>
         </div>
