@@ -73,42 +73,34 @@
                     <td class="text-center">@item.NumVolunteersNeeded</td>
                 }
 
-                <td class="text-center">
+            <td class="text-center">
 
 
-                    <form method="post">
-                        <input type="hidden" name="EventID" value=" " />
-                        <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
-                           asp-route-eventId="@item.EventID">
-                            More Information
-                        </a>
-                    </form>
-                    @if (SignInManager.IsSignedIn(User))
+                <form method="post">
+                    <input type="hidden" name="EventID" value=" " />
+                    <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
+                       asp-route-eventId="@item.EventID">
+                        More Information
+                    </a>
+                </form>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (Model.Event.NumVolunteersNeeded <= 0)
                     {
-
-                        var userId = UserManager.GetUserId(User);
-                        <form asp-action="ConfirmationPage" method="post">
-                            <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
-                            <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
-                            @if (Model.Event.NumVolunteersNeeded <= 0)
-                            {
-                                <p style="color:red;">This opportunity is full.</p>
-                            }
-                            else
-                            {
-                                <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark" onclick="return confirm('Are you sure you want to sign up?')">
-                                    Sign-up
-                                </button>
-                            }
-                            <button asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">Back to Events</button>
-                        </form>
+                        <p style="color:red;">This event is full.</p>
+                       
                     }
                     else
                     {
-                        <p>You need a volunteer account in order to volunteer at an event.</p>
+                        <p>Pretend there is a button here</p>
                     }
+                }
+                else
+                {
+                    <p>You need a volunteer account in order to volunteer at an event.</p>
+                }
 
-                </td>
+            </td>
             </tr>
         }
     </tbody>
