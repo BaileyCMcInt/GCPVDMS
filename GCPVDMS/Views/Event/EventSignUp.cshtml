@@ -4,7 +4,8 @@
     ViewBag.Title = "The Giving Closet Project's Volunteer Events";
     Layout = "_Layout";
 }
-
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @*Script for JavaScript DataTables*@
 @section Scripts{
     <script>
@@ -14,21 +15,21 @@
     </script>
 }
 
-<h1>The Giving Closet Project's Volunteer Events</h1>
-<p>
-    Students, we're glad you're here! The GCP loves having student volunteers! Our student volunteers help
-    with filling orders (picking out clothes for students in need), sorting clothes, and organizing at our
-    home office facility.
-</p>
-<p>
-    Community Volunteers We greatly appreciate your interest in volunteering with the GCP and we can't
-    wait to work with you!
-</p>
-<p>
-    *Please note that due to the busy nature of the beginning of the school year, it may take us
-    some time to get back to you! We greatly appreciate your interest in volunteering with the GCP
-    and we can't wait to work with you!*
-</p>
+@*<p>
+        Students, we're glad you're here! The GCP loves having student volunteers! Our student volunteers help
+        with filling orders (picking out clothes for students in need), sorting clothes, and organizing at our
+        home office facility.
+    </p>
+    <p>
+        Community Volunteers We greatly appreciate your interest in volunteering with the GCP and we can't
+        wait to work with you!
+    </p>
+    <p>
+        *Please note that due to the busy nature of the beginning of the school year, it may take us
+        some time to get back to you! We greatly appreciate your interest in volunteering with the GCP
+        and we can't wait to work with you!*
+    </p>
+*@
 @*<hr />*@
 @*<h2>Host a Drive</h2>
      <p>We are always looking for individuals, businesses, and organizations that want to make a difference in their
@@ -41,13 +42,14 @@
         </a>
     </form>
     <hr />*@
-<center><h3 style="background-color: #D4EDDA;">List of Upcoming Events</h3></center>
+<center><h2 style="background-color: #D4EDDA;">Volunteer Opportunities</h2></center>
 <br />
 
 <table id="myTable" class="display">
     <thead>
         <tr>
             <th class="text-center">Date</th>
+            <th class="text-center">Time</th>
             <th class="text-center">Title</th>
             <th class="text-center">Location</th>
             <th class="text-center">Spots available</th>
@@ -59,6 +61,7 @@
         {
             <tr>
                 <td class="text-center">@item.EventDate.ToShortDateString()</td>
+                <td class="text-center">@item.StartTime.ToShortTimeString() to @item.EndTime.ToShortTimeString()</td>
                 <td class="text-center">@item.EventTitle</td>
                 <td class="text-center">@item.Location.LocationName</td>
                 @if (@item.NumVolunteersNeeded <= 0)
@@ -77,9 +80,34 @@
                         <input type="hidden" name="EventID" value=" " />
                         <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
                            asp-route-eventId="@item.EventID">
-                            View Event Information
+                            More Information
                         </a>
                     </form>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+
+                        var userId = UserManager.GetUserId(User);
+                        <form asp-action="ConfirmationPage" method="post">
+                            <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
+                            <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
+                            @if (Model.Event.NumVolunteersNeeded <= 0)
+                            {
+                                <p style="color:red;">This opportunity is full.</p>
+                            }
+                            else
+                            {
+                                <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark" onclick="return confirm('Are you sure you want to sign up?')">
+                                    Sign-up
+                                </button>
+                            }
+                            <button asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">Back to Events</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <p>You need a volunteer account in order to volunteer at an event.</p>
+                    }
+
                 </td>
             </tr>
         }
