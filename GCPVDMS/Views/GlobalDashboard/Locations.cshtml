@@ -50,10 +50,11 @@
             <input type="hidden" asp-for="GCPLocationData.LocationID" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-                <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
-                <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
-                <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
+                    <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
+                    <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
+                </div>*@
+            <h4>Add a New Location</h4>
             <div class="form-group">
                 <label>County</label>
                 <select class="form-control" asp-for="GCPLocationData.CountyID">
@@ -99,6 +100,7 @@
     </div>
 
     <div class="col-md-8">
+        <h4>List of Locations</h4>
         <table class="styled-table" id="locationtable">
             <thead>
                 <tr>
