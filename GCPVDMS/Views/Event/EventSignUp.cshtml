@@ -4,8 +4,7 @@
     ViewBag.Title = "The Giving Closet Project's Volunteer Events";
     Layout = "_Layout";
 }
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+
 @*Script for JavaScript DataTables*@
 @section Scripts{
     <script>
@@ -82,24 +81,8 @@
                        asp-route-eventId="@item.EventID">
                         More Information
                     </a>
+                    <button>Quick Sign-Up</button>
                 </form>
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    @if (Model.Event.NumVolunteersNeeded <= 0)
-                    {
-                        <p style="color:red;">This event is full.</p>
-                       
-                    }
-                    else
-                    {
-                        <p>Pretend there is a button here</p>
-                    }
-                }
-                else
-                {
-                    <p>You need a volunteer account in order to volunteer at an event.</p>
-                }
-
             </td>
             </tr>
         }
