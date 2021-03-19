@@ -41,41 +41,44 @@
             <tbody>
                 @foreach (var item in Model.Events)
                 {
-                    <tr>
-                        <td class="text-center">@item.EventTitle</td>
-                        <td class="text-center">@item.Location.LocationName</td>
-                        <td class="text-center">@item.POCName</td>
-                        <td class="text-center">@item.EventDate.ToShortDateString()</td>
-                        <td class="text-center">@item.NumVolunteersNeeded</td>
-                        <td>
+                    @if (@item.EventTitle != "Offsite Duval" && @item.EventTitle != "Offsite Palm Beach")
+                    {
+                        <tr>
+                            <td class="text-center">@item.EventTitle</td>
+                            <td class="text-center">@item.Location.LocationName</td>
+                            <td class="text-center">@item.POCName</td>
+                            <td class="text-center">@item.EventDate.ToShortDateString()</td>
+                            <td class="text-center">@item.NumVolunteersNeeded</td>
+                            <td>
 
-                            @*<form asp-action="Delete" method="post">
-                            <a asp-action="Index" class="btn btn-sm btn-warning"
-                               asp-route-eventId="@item.EventID">
-                                Edit
-                            </a>
-                            <input type="hidden" name="ProductID" value="@item.EventID" />
-                            <button type="submit" class="btn btn-danger btn-sm">
-                                Delete
+                                @*<form asp-action="Delete" method="post">
+                        <a asp-action="Index" class="btn btn-sm btn-warning"
+                           asp-route-eventId="@item.EventID">
+                            Edit
+                        </a>
+                        <input type="hidden" name="ProductID" value="@item.EventID" />
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Delete
+                        </button>*@
+                                <form method="post">
+                                    @*<button class="btn btn-sm btn-light">
+                                View
                             </button>*@
-                            <form method="post">
-                                @*<button class="btn btn-sm btn-light">
-                                    View
-                                </button>*@
-                                <input type="hidden" name="EventID" value="" />
-                                <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
-                                   asp-route-eventId="@item.EventID">
-                                    View
-                                </a>
-                                <input type="hidden" name="EventID" value=" " />
-                                <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
-                                   asp-route-eventId="@item.EventID">
-                                    Edit
-                                </a>
-                            </form>
-                        </td>
-                    </tr>
-                }
+                                    <input type="hidden" name="EventID" value="" />
+                                    <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
+                                       asp-route-eventId="@item.EventID">
+                                        View
+                                    </a>
+                                    <input type="hidden" name="EventID" value=" " />
+                                    <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
+                                       asp-route-eventId="@item.EventID">
+                                        Edit
+                                    </a>
+                                </form>
+                            </td>
+                        </tr>
+                        }
+                    }
             </tbody>
         </table>
     </div>

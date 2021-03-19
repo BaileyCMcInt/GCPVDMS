@@ -57,7 +57,7 @@
     </thead>
     <tbody>
         @foreach (var item in Model.Events)
-        {
+        { 
             <tr>
                 <td class="text-center">@item.EventDate.ToShortDateString()</td>
                 <td class="text-center">@item.StartTime.ToShortTimeString() to @item.EndTime.ToShortTimeString()</td>
