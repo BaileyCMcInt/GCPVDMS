@@ -1,9 +1,12 @@
-﻿@model GCPVDMS.Models.ViewModels.CreateEventViewModel
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model GCPVDMS.Models.ViewModels.CreateEventViewModel
 
 @{
     ViewBag.Title = "Opportunity";
     Layout = "_Layout";
 }
+
+
 @section Scripts{
     <script>
         $(function () {
@@ -14,29 +17,41 @@
     </script>
 }
 
+<style>
+    .field-validation-error {
+        color: red
+    }
+
+    .validation-summary-errors {
+        color: red
+    }
+
+    .required {
+        color: red;
+    }
+</style>
+
 
 <!DOCTYPE html>
 <partial name="_GlobalEventTabs" />
 
 
 <body>
-    <br/>
+    <br />
     <h3 style="background-color: #D4EDDA;"> Create/Edit Opportunity Form </h3>
     <hr />
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+    @*<div asp-validation-summary="All"></div>*@
 
 
     <form asp-action="EventForm" method="post">
         <div class="row">
-            @*<div class="col px-md-5">*@
             <div class="col-md-6">
-
 
                 <input type="hidden" asp-for="Event.EventID" />
 
                 <div class="form-group">
-                    <label>Location: </label>
+                    <label>Location: </label><span class="required">*</span>
                     <select class="form-control" asp-for="@Model.Event.LocationID">
 
                         @foreach (var location in Model.Locations)
@@ -48,32 +63,36 @@
                     </select>
                 </div>
 
-
                 <div class="form-group">
-                    <label asp-for="Event.EventDate">Event Date: </label>
+                    <label asp-for="Event.EventDate">Date: </label><span class="required">*</span>
                     <input asp-for="Event.EventDate" class="form-control">
+                    <span asp-validation-for="Event.EventDate" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Event.StartTime">Start Time: </label>
+                    <label asp-for="Event.StartTime">Start Time: </label><span class="required">*</span>
                     <input asp-for="Event.StartTime" type="time" class="form-control">
+                    <span asp-validation-for="Event.StartTime" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Event.EndTime">End Time: </label>
+                    <label asp-for="Event.EndTime">End Time: </label><span class="required">*</span>
                     <input asp-for="Event.EndTime" type="time" class="form-control">
+                    <span asp-validation-for="Event.EndTime" class="text-danger"></span>
                 </div>
 
 
                 <div class="form-group">
-                    <label asp-for="Event.NumVolunteersNeeded">Number of Volunteers Needed: </label>
-                    <input asp-for="Event.NumVolunteersNeeded" min="1" class="form-control">
+                    <label asp-for="Event.NumVolunteersNeeded">Number of Volunteers Needed: </label><span class="required">*</span>
+                    <input asp-for="Event.NumVolunteersNeeded" class="form-control" required>
+                    <span asp-validation-for="Event.NumVolunteersNeeded" class="text-danger"></span>
                 </div>
 
 
                 <div class="form-group">
-                    <label asp-for="Event.EventTitle">Event Title: </label>
+                    <label asp-for="Event.EventTitle">Title: </label><span class="required">*</span>
                     <input asp-for="Event.EventTitle" class="form-control">
+                    <span asp-validation-for="Event.EventTitle" class="text-danger"></span>
                 </div>
 
 
@@ -93,18 +112,20 @@
 
                 <div class="form-group">
                     <label asp-for="Event.POCPhone">Phone: </label>
-                    <input asp-for="Event.POCPhone" class="form-control">
+                    <input asp-for="Event.POCPhone" class="form-control" placeholder="904-123-4567">
+                    <span asp-validation-for="Event.POCPhone" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Event.POCEmail">Email: </label>
                     <input asp-for="Event.POCEmail" class="form-control">
+                    <span asp-validation-for="Event.POCEmail" class="text-danger"></span>
                 </div>
 
 
                 <div class="form-group">
                     <input asp-for="Event.isEventActive" class="custom-checkbox">
-                    <label>Event Active</label>
+                    <label>Active</label>
                 </div>
 
             </div>
