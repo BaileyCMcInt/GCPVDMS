@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GCPVDMS.CustomValidation
 {
-    public class CustomAdmissionDate : ValidationAttribute
+    public class CustomEventDate : ValidationAttribute
     {
         public override bool IsValid(object value)
         {

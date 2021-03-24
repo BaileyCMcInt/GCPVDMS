@@ -8,16 +8,16 @@ using GCPVDMS.CustomValidation;
 
 namespace GCPVDMS.Models
 {
-    [Table("Events")]
+    //[Table("Events")]
     public class Event
     {
         public int EventID { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please choose date.")]
-        // [Display(Name = "Today's Date")]
+
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        [CustomAdmissionDate(ErrorMessage = "Date must be greater than or equal to Today's Date.")]
+        [CustomEventDate(ErrorMessage = "Date must be greater than or equal to Today's Date.")]
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please choose a date.")]
         public DateTime EventDate { get; set; }
 
         [Required(ErrorMessage = "Please choose a start time")]
@@ -27,7 +27,7 @@ namespace GCPVDMS.Models
         public DateTime EndTime { get; set; }
 
         [MaxLength(250)]
-        [Required(ErrorMessage = "Please enter an event title")]
+        [Required(ErrorMessage = "Please enter a title")]
         public string EventTitle { get; set; }
 
         public string EventDescription { get; set; }
@@ -37,22 +37,23 @@ namespace GCPVDMS.Models
 
         [MaxLength(50)]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter a valid phone number")]
         public string POCPhone { get; set; }
 
         [MaxLength(250)]
         [DataType(DataType.EmailAddress)]
-        [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Not a valid email")]
+        [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Please enter a valid email")]
         public string POCEmail { get; set; }
 
         public bool isEventActive { get; set; }
 
+        [Range(1,200, ErrorMessage = "Please enter a number between 1 and 200")]
         [Required(ErrorMessage = "Please enter a number greater than 0")]
         public int NumVolunteersNeeded { get; set; }
 
         public int NumVolunteersSignedUp { get; set; }
 
-        [Required(ErrorMessage = "Please choose a location")]
+      //  [Required(ErrorMessage = "Please choose a location")]
         [ForeignKey("LocationID")]
         public int LocationID { get; set; }
 
