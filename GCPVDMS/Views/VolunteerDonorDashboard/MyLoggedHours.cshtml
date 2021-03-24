@@ -12,6 +12,8 @@
         $(document).ready(function () {
             $('#yourTable').DataTable();
         });
+
+        
     </script>
 }
 
@@ -22,11 +24,21 @@
 
 
     <br />    <center><h3 style="background-color: #D4EDDA;">My Logged Hours</h3></center><br />
+    <div style="text-align:center" class="d-flex justify-content-center">
+        <div class="form-group; border" style="width: 50%">
+            <b>Filter Your Hours by Date</b><br />
+            <label>Start Date:</label>
+            <input type="date" min="2020-01-01" max="2050-01-01" asp-for="VolunteerHour.volunteerHourDate" required>
+            <label>End Date:</label>
+            <input type="date" min="2020-01-01" max="2050-01-01" asp-for="VolunteerHour.volunteerHourDate" required>
+        </div>
+    </div>
+    <br />
     <div style="text-align: center">
         <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="printDiv('printableArea')" <!--This button allows the user to see their logged hours on a printable pdf.-->
         <a asp-action="LogMyHours" class="btn btn-outline-dark">Log My Hours</a><!--This button redirects the user to the Log My Hours View page.-->
     </div>
-
+    <br />
     <div>
         <table id="yourTable" class="table table-bordered table-striped display">
             <!--This table displays the information from the Log My Hours form.-->
@@ -74,7 +86,7 @@
             </tbody>
         </table>
     </div>
-
+    <br />
 
 
     <br />
@@ -99,10 +111,10 @@
                         <!--This table displays the information from the Log My Hours form.-->
                         <thead style="width: 50px">
                             <tr>
-                                <th class="text-center">Date of Request</th>
+                                <th class="text-center">Date</th>
                                 <th class="text-center">Event</th>
                                 <th class="text-center">Hours Worked</th>
-                                <th class="text-center">Approval Status</th>
+                                <th style="display: none" class="text-center">Approval Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,7 +133,7 @@
                                                 <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
                                                 <td class="text-center">@item.NumberOfHours</td>
 
-                                                <td class="text-center">Approved</td>
+                                                <td style="display: none" class="text-center">Approved</td>
                                             }
                                             @*@if (item.isApproved == false && item.isDenied == false)
                                                 {
@@ -145,6 +157,9 @@
                 <table>
                     <!--This table only acts as a format tool for the signature/date lines on the printable pdf.-->
                     <tr>
+                        <td>@Model.User</td>
+                    </tr>
+                    <tr>
                         <td style="padding-right: 120px ; padding-left: 120px">____________________________________________</td>
                         <td style="padding-right: 120px">____________________________________________</td>
                         <td style="padding-right: 120px">________________</td>
@@ -155,10 +170,9 @@
                         <td>Date</td>
                     </tr>
                     <tr>
-                        <td><br /></td>
-                    </tr>
-                    <tr>
-                        <td><br /></td>
+                        <td style="padding-left: 120px">Jennifer Smith</td>
+                        <td><img src="~/images/JenniferSignature.png" height="100" width="150" /></td>
+                        <td><input type="text" style="width: 80%; border: none" value="@DateTime.Now.ToString("MM/dd/yyyy")" required readonly></td>
                     </tr>
                     <tr>
                         <td style="padding-left: 120px">____________________________________________</td>
