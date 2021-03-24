@@ -104,6 +104,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
             if (userApproval.EmailConfirmed == false)
             {
                 ErrorMessage = "Your account has not been confirmed. A confirmation email has been sent to your account.";
+              
                 return Page();
             }
           
@@ -130,13 +131,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                         ErrorMessage = "Password entered is invalid. Please enter a valid password to sign in to your account.";
                     }
 
-                    //var email = await _userManager.FindByEmailAsync(Input.Email);
-                    //if (!await _userManager.IsEmailConfirmedAsync(email))
-                    //{
-                    //    ModelState.AddModelError(string.Empty,
-                    //              "You must have a confirmed email to log in. Check your email to confirm your account.");
-                    //    return Page();
-                    //}
+                   
 
                 }
 
@@ -164,24 +159,10 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
                     }
 
                 }
-                //else
-                //{
-                //    ErrorMessage = "Invalid login attempt";
-                //}
 
             }
 
-            //else
-            // {
-            //     //var email = await _userManager.FindByEmailAsync(Input.Email);
-            //     //if (!await _userManager.IsEmailConfirmedAsync(email))
-            //     //{
-            //     //    ModelState.AddModelError(string.Empty,
-            //     //              "You must have a confirmed email to log in. Check your email to confirm your account.");
-
-            //     //}
-            //     //}
-            // }
+            
 
             // If we got this far, something failed, redisplay form
             return Page();
