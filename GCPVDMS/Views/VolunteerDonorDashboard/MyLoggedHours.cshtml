@@ -8,12 +8,84 @@
 @inject UserManager<ApplicationUser> UserManager
 @*Script for JavaScript DataTables*@
 @section Scripts{
-    <script>
-        $(document).ready(function () {
-            $('#yourTable').DataTable();
-        });
 
-        
+    <script>
+
+        //var minDate, maxDate;
+
+        //// Custom filtering function which will search data in column four between two values
+        //$.fn.dataTable.ext.search.push(
+        //    function (settings, data, dataIndex) {
+        //        var min = minDate.val();
+        //        var max = maxDate.val();
+        //        var date = new Date(data[0]);
+        //        console.log(date);
+        //        if (
+        //            (min === null && max === null) ||
+        //            (min === null && date <= max) ||
+        //            (min <= date && max === null) ||
+        //            (min <= date && date <= max)
+        //        ) {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //);
+
+        //$(document).ready(function () {
+        //    // Create date inputs
+        //    minDate = new DateTime($('#min'), {
+        //        format: 'MMMM Do YYYY'
+        //    });
+        //    maxDate = new DateTime($('#max'), {
+        //        format: 'MMMM Do YYYY'
+        //    });
+
+        //    // DataTables initialisation
+        //    var table = $('#yourTable').DataTable();
+
+        //    // Refilter the table
+        //    $('#min, #max').on('change', function () {
+        //        table.draw();
+        //    });
+        //});
+
+       // $(document).ready(function () {
+         //   $('#yourTable').DataTable();
+        //});
+        $(document).ready(function () {
+            //$('#yourtable').DataTable();
+            var table = $('#yourTable').DataTable();
+          //  table;
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#min, #max').change(function () {
+                table.draw();
+
+            });
+        });
+        /* Custom filtering function which will search data in column four between two values */
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = Date.parse($('#min').val()) + 14400000;
+                var max = Date.parse($('#max').val()) + 14400000;
+                console.log("min is " + min);
+                console.log("max is " + max);
+
+                var date = Date.parse(data[0].toString()) || 0; // use data for the date column
+                console.log(date);
+                if ((isNaN(min) && isNaN(max)) || (isNaN(min) && date <= max) || (min <= date && isNaN(max)) || (min <= date && date <= max)) {
+                    console.log("date is valid and = " + date);
+                    return true;
+
+                }
+                return false;
+            }
+        );
+
+     
+
+
+
     </script>
 }
 
@@ -24,19 +96,19 @@
 
 
     <br />    <center><h3 style="background-color: #D4EDDA;">My Logged Hours</h3></center><br />
+    <div style="text-align: center">
+        <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="printDiv('printableArea')" /><!--This button allows the user to see their logged hours on a printable pdf.-->
+        <a asp-action="LogMyHours" class="btn btn-outline-dark">Log My Hours</a><!--This button redirects the user to the Log My Hours View page.-->
+    </div>
+    <br />
     <div style="text-align:center" class="d-flex justify-content-center">
         <div class="form-group; border" style="width: 50%">
             <b>Filter Your Hours by Date</b><br />
             <label>Start Date:</label>
-            <input type="date" min="2020-01-01" max="2050-01-01" asp-for="VolunteerHour.volunteerHourDate" required>
+            <input type="date" id="min" min="2020-01-01" max="2050-01-01" asp-for="VolunteerHour.volunteerHourDate" required>
             <label>End Date:</label>
-            <input type="date" min="2020-01-01" max="2050-01-01" asp-for="VolunteerHour.volunteerHourDate" required>
+            <input type="date" id="max" min="2020-01-01" max="2050-01-01" asp-for="VolunteerHour.volunteerHourDate" required>
         </div>
-    </div>
-    <br />
-    <div style="text-align: center">
-        <input type="button" class="btn btn-outline-dark" value="Print My Logged Volunteer Hours" onclick="printDiv('printableArea')" <!--This button allows the user to see their logged hours on a printable pdf.-->
-        <a asp-action="LogMyHours" class="btn btn-outline-dark">Log My Hours</a><!--This button redirects the user to the Log My Hours View page.-->
     </div>
     <br />
     <div>
@@ -87,21 +159,29 @@
         </table>
     </div>
     <br />
-
-
     <br />
     <br />
+
+
+
+
+
+
+
+
+
+
+    <!--PRINT AREA NOT SEEN BY USER NORMALLY-->
+   
 
     <div style="display:none">
         <!--This div is hidden from the view of the user, it only acts as the information that will be displayed in the prontable pdf of the page.-->
         <div id="printableArea">
 
             <br />
-            <br />
 
             <p style="text-align:center"><img src="~/images/logo.png" height="200" width="200"></p><!--GCP logo-->
 
-            <br />
             <br />
 
             <h1 style="text-align:center">Volunteer Work Hours</h1>
@@ -203,6 +283,5 @@
             document.body.innerHTML = originalContents;
         }
     </script>
-
 </body>
 </html>
