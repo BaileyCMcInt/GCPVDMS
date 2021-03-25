@@ -1,4 +1,3 @@
-
 @{
     Layout = "_Layout";
 }
@@ -24,7 +23,11 @@
 
     <div>
         <center><h3 style="background-color: #D4EDDA;">Transaction History</h3></center>
-
+        <br />
+        <div style="text-align: center">
+            <input type="button" class="btn btn-outline-dark" value="Print My Transaction History" onclick="window.print()" />
+        </div>
+        <br />
         <table id="yourTable2" class="table table-bordered table-striped">
             <thead style="width: 50px">
                 <tr>
@@ -39,41 +42,31 @@
     </div>
     <br />
     <div style="text-align: center">
-        <input type="button" class="btn btn-outline-dark" value="Print My Transaction History" onclick="window.print()" />
+
         <br />
         <br />
         <br />
         <br />
         <br />
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 
-            <!-- Identify your business so that you can collect the payments. -->
-            <input type="hidden" name="business"
-                   value="donations@kcparkfriends.org">
-
-            <!-- Specify a Donate button. -->
-            <input type="hidden" name="cmd" value="_donations">
-
-            <!-- Specify details about the contribution -->
-            <input type="hidden" name="item_name" value="Friends of the Park">
-            <input type="hidden" name="item_number" value="Fall Cleanup Campaign">
-            <input type="hidden" name="currency_code" value="USD">
-
-            <!-- Display the payment button. -->
-            <div style="text-align: center">
-                <p>
-                    You can make monetary donations to The Giving Closet Project through your PayPal account, it's easy!<br />
-                    Just click the donate button below and you will be redirected to the organizations PayPal account to complete the transaction.
-                </p>
-                <input type="image" name="submit"
-                       src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
-                       alt="Donate" height="40" width="150">
-                <img alt="" width="1" height="1"
-                     src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
-
-            </div>
-
-        </form>
     </div>
+
+    <!--This area is hidden to the viewers and only used when the user selects the Print Transaction History button on this page.-->
+    <!--<div id="printableArea">
+        <p style="text-align:center"><img src="~/images/logo.png" height="200" width="200"></p>-->
+    <!--GCP logo-->
+    <!--<br />
+        <br />
+
+    </div>-->
+
+    <form action="https://www.paypal.com/donate" method="post" target="_top">
+        <input type="hidden" name="hosted_button_id" value="BHJ58DJ4YQN3G" />
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+    </form>
+
+
 </body>
 </html>
+
