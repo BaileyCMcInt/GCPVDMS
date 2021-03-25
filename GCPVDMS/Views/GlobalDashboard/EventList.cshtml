@@ -35,6 +35,7 @@
                     <th class="text-center">Contact</th>
                     <th class="text-center">Date</th>
                     <th class="text-center">Spots available</th>
+                    <th class="text-center">Active</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -43,40 +44,48 @@
                 {
                     @if (@item.EventTitle != "Offsite Duval" && @item.EventTitle != "Offsite Palm Beach")
                     {
-                        <tr>
-                            <td class="text-center">@item.EventTitle</td>
-                            <td class="text-center">@item.Location.LocationName</td>
-                            <td class="text-center">@item.POCName</td>
-                            <td class="text-center">@item.EventDate.ToShortDateString()</td>
-                            <td class="text-center">@item.NumVolunteersNeeded</td>
-                            <td>
+                <tr>
+                    <td class="text-center">@item.EventTitle</td>
+                    <td class="text-center">@item.Location.LocationName</td>
+                    <td class="text-center">@item.POCName</td>
+                    <td class="text-center">@item.EventDate.ToShortDateString()</td>
+                    <td class="text-center">@item.NumVolunteersNeeded</td>
+                    @if (item.isEventActive == true)
+                    {
+                        <td class="text-center">Yes</td>
+                    }
+                    else
+                    {
+                        <td class="text-center" style="color:red">No</td>
+                    }
+                    <td>
 
-                                @*<form asp-action="Delete" method="post">
-                        <a asp-action="Index" class="btn btn-sm btn-warning"
-                           asp-route-eventId="@item.EventID">
-                            Edit
-                        </a>
-                        <input type="hidden" name="ProductID" value="@item.EventID" />
-                        <button type="submit" class="btn btn-danger btn-sm">
-                            Delete
-                        </button>*@
-                                <form method="post">
-                                    @*<button class="btn btn-sm btn-light">
+                        @*<form asp-action="Delete" method="post">
+            <a asp-action="Index" class="btn btn-sm btn-warning"
+               asp-route-eventId="@item.EventID">
+                Edit
+            </a>
+            <input type="hidden" name="ProductID" value="@item.EventID" />
+            <button type="submit" class="btn btn-danger btn-sm">
+                Delete
+            </button>*@
+                        <form method="post">
+                            @*<button class="btn btn-sm btn-light">
+                    View
+                </button>*@
+                            <input type="hidden" name="EventID" value="" />
+                            <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
+                               asp-route-eventId="@item.EventID">
                                 View
-                            </button>*@
-                                    <input type="hidden" name="EventID" value="" />
-                                    <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
-                                       asp-route-eventId="@item.EventID">
-                                        View
-                                    </a>
-                                    <input type="hidden" name="EventID" value=" " />
-                                    <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
-                                       asp-route-eventId="@item.EventID">
-                                        Edit
-                                    </a>
-                                </form>
-                            </td>
-                        </tr>
+                            </a>
+                            <input type="hidden" name="EventID" value=" " />
+                            <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
+                               asp-route-eventId="@item.EventID">
+                                Edit
+                            </a>
+                        </form>
+                    </td>
+                </tr>
                         }
                     }
             </tbody>
