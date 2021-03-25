@@ -4,7 +4,8 @@
     ViewBag.Title = "The Giving Closet Project's Volunteer Events";
     Layout = "_Layout";
 }
-
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @*Script for JavaScript DataTables*@
 @section Scripts{
     <script>
@@ -44,6 +45,7 @@
 <center><h2 style="background-color: #D4EDDA;">Volunteer Opportunities</h2></center>
 <br />
 
+<input type="hidden" asp-for="@Model.Event.EventID" />
 <table id="myTable" class="display">
     <thead>
         <tr>
@@ -57,7 +59,7 @@
     </thead>
     <tbody>
         @foreach (var item in Model.Events)
-        { 
+        {
             <tr>
                 <td class="text-center">@item.EventDate.ToShortDateString()</td>
                 <td class="text-center">@item.StartTime.ToShortTimeString() to @item.EndTime.ToShortTimeString()</td>
@@ -72,20 +74,50 @@
                     <td class="text-center">@item.NumVolunteersNeeded</td>
                 }
 
-            <td class="text-center">
+                <td class="text-center">
 
+                    <form method="post">
+                        <input type="hidden" name="EventID" value=" " />
+                        <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
+                           asp-route-eventId="@item.EventID">
+                            More Info
+                        </a>
+                    </form>
 
-                <form method="post">
-                    <input type="hidden" name="EventID" value=" " />
-                    <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
-                       asp-route-eventId="@item.EventID">
-                        More Information
-                    </a>
-                    <button>Quick Sign-Up</button>
-                </form>
-            </td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+
+                        var userId = UserManager.GetUserId(User);
+                        <form asp-action="ConfirmationPage" method="post">
+                            <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
+                            <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@item.EventID" />
+                            @if (@item.NumVolunteersNeeded <= 0)
+                            {
+                                <p style="color:red;">Sign-up unavailable. This event is full.</p>
+                                @*<button name="eventId" disabled value="@Model.Event.EventID" class="btn btn-outline-dark">
+                                        Sign-up
+                                    </button>*@
+                            }
+                            else
+                            {
+                                <button name="eventId" value="@item.EventID" class="btn btn-outline-success btn-sm" onclick="return confirm('Are you sure you want to sign up?')">
+                                    Quick Sign-up
+                                </button>
+                            }
+                        </form>
+                    }
+                </td>
             </tr>
         }
     </tbody>
 </table>
+@if (!SignInManager.IsSignedIn(User))
+{
+<Center>
+    <p>You need a volunteer account in order to volunteer at an event.</p>
+    <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
+    <br />
+    <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
+</Center>
+}
 
