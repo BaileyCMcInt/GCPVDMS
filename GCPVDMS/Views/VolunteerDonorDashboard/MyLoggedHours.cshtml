@@ -56,10 +56,12 @@
         $(document).ready(function () {
             //$('#yourtable').DataTable();
             var table = $('#yourTable').DataTable();
+
           //  table;
             // Event listener to the two range filtering inputs to redraw on input
             $('#min, #max').change(function () {
                 table.draw();
+                printFormFilter();
 
             });
         });
@@ -82,9 +84,28 @@
             }
         );
 
-     
+        //print form filter function
+        function printFormFilter() {
+            var i;
+            var min = Date.parse($('#min').val()) + 14400000;
+            var max = Date.parse($('#max').val()) + 14400000;
 
+            var printBody = document.getElementById("body").children
+            for (i = 0; i < printBody.length; i++) {
+                console.log("row " + i);
+                var dateValue = Date.parse(printBody[i].children[0].innerHTML);
+                console.log("min is " + min + " " + "max is " + max + " " + "DateVal is " + dateValue);
 
+                //Delete row if date is out of user input range (min, max)
+                if (dateValue < min || dateValue > max) {
+                    printBody[i].style.display = "none";
+                    console.log("row " + i + " " + "is out of range");
+                } else {
+                    printBody[i].style.display = "table-row";
+                    console.log("row " + i + "is in range");
+                }
+            }
+        }
 
     </script>
 }
@@ -122,7 +143,7 @@
                     <th class="text-center">Approval Status</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <!----This loop utilizes the ViewModel tagged in this page to retrieve logged hour data for a specific volunteer.-->
                 @foreach (var item in Model.VolunteerHours)//loops through volunteerHour table data
                 {
@@ -187,7 +208,7 @@
             <h1 style="text-align:center">Volunteer Work Hours</h1>
             <div>
                 <div>
-                    <table id="yourTable" class="table table-bordered table-striped display">
+                    <table id="yourTablePrint" class="table table-bordered table-striped display">
                         <!--This table displays the information from the Log My Hours form.-->
                         <thead style="width: 50px">
                             <tr>
@@ -197,7 +218,7 @@
                                 <th style="display: none" class="text-center">Approval Status</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="body">
                             <!----This loop utilizes the ViewModel tagged in this page to retrieve logged hour data for a specific volunteer.-->
                             @foreach (var item in Model.VolunteerHours)//loops through volunteerHour table data
                             {
@@ -206,24 +227,27 @@
                                     var user = UserManager.GetUserId(User);//get signed in user's UserID
                                     if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
                                     {
-                                        <tr>
-                                            @if (item.isApproved == true && item.isDenied == false)
-                                            {
-                                                <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
-                                                <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                                                <td class="text-center">@item.NumberOfHours</td>
+                            <tr>
+                                @if (item.isApproved == true && item.isDenied == false)
+                                {
+                                    <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                                    <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                                    <td class="text-center">@item.NumberOfHours</td>
 
-                                                <td style="display: none" class="text-center">Approved</td>
-                                            }
-                                            @*@if (item.isApproved == false && item.isDenied == false)
-                                                {
-                                                    <td class="text-center">Pending</td>
-                                                }
-                                                @if (item.isDenied == true)
-                                                {
-                                                    <td class="text-center">Denied</td>
-                                                }*@
-                                        </tr>
+                                    <td style="display: none" class="text-center">Approved</td>
+                                }
+                                @*@if (item.isApproved == false && item.isDenied == false)
+        {
+            <td class="text-center">Pending</td>
+        }*@
+                                @if (item.isDenied == true)
+                                {
+                                    <td style="display: none" class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                                    <td style="display: none" class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                                    <td style="display: none" class="text-center">@item.NumberOfHours</td>
+                                    <td style="display: none" class="text-center">Denied</td>
+                                }
+                            </tr>
                                     }
                                 }
                             }
@@ -236,11 +260,18 @@
 
                 <table>
                     <!--This table only acts as a format tool for the signature/date lines on the printable pdf.-->
+
                     <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="padding-right: 120px ; padding-left: 120px">____________________________________________</td>
+                        <td style="padding-right: 120px ; padding-left: 120px">
+                            <div style="border-bottom:solid ;width:200px ;border-width:thin">
+                                @if (SignInManager.IsSignedIn(User))
+                                {//checks that user is Signed in
+                                    var CurrentVolunteer = UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result;
+                                    @(CurrentVolunteer.FirstName + " " + CurrentVolunteer.LastName);
+                                }
+                            </div>
+
+                        </td>
                         <td style="padding-right: 120px">____________________________________________</td>
                         <td style="padding-right: 120px">________________</td>
                     </tr>
@@ -257,7 +288,7 @@
                     <tr>
                         <td style="padding-left: 120px"><div style="border-bottom:solid ;width:200px ;border-width:thin">Jennifer Smith</div>Print GCP Admin Name</td>
                         <td><img src="~/images/JenniferSignature6.png" /></td>
-                        <td><div style="border-bottom:solid ;width:50% ;border-width:thin"><input type="text" style="width: 80%; border: none" value="@DateTime.Now.ToString("MM/dd/yyyy")" required readonly></div>Date</td>
+                        <td><div style="width:50%"><input type="text" style="width: 80%; border-left: none; border-right: none; border-top: none; border-bottom-width: thin" value="@DateTime.Now.ToString("MM/dd/yyyy")" required readonly></div>Date</td>
                     </tr>
                     <tr>
                         <td style="padding-left: 120px"></td>
@@ -275,13 +306,15 @@
     <!--This Javascript function is active when the user clicks the Print My Logged Volunteer Hours button.-->
     <script>
         function printDiv(divName) {
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;
+                            var printContents = document.getElementById(divName).innerHTML;
+                            var originalContents = document.body.innerHTML;
 
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-        }
+                            document.body.innerHTML = printContents;
+                            window.print();
+                            document.body.innerHTML = originalContents;
+                            window.location.reload(true);
+                        }
     </script>
 </body>
 </html>
+paya
