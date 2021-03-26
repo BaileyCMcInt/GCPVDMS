@@ -14,7 +14,7 @@
 
 
 <div asp-validation-summary="All" class="text-danger"></div>
-
+<br />
 <form method="post">
     <center><h3 style="background-color: #D4EDDA;">Giving Closet Project Volunteers</h3></center>
     <hr />
@@ -33,21 +33,21 @@
             {
 
                 @if (user.isVolunteer)
-{
+                {
 
-            <tr>
-                <td><center>@user.FirstName</center></td>
-                <td><center>@user.LastName</center></td>
-                <td><center>@user.Email</center></td>
-                <td><center>@user.County</center></td>
-                <td>
-                    <center>
-                        <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="VolunteerInfo" asp-route-id="@user.Id">View Volunteer Info</button>
-                    </center>
-                </td>
-            </tr>
+                    <tr>
+                        <td><center>@user.FirstName</center></td>
+                        <td><center>@user.LastName</center></td>
+                        <td><center>@user.Email</center></td>
+                        <td><center>@user.County</center></td>
+                        <td>
+                            <center>
+                                <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="VolunteerInfo" asp-route-id="@user.Id">View Volunteer Info</button>
+                            </center>
+                        </td>
+                    </tr>
 
-}
+                }
             }
         </tbody>
     </table>
