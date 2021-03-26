@@ -120,6 +120,7 @@
                     <th class="text-center">Event</th>
                     <th class="text-center">Hours/Minutes Worked</th>
                     <th class="text-center">Approval Status</th>
+                    <th class="text-center">Admin Feedback</th>
                 </tr>
             </thead>
             <tbody>
@@ -131,27 +132,28 @@
                         var user = UserManager.GetUserId(User);//get signed in user's UserID
                         if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
                         {
-                            <tr>
-                                <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
-                                <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                                <td class="text-center">@item.NumberOfHours.ToString("0.00")</td>
-                                @if (item.isApproved == true && item.isDenied == false)
-                                {
+                <tr>
+                    <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                    <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                    <td class="text-center">@item.NumberOfHours.ToString("0.00")</td>
+                    @if (item.isApproved == true && item.isDenied == false)
+                    {
 
-                                    <td class="text-center" style="color:green;">Approved</td>
+                        <td class="text-center" style="color:green;">Approved</td>
 
-                                }
-                                @if (item.isApproved == false && item.isDenied == false)
-                                {
-                                    <td class="text-center">Pending</td>
-                                }
-                                @if (item.isDenied == true)
-                                {
+                    }
+                    @if (item.isApproved == false && item.isDenied == false)
+                    {
+                        <td class="text-center">Pending</td>
+                    }
+                    @if (item.isDenied == true)
+                    {
 
-                                    <td class="text-center" style="color:red">Denied</td>
+                        <td class="text-center" style="color:red">Denied</td>
 
-                                }
-                            </tr>
+                    }
+                    <td class="text-center">@item.adminComment</td>
+                </tr>
                         }
                     }
                 }

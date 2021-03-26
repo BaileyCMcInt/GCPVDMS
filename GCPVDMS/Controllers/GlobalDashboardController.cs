@@ -505,7 +505,7 @@ namespace GCPVDMS.Controllers
 
         [Authorize(Roles = "Global Admin")]
         [HttpPost]
-        public async Task<IActionResult> HoursApproval(int id, string userId, string approve)
+        public async Task<IActionResult> HoursApproval(int id, string userId, string approve, string deny, string adminComment)
         {
             ApplicationUser user = await userManager.FindByIdAsync(userId);
             var hours = new ApproveHoursViewModel()
@@ -522,6 +522,10 @@ namespace GCPVDMS.Controllers
             if (approve == "deny")
             {
                 hours.VolunteerHour.isDenied = true;
+            }
+            if(adminComment !="null")
+            {
+                hours.VolunteerHour.adminComment = adminComment;
             }
             context.SaveChanges();
             return RedirectToAction("HoursApproval", hours);
