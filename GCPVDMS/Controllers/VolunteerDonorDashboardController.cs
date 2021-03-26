@@ -177,6 +177,8 @@ namespace GCPVDMS.Controllers
         {
 
             var user = await userManager.FindByIdAsync(userId);
+            
+
             //creates a new viewmodel object
             var viewModel = new LogMyHoursViewModel
             {
@@ -193,9 +195,11 @@ namespace GCPVDMS.Controllers
                 //in to the method, so that you do not retrieve all volunteer hours
                 //you may need to set this up to be passed to this method from your view, 
                 //I did not check that part.
-                UserId = userId
-                
-             };
+                UserId = userId,
+
+                //Adding User object tp MyLoggedHours - Shows the Logged in Volunteer Name on the Print Form
+                User = user
+        };
             //returns viewModel of data to retrieve from the view.
                 return View(viewModel);
  

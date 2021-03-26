@@ -14,10 +14,6 @@
 <html>
 <body>
 
-    <div style="text-align: center">
-
-    </div>
-
     <br />
 
 
@@ -26,6 +22,15 @@
         <br />
         <div style="text-align: center">
             <input type="button" class="btn btn-outline-dark" value="Print My Transaction History" onclick="window.print()" />
+        </div>
+  
+        <div class="text-center">
+            <p><h5>Donate to The Giving Closet Project using the button below!</h5>Your funds will help provide students in the Palm Beach and Duval counties with personal hygiene items,<br />clothing, school supplies and the hope for a better future.</p>
+            <form action="https://www.paypal.com/donate" method="post" target="_top">
+                <input type="hidden" name="hosted_button_id" value="BHJ58DJ4YQN3G" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+            </form>
         </div>
         <br />
         <table id="yourTable2" class="table table-bordered table-striped">
@@ -41,15 +46,6 @@
         </table>
     </div>
     <br />
-    <div style="text-align: center">
-
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-    </div>
 
     <!--This area is hidden to the viewers and only used when the user selects the Print Transaction History button on this page.-->
     <!--<div id="printableArea">
@@ -60,11 +56,6 @@
 
     </div>-->
 
-    <form action="https://www.paypal.com/donate" method="post" target="_top">
-        <input type="hidden" name="hosted_button_id" value="BHJ58DJ4YQN3G" />
-        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-    </form>
 
 
 </body>
