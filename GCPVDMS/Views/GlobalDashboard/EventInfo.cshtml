@@ -28,7 +28,6 @@
 
                         @for (Int32 i = 0; i < this.Model.GCPEventTasks.Count; i++)
                         {
-                            // <input type="checkbox" asp-for="@Model.GCPEventTasks[i].isSelected" />
                             <label>@Model.GCPEventTasks[i].GCPTask.TaskName</label>
                             <input type="hidden" asp-for="@Model.GCPEventTasks[i].GCPTaskID" />
                             //   <input type="hidden" asp-for="@Model.Roles[i].RoleName" />
@@ -37,7 +36,7 @@
 
                     </p>
 
-                    <p class="card-text"><b>Event is active:</b> @Model.Event.isEventActive</p>
+                    <p class="card-text"><b>Active:</b> @Model.Event.isEventActive</p>
 
                 </div>
                 <div class="col-md-3">

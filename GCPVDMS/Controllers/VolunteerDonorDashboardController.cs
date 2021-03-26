@@ -230,6 +230,8 @@ namespace GCPVDMS.Controllers
                     .Include(i => i.Location)
                     .FirstOrDefault(x => x.EventID == eventId),
                 Events = context.Events.ToList(),
+                GCPEventTasks = context.GCPEventTasks.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
+                GCPTasks = context.GCPTasks.ToList()
             };
             //Returns viewModel object with Event data
             return View(viewModel);

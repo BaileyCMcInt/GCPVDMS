@@ -10,6 +10,9 @@ namespace GCPVDMS.Models.ViewModels
         public Location Location { get; set; }
         public List<Location> Locations { get; set; }
         public List<GCPTask> GCPTasks { get; set; }
+        public GCPTask GCPTask { get; set; }
+        public GCPEventTask GCPEventTask { get; set; }
+        public List<GCPEventTask> GCPEventTasks { get; set; }
         public List<Event> Events { get; set; }
         public virtual Event Event { get; set; }
         public string UserId { get; set; }
@@ -17,5 +20,6 @@ namespace GCPVDMS.Models.ViewModels
         public List<EventRegistration> EventRegistrations { get; set; }
         public ApplicationUser User { get; set; }
         public int EventId { get; set; }
+
     }
 }
