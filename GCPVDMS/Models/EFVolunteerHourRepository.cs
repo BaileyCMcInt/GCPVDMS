@@ -38,6 +38,7 @@ namespace GCPVDMS.Models
                     dbEntry.StartTime = volunteerhour.StartTime;
                     dbEntry.EndTime = volunteerhour.EndTime;
                     dbEntry.volunteerHourDate = volunteerhour.volunteerHourDate;
+                    dbEntry.adminComment = volunteerhour.adminComment;
                 }
 
             }

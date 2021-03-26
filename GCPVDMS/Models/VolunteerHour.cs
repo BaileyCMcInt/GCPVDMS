@@ -34,5 +34,6 @@ namespace GCPVDMS.Models
         public DateTime StartTime { get; set; }
         [Required(ErrorMessage = "Must enter an end time")]
         public DateTime EndTime { get; set; }
+        public string adminComment { get; set; }
     }
 }

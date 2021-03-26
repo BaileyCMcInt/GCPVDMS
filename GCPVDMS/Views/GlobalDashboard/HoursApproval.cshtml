@@ -6,14 +6,21 @@
     <script>
         $(document).ready(function () {
             $('#approvalTable').DataTable();
-        });</script>
+        });
+       // function submit_form() {
+           // document.getElementById('adminComment').submit();
+           // document.getElementById('approve').submit();
+            //document.getElementById('deny').submit();
+       // }
+    </script>
 }
 
 <partial name="_GlobalApprovalTabs" />
 <br />
 <center><h3 style="background-color: #D4EDDA;">Volunteer Hours Pending Approval</h3></center>
-<hr/>
+<hr />
 <br />
+
 <table id="approvalTable" class="display">
     <thead>
         <tr>
@@ -32,50 +39,130 @@
         {
             if (item.isApproved == false && item.isDenied != true)
             {
-        <tr>
-            <td><center>@item.Date.ToShortDateString()</center></td>
-            @foreach (var user in Model.Users)
-            {
-                if (item.UserId == user.Id)
-                {
+                <tr>
+                    <td><center>@item.Date.ToShortDateString()</center></td>
+                    @foreach (var user in Model.Users)
+                    {
+                        if (item.UserId == user.Id)
+                        {
+                            <td>
+                                <center>@user.FirstName @user.LastName</center>
+                            </td>
+                        }
+                    }
+
+                    <td><center>@item.Event.EventTitle, @item.volunteerDescription</center></td>
+
+                    @if (@item.Event.EventTitle == "Offsite Duval")
+                    {
+                        <td><center>Duval</center></td>
+
+                    }
+                    else if (@item.Event.EventTitle == "Offsite Palm Beach")
+                    {
+                        <td><center>Palm Beach</center></td>
+                    }
+                    else
+                    {
+                        <td><center>@item.Event.Location.LocationName</center></td>
+                    }
+
+                    <td><center>@item.volunteerHourDate.ToShortDateString()</center></td>
+                    <td><center>@item.StartTime.ToShortTimeString() - @item.EndTime.ToShortTimeString()</center></td>
+                    <td><center>@item.NumberOfHours.ToString("0.00")</center></td>
                     <td>
-                        <center>@user.FirstName @user.LastName</center>
+                        <!--<center>-->
+                        <!--onclick="return confirm('Are you sure you want to approve these volunteer hours?')-->
+                        <!--<form asp-action="HoursApproval" asp-route-id="item.VolunteerHourID" method="post">
+            <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+                Approve
+            </button>
+
+        </form>
+    </center>-->
+
+                        <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#exampleModal">
+                            Approval Form
+                        </button>
+                        <form asp-action="HoursApproval" asp-route-id="@item.VolunteerHourID" method="post">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Volunteer Hour Approval Form:</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                             <div class="form-group">
+                                                 <center>
+                                                     <label>Approve: </label>
+                                                     <input type="checkbox" class="custom-checkbox" name="approve" value="approve" data-target="#exampleModal">
+                                                               
+                                                     <label>Deny:</label>
+                                                     <input type="checkbox" class="custom-checkbox" name="approve" value="deny" data-target="#exampleModal">
+                                                 </center>
+                                            </div>
+                                            <div class="form-group">
+                                                <center>
+                                                    <label>Leave a comment for the volunteer below (optional):</label>
+                                                </center>
+                                                    <textarea class="form-control" type="text" id="adminComment" name="adminComment" asp-for="VolunteerHour.adminComment"></textarea>
+
+                                               </div>
+                                            <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">Save changes</button>
+                                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!--Button For denying hours wth modal-->
+                        @*<center>
+            <form asp-action="HoursApproval" asp-route-id="@item.VolunteerHourID" method="post">
+                <button type="button" class="btn btn-sm btn-outline-danger" name="deny" value="deny"data-toggle="modal" data-target="#exampleModal">
+                    Deny
+                </button>
+                <input type="hidden" asp-for="VolunteerHour.isDenied"/>
+
+            </form>
+        </center>*@
+                        @*<form asp-action="HoursApproval" asp-route-id="@item.VolunteerHourID" method="post">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Leave a message:</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" id="adminComment" name="adminComment" asp-for="VolunteerHour.adminComment">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="hidden" asp-for="VolunteerHour.isDenied" name="deny" value="deny" id="deny" />
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>*@
+
                     </td>
-                }
-            }
-
-            <td><center>@item.Event.EventTitle, @item.volunteerDescription</center></td>
-
-            @if (@item.Event.EventTitle == "Offsite Duval")
-            {
-                <td><center>Duval</center></td>
-
-            }
-            else if (@item.Event.EventTitle == "Offsite Palm Beach")
-            {
-                <td><center>Palm Beach</center></td>
-            }
-            else
-            {
-                <td><center>@item.Event.Location.LocationName</center></td>
-            }
-
-            <td><center>@item.volunteerHourDate.ToShortDateString()</center></td>
-            <td><center>@item.StartTime.ToShortTimeString() - @item.EndTime.ToShortTimeString()</center></td>
-            <td><center>@item.NumberOfHours.ToString("0.00")</center></td>
-            <td>
-                <center>
-                    <form asp-action="HoursApproval" asp-route-id="@item.VolunteerHourID" method="post">
-                        <button type="submit" name="approve" value="approve" class="btn btn-sm btn-outline-success" onclick="return confirm('Are you sure you want to approve these volunteer hours?')">
-                            Approve
-                        </button>
-                        <button type="submit" name="approve" value="deny" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to deny these volunteer hours?')">
-                            Deny
-                        </button>
-                    </form>
-                </center>
-            </td>
-        </tr>
+                </tr>
             }
         }
     </tbody>
