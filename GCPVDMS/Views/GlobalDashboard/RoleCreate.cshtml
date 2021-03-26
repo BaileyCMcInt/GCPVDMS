@@ -1,14 +1,20 @@
 ﻿@model string
 
-<br />
-<center><h3 style="background-color: #D4EDDA;">Create a Role</h3></center>
-<a asp-action="RoleIndex" class="btn btn-secondary">Back</a>
-<div asp-validation-summary="All" class="text-danger"></div>
+    <partial name="_GlobalRoleTabs" />
+    <br />
+    <center><h3 style="background-color: #D4EDDA;">Create a New Admin Role</h3></center>
+    <hr />
 
-<form asp-action="RoleCreate" method="post">
-    <div class="form-group">
-        <label for="name">Name:</label>
-        <input name="name" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form asp-action="RoleCreate" method="post">
+        <div class="form-group">
+            <label for="name">Name of new role:</label>
+            <input name="name" class="form-control" />
+        </div>
+        <br />
+        <center>
+            <button type="submit" class="btn btn-outline-success">Create</button>
+            <a asp-action="RoleIndex" class="btn btn-outline-dark">Go back</a>
+        </center>
+    </form>

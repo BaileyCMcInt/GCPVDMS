@@ -15,10 +15,12 @@
 <br/> 
 <center><h3 style="background-color: #D4EDDA;">Administrative Role Management</h3></center>
 <hr />
-@*</br>
-    <a asp-action="Create" class="btn btn-secondary">Create a Role</a>*@
+<center>
+    <!--This is disable because the client will need direction before setting this up, long down the road if she needs it.
+    Authorization is implemented in the global dashboard controller and can be used for any new role.-->
+    <a asp-action="RoleCreate" class="btn btn-outline-dark">Create a Role</a>
+</center>
 
-</br>
 <table id="roleTable" class="display">
     <thead>
         <tr>
