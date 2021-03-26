@@ -1,11 +1,13 @@
-﻿@model CreateEventViewModel
+﻿@inject UserManager<ApplicationUser> UserManager
+@model CreateEventViewModel
 
 @{
     ViewBag.Title = "Event Info";
     Layout = "_Layout";
 }
+
 <html>
-=
+
 <body>
     <partial name="_GlobalEventTabs" />
     <br />
@@ -24,19 +26,17 @@
 
                     <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
 
-                    <p class="card-text"><b>Tasks:</b>
+                    <p class="card-text">
+                        <b>Tasks:</b>
 
                         @for (Int32 i = 0; i < this.Model.GCPEventTasks.Count; i++)
                         {
                             <label>@Model.GCPEventTasks[i].GCPTask.TaskName</label>
                             <input type="hidden" asp-for="@Model.GCPEventTasks[i].GCPTaskID" />
-                            //   <input type="hidden" asp-for="@Model.Roles[i].RoleName" />
                             <br />
                         }
 
                     </p>
-
-                    <p class="card-text"><b>Active:</b> @Model.Event.isEventActive</p>
 
                 </div>
                 <div class="col-md-3">
@@ -60,6 +60,25 @@
                     <p class="card-text"><b>Email:</b> @Model.Event.POCEmail</p>
                     <br />
                 </div>
+                <div class="col-md-4">
+                    <br />
+                    <h4> Registered Volunteers </h4>
+                    <br />
+
+                    @foreach (var regUser in Model.EventRegistrations)
+                    {
+                    @foreach (var user in Model.Users)
+                    {
+                        if (user.Id == regUser.UserId)
+                        {
+                            <p>@user.FirstName @user.LastName</p>
+                        }
+                    }
+                    }
+
+                    <br />
+
+                </div>
             </div>
         </div>
         <center>
@@ -71,6 +90,6 @@
                 </a>
             </div>
         </center>
-        </div>
+    </div>
 </body>
 </html>

@@ -102,11 +102,14 @@ namespace GCPVDMS.Controllers
         [Authorize(Roles = "Global Admin")]
         public ViewResult DisplayEvent(int eventId)
         {
+
             var viewModel = new CreateEventViewModel
             {
                 Event = context.Events.Include(i => i.Location).FirstOrDefault(x => x.EventID == eventId),
                 GCPEventTasks = context.GCPEventTasks.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
-                GCPTasks = context.GCPTasks.ToList()
+                GCPTasks = context.GCPTasks.ToList(),
+                EventRegistrations = context.EventRegistrations.Where(i => i.EventID == eventId).ToList(),
+                Users = userManager.Users.ToList(),
             };
             return View("~/Views/GlobalDashboard/EventInfo.cshtml", viewModel);
         }

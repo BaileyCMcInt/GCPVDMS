@@ -20,7 +20,13 @@ namespace GCPVDMS.Models.ViewModels
         public GCPTask GCPTask { get; set; }
 
         public GCPEventTask GCPEventTask { get; set; }  
-        public List<GCPEventTask> GCPEventTasks { get; set; } 
+        public List<GCPEventTask> GCPEventTasks { get; set; }
+        public EventRegistration EventRegistration { get; set; }
+        public List<EventRegistration> EventRegistrations { get; set; }
+        public ApplicationUser User { get; set; }
+        public List<ApplicationUser> Users { get; set; }
+
+        public string UserId { get; set; }
 
 
     }
