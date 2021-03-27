@@ -36,22 +36,27 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
         public class InputModel //these are all the attributes for the user profile
         {
             [Display(Name = "First Name")]
+            [Required]
             public string FirstName { get; set; }
             [Display(Name = "Last Name")]
+            [Required]
             public string LastName { get; set; }
             [Display(Name = "Email")]
             public string Username { get; set; }
             [Phone]
             [Required]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter a valid phone number")]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
             [Required]
             [Display(Name = "Primary Preferred method of Contact")]
             public string PreferredContact{ get; set; }
             [Display(Name = "Secondary Preferred method of Contact")]
+            [Required]
             public string SecondPreferredContact { get; set; }
             [Required]
             [Display(Name = "County Affiliation")]
+         
             public string County { get; set; }
             [Display(Name = "Donor")]
             public bool isDonor { get; set; }
@@ -68,7 +73,9 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Profile Picture")]
             public byte[] ProfilePicture { get; set; }
 
-
+            [Display(Name = "Volunteer Type")]
+            [Required]
+            public string VolunteerType { get; set; }
 
         }
   
@@ -85,6 +92,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var IsDonor = user.isDonor;
             var birthday = user.Birthday;
             var firstTimeLogin = user.FirstTimeLogin;
+            var volunteerType = user.VolunteerType;
             Username = userName;
             var profilePicture = user.ProfilePicture;
             Input = new InputModel
@@ -100,7 +108,8 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 isDonor = IsDonor,
                 Birthday = birthday,
                 FirstTimeLogin = firstTimeLogin,
-                ProfilePicture = profilePicture
+                ProfilePicture = profilePicture,
+                VolunteerType = volunteerType
             };
         }
 
@@ -127,7 +136,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var IsVolunteer = user.isVolunteer;
             var IsDonor= user.isDonor;
             var birthday = user.Birthday;
-
+            var volunteerType = user.VolunteerType;
             var firstTimeLogin = false;
             user.FirstTimeLogin = firstTimeLogin;
             if (Input.FirstName != firstName)
@@ -180,8 +189,12 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 user.County = Input.County;
                 await _userManager.UpdateAsync(user);
             }
-           
 
+            if (Input.VolunteerType != volunteerType)
+            {
+                user.VolunteerType = Input.VolunteerType;
+                await _userManager.UpdateAsync(user);
+            }
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
