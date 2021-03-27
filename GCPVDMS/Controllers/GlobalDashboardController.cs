@@ -197,6 +197,59 @@ namespace GCPVDMS.Controllers
             return View("MasterTask", gcptaskdata);
         }
 
+
+
+        //the following are methods related to DISCLAIMER MODELS
+
+        //This method provides the list of tasks in the master task view. 
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult MasterDisclaimer()
+        {
+            var disclaimerdata = new DisclaimerDTO()
+            {
+                DisclaimerList = context.Disclaimers.ToList()
+            };
+            return View(disclaimerdata);
+        }
+
+        //This method allows the admin to add a new disclaimer to the master list. 
+        [Authorize(Roles = "Global Admin")]
+        [HttpPost]
+        public IActionResult MasterDisclaimer(DisclaimerDTO disclaimer)
+        {
+            if (disclaimer.DisclaimerData.DisclaimerID == 0)
+            {
+                context.Disclaimers.Add(disclaimer.DisclaimerData);
+            }
+            else
+            {
+                Disclaimer dbEntry = context.Disclaimers
+                .FirstOrDefault(p => p.DisclaimerID == disclaimer.DisclaimerData.DisclaimerID);
+                if (dbEntry != null)
+                {
+                    dbEntry.DisclaimerDesc = disclaimer.DisclaimerData.DisclaimerDesc;
+                }
+               
+            }
+            context.SaveChanges();
+            return RedirectToAction("MasterDisclaimer");
+        }
+
+        //This method allows the admin to edit an existing disclaimer
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult DisclaimerEdit(int id)
+        {
+
+            var disclaimerdata = new DisclaimerDTO()
+            {
+                DisclaimerList = context.Disclaimers.ToList(),
+                DisclaimerData = context.Disclaimers.FirstOrDefault(a => a.DisclaimerID == id)
+            };
+            return View("MasterTask", disclaimerdata);
+        }
+
         //the following methods are related to LOCATION and COUNTY MODELS utilized on the Locations tab of the dashboard
 
         //This method allows the admin to add a new location

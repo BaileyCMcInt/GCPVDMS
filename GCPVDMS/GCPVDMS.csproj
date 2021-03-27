@@ -43,6 +43,8 @@
     <Compile Remove="Migrations\ApplicationDb\20210318050803_updatehours2.Designer.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210318052046_test.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210318052046_test.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210327214653_eventdisclaimer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210327214653_eventdisclaimer.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

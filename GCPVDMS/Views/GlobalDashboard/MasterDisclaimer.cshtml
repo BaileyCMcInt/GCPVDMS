@@ -1,0 +1,98 @@
+﻿@model GCPVDMS.Models.DisclaimerDTO
+
+@{
+    ViewData["Title"] = "MasterTask";
+}
+
+<head>
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+            .styled-table thead tr {
+                color: black;
+                text-align: left;
+                border-bottom: 1px solid #dddddd;
+            }
+
+            .styled-table th,
+            .styled-table td {
+                padding: 12px 15px;
+            }
+
+            .styled-table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+
+                .styled-table tbody tr:nth-of-type(odd) {
+                    background-color: #f3f3f3;
+                }
+    </style>
+</head>
+
+<!DOCTYPE html>
+<partial name="_GlobalEventTabs" />
+<br />
+<center><h3 style="background-color: #D4EDDA;">Master Disclaimer List</h3></center>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MasterDisclaimer">
+            <input type="hidden" asp-for="DisclaimerData.DisclaimerID" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                    <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
+                    <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
+                    <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="DisclaimerData.DisclaimerDesc" class="control-label">Disclaimer Description</label>
+                <input asp-for="DisclaimerData.DisclaimerDesc" class="form-control" />
+                <span asp-validation-for="DisclaimerData.DisclaimerDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-outline-dark" />
+            </div>
+        </form>
+    </div>
+
+    <table class="styled-table" id="tasktable">
+        <thead>
+            <tr>
+                <th>Disclaimer Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DisclaimerList)
+            {
+                <tr>
+                    <td>@item.DisclaimerDesc</td>
+                    <td>
+                        @Html.ActionLink("Edit Disclaimer", "DisclaimerEdit", new { id = item.DisclaimerID })
+                        @*<input type="hidden" name="GCPTaskID" value=" " />
+                            <a asp-action="GCPTaskEdit" class="btn btn-outline-dark btn-sm"
+                               asp-route-GCPTaskId="@item.GCPTaskID">
+                                Edit
+                            </a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+<div>
+    <center><a asp-action="Index" class="btn btn-outline-dark">Back to Event List</a></center>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

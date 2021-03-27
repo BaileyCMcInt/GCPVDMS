@@ -30,6 +30,10 @@ namespace GCPVDMS.Models
 
 
         public DbSet<VolunteerHour> VolunteerHours { get; set; }
+
+
+        public DbSet<Disclaimer> Disclaimers { get; set; }
+        public DbSet<EventDisclaimer> EventDisclaimers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EventRegistration>().HasIndex(p => new 
@@ -38,16 +42,6 @@ namespace GCPVDMS.Models
             })
                 .IsUnique();
 
-
-         //   modelBuilder.Entity<Event>()
-           //   .HasMany<GCPEventTask>();
-          //    .WithOne(eventTask => eventTask.Event)
-          //    .HasForeignKey("EventID");
-
-            //modelBuilder.Entity<GCPEventTask>()
-            //  .HasOne<Event>()
-            //  .WithMany(evt => evt.EventTasks)
-            //  .HasForeignKey("GCPEventTaskID");
         }
     
     }

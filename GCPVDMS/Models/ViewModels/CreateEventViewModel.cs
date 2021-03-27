@@ -28,6 +28,10 @@ namespace GCPVDMS.Models.ViewModels
 
         public string UserId { get; set; }
 
+        public List<Disclaimer> DisclaimerList { get; set; }
+        public Disclaimer Disclaimer { get; set; }
+
+
 
     }
 }
