@@ -8,7 +8,8 @@
     <script>
         $(document).ready(function () {
             $('#volunteerTable').DataTable();
-        });</script>
+        });
+    </script>
 }
 <partial name="_GlobalVolunteerTabs" />
 
@@ -23,6 +24,7 @@
             <tr>
                 <th><center>First Name </center></th>
                 <th><center>Last Name </center></th>
+                <th><center>Type </center></th>
                 <th><center>Email </center></th>
                 <th><center>County</center></th>
                 <th><center>Actions </center></th>
@@ -35,17 +37,18 @@
                 @if (user.isVolunteer)
                 {
 
-                    <tr>
-                        <td><center>@user.FirstName</center></td>
-                        <td><center>@user.LastName</center></td>
-                        <td><center>@user.Email</center></td>
-                        <td><center>@user.County</center></td>
-                        <td>
-                            <center>
-                                <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="VolunteerInfo" asp-route-id="@user.Id">View Volunteer Info</button>
-                            </center>
-                        </td>
-                    </tr>
+            <tr>
+                <td><center>@user.FirstName</center></td>
+                <td><center>@user.LastName</center></td>
+                <td><center>@user.VolunteerType</center></td>
+                <td><center>@user.Email</center></td>
+                <td><center>@user.County</center></td>
+                <td>
+                    <center>
+                        <button type="submit" class="btn btn-sm btn-outline-dark" asp-action="VolunteerInfo" asp-route-id="@user.Id">View Volunteer Info</button>
+                    </center>
+                </td>
+            </tr>
 
                 }
             }

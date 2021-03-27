@@ -44,6 +44,7 @@
                             <option value="Phone">Phone</option>
                             <option value="Text Message">Text Message</option>
                         </select>
+                        <span asp-validation-for="Input.PreferredContact" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Input.SecondPreferredContact"></label>
@@ -53,11 +54,22 @@
                             <option value="Phone">Phone</option>
                             <option value="Text Message">Text Message</option>
                         </select>
+                        <span asp-validation-for="Input.SecondPreferredContact" class="text-danger"></span>
                     </div>
+                    <label>Account Type</label>
+                    <div class="form-group">
+                        <label asp-for="Input.isVolunteer"></label>
+                        <input asp-for="Input.isVolunteer" class="custom-checkbox" />
+                        <span asp-validation-for="Input.isVolunteer" class="text-danger"></span>
+                        <label asp-for="Input.isDonor"></label>
+                        <input asp-for="Input.isDonor" class="custom-checkbox" />
+                        <span asp-validation-for="Input.isDonor" class="text-danger"></span>
+                    </div>
+
                     <br />
                     @*<label asp-for="Input.PreferredContact"></label>
-                        <input asp-for="Input.PreferredContact" class="form-control" />
-                        <span asp-validation-for="Input.PreferredContact" class="text-danger"></span>*@
+        <input asp-for="Input.PreferredContact" class="form-control" />
+        <span asp-validation-for="Input.PreferredContact" class="text-danger"></span>*@
                 </div>
                 <div class="col-md-6">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -89,16 +101,22 @@
                                     <option value="Duval">Duval</option>
                                     <option value="Palm Beach">Palm Beach</option>
                                 </select>
+                                <span asp-validation-for="Input.County" class="text-danger"></span>
                             </div>
-                            <label>Account Type</label>
-                            <div class="form-group">
-                                <label asp-for="Input.isVolunteer"></label>
-                                <input asp-for="Input.isVolunteer" class="custom-checkbox" />
-                                <span asp-validation-for="Input.isVolunteer" class="text-danger"></span>
-                                <label asp-for="Input.isDonor"></label>
-                                <input asp-for="Input.isDonor" class="custom-checkbox" />
-                                <span asp-validation-for="Input.isDonor" class="text-danger"></span>
-                            </div>
+                            @if (Model.Input.isVolunteer == true)
+                            {
+                        <div class="form-group">
+                            <label asp-for="Input.VolunteerType"></label>
+                            <select class="form-control" asp-for="Input.VolunteerType">
+                                <option value="">Please select your volunteer type</option>
+                                <option value="Student">Student</option>
+                                <option value="Individual">Individual</option>
+                                <option value="Group">Group</option>
+                            </select>
+                            <span asp-validation-for="Input.VolunteerType" class="text-danger"></span>
+                        </div>
+                            }
+                            
                         </center>
 
                     </div>

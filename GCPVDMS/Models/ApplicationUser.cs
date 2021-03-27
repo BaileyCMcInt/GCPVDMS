@@ -29,6 +29,8 @@ namespace GCPVDMS.Models
 
         public bool FirstTimeLogin { get; set; }
 
+        public string VolunteerType { get; set; }
+
     }
 
 }

@@ -21,6 +21,8 @@
     <Compile Remove="Migrations\20210211002618_1.Designer.cs" />
     <Compile Remove="Migrations\20210211004059_dfugregistration.cs" />
     <Compile Remove="Migrations\20210211004059_dfugregistration.Designer.cs" />
+    <Compile Remove="Migrations\20210327185242_55444.cs" />
+    <Compile Remove="Migrations\20210327185242_55444.Designer.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210215233842_3.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210215233842_3.Designer.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210216040417_7.cs" />
@@ -43,8 +45,10 @@
     <Compile Remove="Migrations\ApplicationDb\20210318050803_updatehours2.Designer.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210318052046_test.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210318052046_test.Designer.cs" />
-    <Compile Remove="Migrations\ApplicationDb\20210327214653_eventdisclaimer.cs" />
-    <Compile Remove="Migrations\ApplicationDb\20210327214653_eventdisclaimer.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210327183109_00.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210327183109_00.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210327183251_volunteertype.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210327183251_volunteertype.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
