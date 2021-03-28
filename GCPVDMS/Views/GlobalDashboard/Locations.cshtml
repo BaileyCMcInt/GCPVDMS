@@ -42,19 +42,20 @@
 <center><h3 style="background-color: #D4EDDA;">Giving Closet Project Locations</h3></center>
 <hr />
 <div class="row">
+
     <div class="col-md-4">
-        <a asp-action="Counties" class="btn btn-outline-dark">Add New County</a>
+        <h4>Add a New Location</h4><br />
+        <a asp-action="Counties" class="btn btn-outline-dark btn-sm">Add New County</a>
         <br />
         <br />
         <form asp-action="Locations">
             <input type="hidden" asp-for="GCPLocationData.LocationID" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-                    <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
-                    <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
-                    <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
-                </div>*@
-            <h4>Add a New Location</h4>
+                <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
+                <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
+                <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
+            </div>*@
             <div class="form-group">
                 <label>County</label>
                 <select class="form-control" asp-for="GCPLocationData.CountyID">

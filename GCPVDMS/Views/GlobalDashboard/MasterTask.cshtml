@@ -43,7 +43,8 @@
 <hr />
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
+        <h4>Add a New Task</h4><br />
         <form asp-action="MasterTask">
             <input type="hidden" asp-for="GCPTaskData.GCPTaskID" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -63,36 +64,39 @@
         </form>
     </div>
 
-<table class="styled-table" id="tasktable">
-    <thead>
-        <tr>
-            <th>Task Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.GCPTaskList)
-        {
-            <tr>
-                <td>@item.TaskName</td>
-                <td>
-                    @Html.ActionLink("Edit", "GCPTaskEdit", new { id = item.GCPTaskID })
-                    @*<input type="hidden" name="GCPTaskID" value=" " />
-                        <a asp-action="GCPTaskEdit" class="btn btn-outline-dark btn-sm"
-                           asp-route-GCPTaskId="@item.GCPTaskID">
-                            Edit
-                        </a>*@
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="col-md-5">
+        <h4>List of Tasks</h4><br />
+        <table class="styled-table" id="tasktable">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.GCPTaskList)
+                {
+                    <tr>
+                        <td>@item.TaskName</td>
+                        <td>
+                            @Html.ActionLink("Edit", "GCPTaskEdit", new { id = item.GCPTaskID })
+                            @*<input type="hidden" name="GCPTaskID" value=" " />
+                            <a asp-action="GCPTaskEdit" class="btn btn-outline-dark btn-sm"
+                               asp-route-GCPTaskId="@item.GCPTaskID">
+                                Edit
+                            </a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-<br/>
-<div>
-    <center><a asp-action="Index" class="btn btn-outline-dark">Back to Event List</a></center>
-</div>
+    </div>
+    <br />
+    <div>
+        <center><a asp-action="Index" class="btn btn-outline-dark">Back to Event List</a></center>
+    </div>
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

@@ -43,7 +43,7 @@
 <hr />
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <form asp-action="MasterDisclaimer">
             <input type="hidden" asp-for="DisclaimerData.DisclaimerID" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -53,6 +53,7 @@
                     <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
                 </div>*@
             <div class="form-group">
+                <h4>Add a New Disclaimer</h4>
                 <label asp-for="DisclaimerData.DisclaimerDesc" class="control-label">Disclaimer Description</label>
                 <input asp-for="DisclaimerData.DisclaimerDesc" class="form-control" />
                 <span asp-validation-for="DisclaimerData.DisclaimerDesc" class="text-danger"></span>
@@ -62,37 +63,39 @@
             </div>
         </form>
     </div>
+    <div class="col-md-5">
+        <h4>List of Disclaimers</h4>
+        <table class="styled-table" id="tasktable">
 
-    <table class="styled-table" id="tasktable">
-        <thead>
-            <tr>
-                <th>Disclaimer Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.DisclaimerList)
-            {
+            <thead>
                 <tr>
-                    <td>@item.DisclaimerDesc</td>
-                    <td>
-                        @Html.ActionLink("Edit Disclaimer", "DisclaimerEdit", new { id = item.DisclaimerID })
-                        @*<input type="hidden" name="GCPTaskID" value=" " />
-                            <a asp-action="GCPTaskEdit" class="btn btn-outline-dark btn-sm"
-                               asp-route-GCPTaskId="@item.GCPTaskID">
-                                Edit
-                            </a>*@
-                    </td>
+                    <th>Disclaimer Description</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<br />
-<div>
-    <center><a asp-action="Index" class="btn btn-outline-dark">Back to Event List</a></center>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DisclaimerList)
+                {
+                    <tr>
+                        <td>@item.DisclaimerDesc</td>
+                        <td>
+                            @Html.ActionLink("Edit Disclaimer", "DisclaimerEdit", new { id = item.DisclaimerID })
+                            @*<input type="hidden" name="GCPTaskID" value=" " />
+                                <a asp-action="GCPTaskEdit" class="btn btn-outline-dark btn-sm"
+                                   asp-route-GCPTaskId="@item.GCPTaskID">
+                                    Edit
+                                </a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div></div>
+    <br />
+    <div>
+        <center><a asp-action="Index" class="btn btn-outline-dark">Back to Event List</a></center>
+    </div>
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

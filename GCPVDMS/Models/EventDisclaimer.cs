@@ -7,7 +7,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GCPVDMS.Models
 {
-    [Table("EventDisclaimers")]
     public class EventDisclaimer
     {
         public int EventDisclaimerID { get; set; }
@@ -19,9 +18,8 @@ namespace GCPVDMS.Models
 
         public int DisclaimerID { get; set; }
 
-        [ForeignKey("DislaimerID")]
+        [ForeignKey("DisclaimerID")]
         public Disclaimer Disclaimer { get; set; }
-
         public bool isSelected { get; set; }
     }
 }
