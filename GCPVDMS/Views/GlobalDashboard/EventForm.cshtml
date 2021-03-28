@@ -129,7 +129,7 @@
                 </div>
 
             </div>
-            <div class="col-md-5 justify-content-end" style="margin-left: 40px">
+            <div class="col-md-5 justify-content-end" style="margin-left: 30px">
                 <div class="form-group">
 
                     <h2>Tasks</h2>
@@ -145,7 +145,23 @@
                     }
 
                 </div>
+            <br />
+            <div class="form-group">
+                <h2>Disclaimers</h2>
+
+                @for (Int32 i = 0; i < this.Model.EventDisclaimers.Count; i++)
+                {
+
+                    <input type="checkbox" asp-for="@Model.EventDisclaimers[i].isSelected" /> 
+                    <label asp-for="@Model.EventDisclaimers[i].isSelected">@Model.EventDisclaimers[i].Disclaimer.DisclaimerDesc</label>
+                    <input type="hidden" asp-for="@Model.EventDisclaimers[i].DisclaimerID" />
+                    <input type="hidden" asp-for="@Model.EventDisclaimers[i].EventID" />
+                    <input type="hidden" asp-for="@Model.EventDisclaimers[i].EventDisclaimerID" />
+                    <br />
+                }
+
             </div>
+                </div>
         </div>
         <div>
             <button class="btn btn-outline-dark" type="submit">Save Event</button> <a asp-action="EventList" class="btn btn-outline-dark">Cancel</a>

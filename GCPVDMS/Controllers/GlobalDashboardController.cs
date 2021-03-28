@@ -16,11 +16,12 @@ namespace GCPVDMS.Controllers
     {
         private IEventRepository repository;
         private IGCPTaskRepository taskRepository;
+        private IDisclaimerRepository disclaimerRepository;
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> userManager;
         private ApplicationDbContext context;
 
-        public GlobalDashboardController(IEventRepository repo, IGCPTaskRepository taskRepo, RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx)
+        public GlobalDashboardController(IEventRepository repo, IGCPTaskRepository taskRepo, RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx, IDisclaimerRepository disclaimerRepo)
         {
             //this method is passing in all the data to the constructor and assigning it to a variable to be used to access model data
             //throughout the controller
@@ -29,6 +30,7 @@ namespace GCPVDMS.Controllers
             roleManager = roleMgr;
             userManager = userMrg;
             context = ctx;
+            disclaimerRepository = disclaimerRepo;
         }
         [TempData]
         public string StatusMessage { get; set; }
@@ -65,7 +67,9 @@ namespace GCPVDMS.Controllers
                 GCPEventTasks = context.GCPEventTasks.Where(x => x.EventID == eventId).ToList(),
                 Locations = context.Locations.ToList(),
                 Event = repository.Events.FirstOrDefault(p => p.EventID == eventId),
-   
+                Disclaimers = context.Disclaimers.ToList(),
+                EventDisclaimers = context.EventDisclaimers.Where(x => x.EventID == eventId).ToList()
+
             };
             viewModel.Location = context.Locations.FirstOrDefault(a => a.LocationID == viewModel.Event.LocationID);
             return View(viewModel);
@@ -109,7 +113,9 @@ namespace GCPVDMS.Controllers
                 GCPEventTasks = context.GCPEventTasks.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
                 GCPTasks = context.GCPTasks.ToList(),
                 EventRegistrations = context.EventRegistrations.Where(i => i.EventID == eventId).ToList(),
-                Users = userManager.Users.ToList(),
+                Disclaimers = context.Disclaimers.ToList(),
+                EventDisclaimers = context.EventDisclaimers.Include(i => i.Disclaimer).Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
+                Users = userManager.Users.ToList()
             };
             return View("~/Views/GlobalDashboard/EventInfo.cshtml", viewModel);
         }
@@ -124,6 +130,12 @@ namespace GCPVDMS.Controllers
                 isSelected = default,
                 GCPTask = gcpTask
             }).ToList();
+            var eventDisclaimers = context.Disclaimers.Select(disclaimer => new EventDisclaimer()
+            {
+                DisclaimerID = disclaimer.DisclaimerID,
+                isSelected = default,
+                Disclaimer = disclaimer
+            }).ToList();
 
             var viewModel = new CreateEventViewModel
             {
@@ -132,6 +144,8 @@ namespace GCPVDMS.Controllers
                 Locations = context.Locations.ToList(),
                 Location = context.Locations.FirstOrDefault(a => a.LocationID == id),
                 Event = eventCreate,
+                Disclaimers = context.Disclaimers.ToList(),
+                EventDisclaimers = eventDisclaimers
             };
             return View("~/Views/GlobalDashboard/EventForm.cshtml", viewModel);
         }
@@ -195,6 +209,59 @@ namespace GCPVDMS.Controllers
                 GCPTaskData = context.GCPTasks.FirstOrDefault(a => a.GCPTaskID == id)
             };
             return View("MasterTask", gcptaskdata);
+        }
+
+
+
+        //the following are methods related to DISCLAIMER MODELS
+
+        //This method provides the list of tasks in the master task view. 
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult MasterDisclaimer()
+        {
+            var disclaimerdata = new DisclaimerDTO()
+            {
+                DisclaimerList = context.Disclaimers.ToList()
+            };
+            return View(disclaimerdata);
+        }
+
+        //This method allows the admin to add a new disclaimer to the master list. 
+        [Authorize(Roles = "Global Admin")]
+        [HttpPost]
+        public IActionResult MasterDisclaimer(DisclaimerDTO disclaimer)
+        {
+            if (disclaimer.DisclaimerData.DisclaimerID == 0)
+            {
+                context.Disclaimers.Add(disclaimer.DisclaimerData);
+            }
+            else
+            {
+                Disclaimer dbEntry = context.Disclaimers
+                .FirstOrDefault(p => p.DisclaimerID == disclaimer.DisclaimerData.DisclaimerID);
+                if (dbEntry != null)
+                {
+                    dbEntry.DisclaimerDesc = disclaimer.DisclaimerData.DisclaimerDesc;
+                }
+               
+            }
+            context.SaveChanges();
+            return RedirectToAction("MasterDisclaimer");
+        }
+
+        //This method allows the admin to edit an existing disclaimer
+        [Authorize(Roles = "Global Admin")]
+        [HttpGet]
+        public IActionResult DisclaimerEdit(int id)
+        {
+
+            var disclaimerdata = new DisclaimerDTO()
+            {
+                DisclaimerList = context.Disclaimers.ToList(),
+                DisclaimerData = context.Disclaimers.FirstOrDefault(a => a.DisclaimerID == id)
+            };
+            return View("MasterDisclaimer", disclaimerdata);
         }
 
         //the following methods are related to LOCATION and COUNTY MODELS utilized on the Locations tab of the dashboard

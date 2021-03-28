@@ -4,14 +4,16 @@ using GCPVDMS.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GCPVDMS.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210327214321_disclaimer")]
+    partial class disclaimer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,34 +130,6 @@ namespace GCPVDMS.Migrations.ApplicationDb
                     b.HasIndex("LocationID");
 
                     b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("GCPVDMS.Models.EventDisclaimer", b =>
-                {
-                    b.Property<int>("EventDisclaimerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DisclaimerID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DislaimerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("isSelected")
-                        .HasColumnType("bit");
-
-                    b.HasKey("EventDisclaimerID");
-
-                    b.HasIndex("DislaimerID");
-
-                    b.HasIndex("EventID");
-
-                    b.ToTable("EventDisclaimers");
                 });
 
             modelBuilder.Entity("GCPVDMS.Models.EventRegistration", b =>
@@ -333,19 +307,6 @@ namespace GCPVDMS.Migrations.ApplicationDb
                     b.HasOne("GCPVDMS.Models.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GCPVDMS.Models.EventDisclaimer", b =>
-                {
-                    b.HasOne("GCPVDMS.Models.Disclaimer", "Disclaimer")
-                        .WithMany()
-                        .HasForeignKey("DislaimerID");
-
-                    b.HasOne("GCPVDMS.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

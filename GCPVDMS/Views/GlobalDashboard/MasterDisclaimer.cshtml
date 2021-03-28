@@ -1,4 +1,4 @@
-﻿@model GCPVDMS.Models.GCPTaskDTO
+﻿@model GCPVDMS.Models.DisclaimerDTO
 
 @{
     ViewData["Title"] = "MasterTask";
@@ -39,14 +39,13 @@
 <!DOCTYPE html>
 <partial name="_GlobalEventTabs" />
 <br />
-<center><h3 style="background-color: #D4EDDA;">Master Task List</h3></center>
+<center><h3 style="background-color: #D4EDDA;">Master Disclaimer List</h3></center>
 <hr />
 
 <div class="row">
     <div class="col-md-5">
-        <h4>Add a New Task</h4><br />
-        <form asp-action="MasterTask">
-            <input type="hidden" asp-for="GCPTaskData.GCPTaskID" />
+        <form asp-action="MasterDisclaimer">
+            <input type="hidden" asp-for="DisclaimerData.DisclaimerID" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
                     <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
@@ -54,43 +53,43 @@
                     <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
                 </div>*@
             <div class="form-group">
-                <label asp-for="GCPTaskData.TaskName" class="control-label">Task Name</label>
-                <input asp-for="GCPTaskData.TaskName" class="form-control" />
-                <span asp-validation-for="GCPTaskData.TaskName" class="text-danger"></span>
+                <h4>Add a New Disclaimer</h4>
+                <label asp-for="DisclaimerData.DisclaimerDesc" class="control-label">Disclaimer Description</label>
+                <input asp-for="DisclaimerData.DisclaimerDesc" class="form-control" />
+                <span asp-validation-for="DisclaimerData.DisclaimerDesc" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-outline-dark" />
             </div>
         </form>
     </div>
-
     <div class="col-md-5">
-        <h4>List of Tasks</h4><br />
+        <h4>List of Disclaimers</h4>
         <table class="styled-table" id="tasktable">
+
             <thead>
                 <tr>
-                    <th>Task Name</th>
+                    <th>Disclaimer Description</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.GCPTaskList)
+                @foreach (var item in Model.DisclaimerList)
                 {
                     <tr>
-                        <td>@item.TaskName</td>
+                        <td>@item.DisclaimerDesc</td>
                         <td>
-                            @Html.ActionLink("Edit", "GCPTaskEdit", new { id = item.GCPTaskID })
+                            @Html.ActionLink("Edit Disclaimer", "DisclaimerEdit", new { id = item.DisclaimerID })
                             @*<input type="hidden" name="GCPTaskID" value=" " />
-                            <a asp-action="GCPTaskEdit" class="btn btn-outline-dark btn-sm"
-                               asp-route-GCPTaskId="@item.GCPTaskID">
-                                Edit
-                            </a>*@
+                                <a asp-action="GCPTaskEdit" class="btn btn-outline-dark btn-sm"
+                                   asp-route-GCPTaskId="@item.GCPTaskID">
+                                    Edit
+                                </a>*@
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-    </div>
-    </div>
+    </div></div>
     <br />
     <div>
         <center><a asp-action="Index" class="btn btn-outline-dark">Back to Event List</a></center>

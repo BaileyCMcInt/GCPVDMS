@@ -60,5 +60,6 @@ namespace GCPVDMS.Models
         public Location Location { get; set; }
 
         public List<GCPEventTask> EventTasks { get; set; }
+        public List<EventDisclaimer> EventDisclaimers{ get; set; }
     }
 }

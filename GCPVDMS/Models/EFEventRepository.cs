@@ -28,6 +28,9 @@ namespace GCPVDMS.Models
                 viewModel.GCPEventTasks.ForEach(EventTask => EventTask.EventID = viewModel.Event.EventID);
                 context.GCPEventTasks.AddRange(viewModel.GCPEventTasks);
                 context.SaveChanges();
+                viewModel.EventDisclaimers.ForEach(EventDisclaimer => EventDisclaimer.EventID = viewModel.Event.EventID);
+                context.EventDisclaimers.AddRange(viewModel.EventDisclaimers);
+                context.SaveChanges();
 
             }
             //else this is not a new event, pull the event info and the EventTasks from the context and update accordingly
@@ -57,6 +60,12 @@ namespace GCPVDMS.Models
                 });
                 context.SaveChanges();
 
+                viewModel.EventDisclaimers.ForEach(disclaimerFromViewModel =>
+                {
+                    var disclaimer = context.EventDisclaimers.Where(disclaimerFromDatabase => disclaimerFromViewModel.EventDisclaimerID == disclaimerFromDatabase.EventDisclaimerID).FirstOrDefault();
+                    disclaimer.isSelected = disclaimerFromViewModel.isSelected;
+                });
+                context.SaveChanges();
             }
 
         }

@@ -70,7 +70,9 @@ namespace GCPVDMS.Controllers
                     .FirstOrDefault(x => x.EventID == eventId),
                 Events = context.Events.ToList(),
                 GCPEventTasks = context.GCPEventTasks.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
-                GCPTasks = context.GCPTasks.ToList()
+                GCPTasks = context.GCPTasks.ToList(),
+                EventDisclaimers = context.EventDisclaimers.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
+                Disclaimers = context.Disclaimers.ToList()
             };
             //Returns viewModel object with Event data
             return View("~/Views/Event/EventInfoPage.cshtml", viewModel);
