@@ -33,17 +33,30 @@
                         }
                     </p>
 
+
                     <br />
                 </div>
                 <div class="col-md-3">
                     <h4>Date and Time</h4>
-                    <br/>
+                    <br />
                     <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
 
                     <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
 
                     <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
                 </div>
+                <p class="card-text">
+                    <b>Disclaimers:</b>
+
+
+                    @for (Int32 i = 0; i < this.Model.EventDisclaimers.Count; i++)
+                    {
+                        <label>@Model.EventDisclaimers[i].Disclaimer.DisclaimerDesc</label>
+                        <input type="hidden" asp-for="@Model.EventDisclaimers[i].EventDisclaimerID" />
+                        <input type="hidden" asp-for="@Model.Disclaimer.DisclaimerID">
+                        <br />
+                    }
+                </p>
                 <div class="col-md-3">
                     <h4> Point of Contact </h4>
                     <br />

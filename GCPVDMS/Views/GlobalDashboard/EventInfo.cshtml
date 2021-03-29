@@ -48,6 +48,16 @@
                     <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
 
                     <p class="card-text"><b>End Time:</b> @Model.Event.EndTime.ToShortTimeString()</p>
+                    <p class="card-text">
+                        <b>Disclaimers:</b>
+
+                        @for (Int32 i = 0; i < this.Model.EventDisclaimers.Count; i++)
+                        {
+                            <label>@Model.EventDisclaimers[i].Disclaimer.DisclaimerDesc</label>
+                            <input type="hidden" asp-for="@Model.EventDisclaimers[i].EventDisclaimerID" />
+                            <br />
+                        }
+                    </p>
                 </div>
                 <div class="col-md-4">
                     <br />
@@ -67,13 +77,14 @@
 
                     @foreach (var regUser in Model.EventRegistrations)
                     {
-                    @foreach (var user in Model.Users)
-                    {
-                        if (user.Id == regUser.UserId)
+                        @foreach (var user in Model.Users)
                         {
-                            <p>@user.FirstName @user.LastName - @user.VolunteerType</p>
+                            if (user.Id == regUser.UserId)
+                            {
+                                <p><a type="submit"  asp-action="DonorInfo" asp-route-id="@user.Id">@user.FirstName @user.LastName - @user.VolunteerType</a></p>
+                              
+                            }
                         }
-                    }
                     }
 
                     <br />
