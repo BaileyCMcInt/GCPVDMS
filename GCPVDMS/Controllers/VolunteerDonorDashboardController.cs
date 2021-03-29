@@ -61,7 +61,7 @@ namespace GCPVDMS.Controllers
             //returns all the items passed into the viewmodel object to refence in the view.
             return View(viewModel);
         }
-
+//
         [HttpPost]
         public IActionResult CancelMyEvent(int Id, int eventId)
         {
