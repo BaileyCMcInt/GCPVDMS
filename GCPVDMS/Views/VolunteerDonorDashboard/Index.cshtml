@@ -50,7 +50,7 @@
                                 <td class="text-center"> @item.Event.StartTime.ToShortTimeString() </td>
                                 <td class="text-center">
                                     <form asp-action="CancelMyEvent" asp-route-id="@item.EventRegistrationID" method="post">
-                                        <input type="hidden" name="EventID" value=" " />
+                                        <input type="hidden" asp-for="@Model.Event.EventID" value="@item.Event.EventID" />
                                         <a asp-action="EventInfoPage" class="btn btn-outline-dark"
                                            asp-route-eventId="@item.EventID">
                                             View Event Info
