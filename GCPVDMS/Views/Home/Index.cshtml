@@ -34,9 +34,14 @@
         .bs-example {
             margin: 20px;
         }
+        
     </style>
 </head>
 <body>
+    <center>
+        <h1>Welcome to  the Giving Closet Project Portal!</h1>
+
+    </center>
     <br />
     <br />
     <div class="bs-example">
@@ -76,18 +81,20 @@
             </a>
         </div>
     </div>
-    <h1>Welcome to  the Giving Closet Project Portal!</h1>
 
-    <a asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark btn-sm">
-        View Volunteer Opportunities
-    </a>
+    <Center>
+        <a asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark btn-sm">
+            View Volunteer Opportunities
+        </a>
+    </Center>
+    <br />
+
 
     @if (!SignInManager.IsSignedIn(User))
     {
         <Center>
-            <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
-            <br />
-            <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
+            <a id="login" asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-dark btn-sm">Login to account</a>
+            <a id="register" asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-dark btn-sm">Create an account</a>
         </Center>
     }
 </body>
