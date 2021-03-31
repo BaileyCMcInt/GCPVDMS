@@ -47,12 +47,12 @@
             <input type="hidden" asp-for="CountyData.CountyID" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-            <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
-            <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
-            <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
-        </div>*@
+                    <label asp-for="GCPTaskData.GCPTaskID" class="control-label"></label>
+                    <input asp-for="GCPTaskData.GCPTaskID" class="form-control" />
+                    <span asp-validation-for="GCPTaskData.GCPTaskID" class="text-danger"></span>
+                </div>*@
 
-            <h4>Add a New County</h4>
+            <h4>Add or Edit a County</h4>
             <div class="form-group">
                 <label>State</label>
                 <select class="form-control" asp-for="CountyData.CountyState">
@@ -149,11 +149,13 @@
             </tbody>
         </table>
     </div>
-    </div>
+</div>
+<div>
+    <center><a asp-action="Locations" class="btn btn-outline-dark">Back to Locations</a></center>
+</div>
 
 
 
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
