@@ -83,9 +83,10 @@
     </div>
 
     <Center>
-        <a asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark btn-sm">
+        <a asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">
             View Volunteer Opportunities
         </a>
+        <a href="https://givingclosetproject.org/" class="btn btn-outline-dark">Back to Main Site</a>
     </Center>
     <br />
 
@@ -96,6 +97,15 @@
             <a id="login" asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-dark btn-sm">Login to account</a>
             <a id="register" asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-dark btn-sm">Create an account</a>
         </Center>
+    }
+    else
+    {
+<Center>
+    <a asp-controller="VolunteerDonorDashboard" asp-action="Index" class="btn btn-outline-dark">
+        My Volunteer Dashboard
+    </a>
+    <a id="logout" asp-area="Identity" asp-page="/Account/Logout" class="btn btn-outline-dark">Logout</a>
+</Center>
     }
 </body>
 </html>
