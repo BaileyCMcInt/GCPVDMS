@@ -68,7 +68,7 @@ namespace GCPVDMS.Controllers
                 Locations = context.Locations.ToList(),
                 Event = repository.Events.FirstOrDefault(p => p.EventID == eventId),
                 Disclaimers = context.Disclaimers.ToList(),
-                EventDisclaimers = context.EventDisclaimers.Where(x => x.EventID == eventId).ToList()
+                GCPEventDisclaimers = context.EventDisclaimers.Where(x => x.EventID == eventId).ToList()
 
             };
             viewModel.Location = context.Locations.FirstOrDefault(a => a.LocationID == viewModel.Event.LocationID);
@@ -114,7 +114,7 @@ namespace GCPVDMS.Controllers
                 GCPTasks = context.GCPTasks.ToList(),
                 EventRegistrations = context.EventRegistrations.Where(i => i.EventID == eventId).ToList(),
                 Disclaimers = context.Disclaimers.ToList(),
-                EventDisclaimers = context.EventDisclaimers.Include(i => i.Disclaimer).Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
+                GCPEventDisclaimers = context.EventDisclaimers.Include(i => i.Disclaimer).Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
                 Users = userManager.Users.ToList()
             };
             return View("~/Views/GlobalDashboard/EventInfo.cshtml", viewModel);
@@ -130,7 +130,7 @@ namespace GCPVDMS.Controllers
                 isSelected = default,
                 GCPTask = gcpTask
             }).ToList();
-            var eventDisclaimers = context.Disclaimers.Select(disclaimer => new EventDisclaimer()
+            var eventDisclaimers = context.Disclaimers.Select(disclaimer => new GCPEventDisclaimer()
             {
                 DisclaimerID = disclaimer.DisclaimerID,
                 isSelected = default,
@@ -145,7 +145,7 @@ namespace GCPVDMS.Controllers
                 Location = context.Locations.FirstOrDefault(a => a.LocationID == id),
                 Event = eventCreate,
                 Disclaimers = context.Disclaimers.ToList(),
-                EventDisclaimers = eventDisclaimers
+                GCPEventDisclaimers = eventDisclaimers
             };
             return View("~/Views/GlobalDashboard/EventForm.cshtml", viewModel);
         }

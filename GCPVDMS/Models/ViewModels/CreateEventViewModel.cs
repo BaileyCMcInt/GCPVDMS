@@ -31,9 +31,9 @@ namespace GCPVDMS.Models.ViewModels
         public Disclaimer Disclaimer { get; set; }
    
 
-        public EventDisclaimer EventDisclaimer { get; set; }
+        public GCPEventDisclaimer GCPEventDisclaimer { get; set; }
     
-        public List<EventDisclaimer> EventDisclaimers { get; set; }
+        public List<GCPEventDisclaimer> GCPEventDisclaimers { get; set; }
 
 
     }

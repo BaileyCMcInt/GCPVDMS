@@ -149,14 +149,14 @@
             <div class="form-group">
                 <h2>Disclaimers</h2>
 
-                @for (Int32 i = 0; i < this.Model.EventDisclaimers.Count; i++)
+                @for (Int32 i = 0; i < this.Model.GCPEventDisclaimers.Count; i++)
                 {
 
-                    <input type="checkbox" asp-for="@Model.EventDisclaimers[i].isSelected" /> 
-                    <label asp-for="@Model.EventDisclaimers[i].isSelected">@Model.EventDisclaimers[i].Disclaimer.DisclaimerDesc</label>
-                    <input type="hidden" asp-for="@Model.EventDisclaimers[i].DisclaimerID" />
-                    <input type="hidden" asp-for="@Model.EventDisclaimers[i].EventID" />
-                    <input type="hidden" asp-for="@Model.EventDisclaimers[i].EventDisclaimerID" />
+                    <input type="checkbox" asp-for="@Model.GCPEventDisclaimers[i].isSelected" /> 
+                    <label asp-for="@Model.GCPEventDisclaimers[i].isSelected">@Model.GCPEventDisclaimers[i].Disclaimer.DisclaimerDesc</label>
+                    <input type="hidden" asp-for="@Model.GCPEventDisclaimers[i].DisclaimerID" />
+                    <input type="hidden" asp-for="@Model.GCPEventDisclaimers[i].EventID" />
+                    <input type="hidden" asp-for="@Model.GCPEventDisclaimers[i].GCPEventDisclaimerID" />
                     <br />
                 }
 

@@ -51,10 +51,10 @@
                     <p class="card-text">
                         <b>Disclaimers:</b>
 
-                        @for (Int32 i = 0; i < this.Model.EventDisclaimers.Count; i++)
+                        @for (Int32 i = 0; i < this.Model.GCPEventDisclaimers.Count; i++)
                         {
-                            <label>@Model.EventDisclaimers[i].Disclaimer.DisclaimerDesc</label>
-                            <input type="hidden" asp-for="@Model.EventDisclaimers[i].EventDisclaimerID" />
+                            <label>@Model.GCPEventDisclaimers[i].Disclaimer.DisclaimerDesc</label>
+                            <input type="hidden" asp-for="@Model.GCPEventDisclaimers[i].GCPEventDisclaimerID" />
                             <br />
                         }
                     </p>

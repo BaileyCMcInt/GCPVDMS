@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GCPVDMS.Models
 {
-    public class EventDisclaimer
+    public class GCPEventDisclaimer
     {
-        public int EventDisclaimerID { get; set; }
+        public int GCPEventDisclaimerID { get; set; }
 
         public int EventID { get; set; }
 
