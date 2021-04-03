@@ -71,7 +71,7 @@ namespace GCPVDMS.Controllers
                 Events = context.Events.ToList(),
                 GCPEventTasks = context.GCPEventTasks.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
                 GCPTasks = context.GCPTasks.ToList(),
-                EventDisclaimers = context.EventDisclaimers.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
+                GCPEventDisclaimers = context.EventDisclaimers.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
                 Disclaimers = context.Disclaimers.ToList()
             };
             //Returns viewModel object with Event data

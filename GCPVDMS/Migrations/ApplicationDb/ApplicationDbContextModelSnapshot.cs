@@ -130,34 +130,6 @@ namespace GCPVDMS.Migrations.ApplicationDb
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("GCPVDMS.Models.EventDisclaimer", b =>
-                {
-                    b.Property<int>("EventDisclaimerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DisclaimerID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DislaimerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("isSelected")
-                        .HasColumnType("bit");
-
-                    b.HasKey("EventDisclaimerID");
-
-                    b.HasIndex("DislaimerID");
-
-                    b.HasIndex("EventID");
-
-                    b.ToTable("EventDisclaimers");
-                });
-
             modelBuilder.Entity("GCPVDMS.Models.EventRegistration", b =>
                 {
                     b.Property<int>("EventRegistrationID")
@@ -181,6 +153,31 @@ namespace GCPVDMS.Migrations.ApplicationDb
                         .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("EventRegistrations");
+                });
+
+            modelBuilder.Entity("GCPVDMS.Models.GCPEventDisclaimer", b =>
+                {
+                    b.Property<int>("GCPEventDisclaimerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DisclaimerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EventID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isSelected")
+                        .HasColumnType("bit");
+
+                    b.HasKey("GCPEventDisclaimerID");
+
+                    b.HasIndex("DisclaimerID");
+
+                    b.HasIndex("EventID");
+
+                    b.ToTable("EventDisclaimers");
                 });
 
             modelBuilder.Entity("GCPVDMS.Models.GCPEventTask", b =>
@@ -337,12 +334,8 @@ namespace GCPVDMS.Migrations.ApplicationDb
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GCPVDMS.Models.EventDisclaimer", b =>
+            modelBuilder.Entity("GCPVDMS.Models.EventRegistration", b =>
                 {
-                    b.HasOne("GCPVDMS.Models.Disclaimer", "Disclaimer")
-                        .WithMany()
-                        .HasForeignKey("DislaimerID");
-
                     b.HasOne("GCPVDMS.Models.Event", "Event")
                         .WithMany()
                         .HasForeignKey("EventID")
@@ -350,10 +343,16 @@ namespace GCPVDMS.Migrations.ApplicationDb
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GCPVDMS.Models.EventRegistration", b =>
+            modelBuilder.Entity("GCPVDMS.Models.GCPEventDisclaimer", b =>
                 {
-                    b.HasOne("GCPVDMS.Models.Event", "Event")
+                    b.HasOne("GCPVDMS.Models.Disclaimer", "Disclaimer")
                         .WithMany()
+                        .HasForeignKey("DisclaimerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GCPVDMS.Models.Event", "Event")
+                        .WithMany("EventDisclaimers")
                         .HasForeignKey("EventID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

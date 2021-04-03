@@ -15,8 +15,8 @@ namespace GCPVDMS.Models.ViewModels
         public List<GCPEventTask> GCPEventTasks { get; set; }
         public List<Disclaimer> Disclaimers { get; set; }
         public Disclaimer Disclaimer { get; set; }
-        public EventDisclaimer EventDisclaimer { get; set; }
-        public List<EventDisclaimer> EventDisclaimers { get; set; }
+        public GCPEventDisclaimer GCPEventDisclaimer { get; set; }
+        public List<GCPEventDisclaimer> GCPEventDisclaimers { get; set; }
         public List<Event> Events { get; set; }
         public virtual Event Event { get; set; }
         public string UserId { get; set; }

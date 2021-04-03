@@ -32,7 +32,7 @@ namespace GCPVDMS.Models
         public DbSet<VolunteerHour> VolunteerHours { get; set; }
 
         public DbSet<Disclaimer> Disclaimers { get; set; }
-        public DbSet<EventDisclaimer> EventDisclaimers { get; set; }
+        public DbSet<GCPEventDisclaimer> EventDisclaimers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EventRegistration>().HasIndex(p => new 

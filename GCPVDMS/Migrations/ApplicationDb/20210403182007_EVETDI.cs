@@ -2,7 +2,7 @@
 
 namespace GCPVDMS.Migrations.ApplicationDb
 {
-    public partial class eventdisclaimers : Migration
+    public partial class EVETDI : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,22 +10,21 @@ namespace GCPVDMS.Migrations.ApplicationDb
                 name: "EventDisclaimers",
                 columns: table => new
                 {
-                    EventDisclaimerID = table.Column<int>(nullable: false)
+                    GCPEventDisclaimerID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EventID = table.Column<int>(nullable: false),
                     DisclaimerID = table.Column<int>(nullable: false),
-                    DislaimerID = table.Column<int>(nullable: true),
                     isSelected = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventDisclaimers", x => x.EventDisclaimerID);
+                    table.PrimaryKey("PK_EventDisclaimers", x => x.GCPEventDisclaimerID);
                     table.ForeignKey(
-                        name: "FK_EventDisclaimers_Disclaimers_DislaimerID",
-                        column: x => x.DislaimerID,
+                        name: "FK_EventDisclaimers_Disclaimers_DisclaimerID",
+                        column: x => x.DisclaimerID,
                         principalTable: "Disclaimers",
                         principalColumn: "DisclaimerID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_EventDisclaimers_Events_EventID",
                         column: x => x.EventID,
@@ -35,9 +34,9 @@ namespace GCPVDMS.Migrations.ApplicationDb
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_EventDisclaimers_DislaimerID",
+                name: "IX_EventDisclaimers_DisclaimerID",
                 table: "EventDisclaimers",
-                column: "DislaimerID");
+                column: "DisclaimerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EventDisclaimers_EventID",

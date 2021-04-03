@@ -33,6 +33,7 @@ namespace GCPVDMS.Models
         public string EventDescription { get; set; }
 
         [MaxLength(250)]
+
         public string POCName {get; set; }
 
         [MaxLength(50)]
@@ -60,6 +61,6 @@ namespace GCPVDMS.Models
         public Location Location { get; set; }
 
         public List<GCPEventTask> EventTasks { get; set; }
-        public List<EventDisclaimer> EventDisclaimers{ get; set; }
+        public List<GCPEventDisclaimer> EventDisclaimers{ get; set; }
     }
 }

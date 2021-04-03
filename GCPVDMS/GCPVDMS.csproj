@@ -49,6 +49,16 @@
     <Compile Remove="Migrations\ApplicationDb\20210327183109_00.Designer.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210327183251_volunteertype.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210327183251_volunteertype.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403165457_neigratio.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403165457_neigratio.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403171833_15.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403171833_15.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403172428_fix.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403172428_fix.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403175436_95.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403175436_95.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403180342_EventDisclaimers.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210403180342_EventDisclaimers.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
