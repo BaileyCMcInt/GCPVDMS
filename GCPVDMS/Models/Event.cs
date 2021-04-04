@@ -33,17 +33,19 @@ namespace GCPVDMS.Models
         public string EventDescription { get; set; }
 
         [MaxLength(250)]
-
+        [Required(ErrorMessage = "Please enter a name")]
         public string POCName {get; set; }
 
         [MaxLength(50)]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter a valid phone number")]
+        [Required(ErrorMessage = "Please enter a phone number")]
         public string POCPhone { get; set; }
 
         [MaxLength(250)]
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", ErrorMessage = "Please enter a valid email")]
+        [Required(ErrorMessage = "Please enter an email address")]
         public string POCEmail { get; set; }
 
         public bool isEventActive { get; set; }
