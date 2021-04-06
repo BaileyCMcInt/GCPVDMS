@@ -50,6 +50,8 @@ namespace GCPVDMS.Models
 
         public bool isEventActive { get; set; }
 
+        public bool IsArchived { get; set; }
+
         [Range(1,200, ErrorMessage = "Please enter a number between 1 and 200")]
         [Required(ErrorMessage = "Please enter a number greater than 0")]
         public int NumVolunteersNeeded { get; set; }

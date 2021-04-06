@@ -50,7 +50,7 @@ namespace GCPVDMS.Controllers
             {
                 Event = context.Events.Include(i => i.Location).FirstOrDefault(x => x.EventID == ID),
                 Locations = context.Locations.ToList(),
-                Events = context.Events.ToList()
+                Events = context.Events.Where(x => x.IsArchived == false).ToList()
             };
             return View(viewModel);
         }
@@ -82,14 +82,11 @@ namespace GCPVDMS.Controllers
         //After saving, redirects to the table of Events. 
         public IActionResult EventForm(CreateEventViewModel viewModel)
         {
-           // var counter = 0;
 
             if (ModelState.IsValid)
             {
-
                     repository.SaveEvent(viewModel);
                     //   TempData["message"] = $"{event.EventTitle} has been saved";
-
 
                 return RedirectToAction("EventList");
             }
@@ -102,7 +99,6 @@ namespace GCPVDMS.Controllers
 
 
         //Method for displaying the static event info. 
-        //TODO: display volunteers who have signed-up to display in this view. Have any volunteers under 18 yrs old display in red 
         [Authorize(Roles = "Global Admin")]
         public ViewResult DisplayEvent(int eventId)
         {
@@ -150,11 +146,40 @@ namespace GCPVDMS.Controllers
             return View("~/Views/GlobalDashboard/EventForm.cshtml", viewModel);
         }
 
-
-        //the following are methods related to TASK MODELS
-
-        //This method provides the list of tasks in the master task view. 
+        //Method for archiving an event. 
         [Authorize(Roles = "Global Admin")]
+        [HttpPost]
+        public IActionResult ArchiveEvent(int eventId)
+        {
+            Event dbEntry = context.Events
+                .FirstOrDefault(p => p.EventID == eventId);
+
+            dbEntry.IsArchived = true; 
+
+            context.SaveChanges();
+
+            return RedirectToAction("EventList");
+        }
+
+
+        //Displays list of archived events
+        [Authorize(Roles = "Global Admin")]
+        public IActionResult ArchiveEventsList(int ID)
+        {
+            var viewModel = new CreateEventViewModel
+            {
+                Event = context.Events.Include(i => i.Location).FirstOrDefault(x => x.EventID == ID),
+                Locations = context.Locations.ToList(),
+                Events = context.Events.Where(x => x.IsArchived == true).ToList()
+            };
+            return View("~/Views/GlobalDashboard/ArchiveEventsList.cshtml", viewModel);
+        }
+
+
+            //the following are methods related to TASK MODELS
+
+            //This method provides the list of tasks in the master task view. 
+            [Authorize(Roles = "Global Admin")]
         [HttpGet]
         public IActionResult MasterTask()
         {
@@ -187,7 +212,7 @@ namespace GCPVDMS.Controllers
             return RedirectToAction("MasterTask");
         }
         
-        //This method is currently not in use. 
+        //This method is not in use. 
         //[Authorize(Roles = "Global Admin")]
         //public IActionResult GCPTaskDelete(int id)
         //{
