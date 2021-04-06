@@ -1,6 +1,6 @@
-@model CreateEventViewModel
+﻿@model CreateEventViewModel
 @{
-    ViewBag.Title = "All Events";
+    ViewBag.Title = "Archived";
     Layout = "_Layout";
 }
 
@@ -31,12 +31,10 @@
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th class="text-center">Date</th>
                     <th class="text-center">Title</th>
                     <th class="text-center">Location</th>
                     <th class="text-center">Contact</th>
-                    <th class="text-center">Spots available</th>
-                    <th class="text-center">Active</th>
+                    <th class="text-center">Date</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -46,33 +44,17 @@
                     @if (@item.EventTitle != "Offsite Duval" && @item.EventTitle != "Offsite Palm Beach")
                     {
                         <tr>
-                            <td class="text-center">@item.EventDate.ToShortDateString()</td>
                             <td class="text-center">@item.EventTitle</td>
                             <td class="text-center">@item.Location.LocationName</td>
                             <td class="text-center">@item.POCName</td>
-                            <td class="text-center">@item.NumVolunteersNeeded</td>
-                            @if (item.isEventActive == true)
-                            {
-                                <td class="text-center">Yes</td>
-                            }
-                            else
-                            {
-                                <td class="text-center" style="color:red">No</td>
-                            }
+                            <td class="text-center">@item.EventDate.ToShortDateString()</td>
                             <td>
-                                <form asp-action="ArchiveEvent" asp-route-eventId="@item.EventID" method="post">
-                                    <input type="hidden" asp-for="@item.EventID" name="EventID" value="@item.EventID" />
+                                <form method="post">
+                                    <input type="hidden" name="EventID" value="" />
                                     <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
                                        asp-route-eventId="@item.EventID">
                                         View
                                     </a>
-                                    <input type="hidden" name="EventID" value=" " />
-                                    <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
-                                       asp-route-eventId="@item.EventID">
-                                        Edit
-                                    </a>
-                                    <input type="hidden" asp-for="@item.EventID" name="eventId" value="@item.EventID" />
-                                    <button type="submit" class="btn btn-outline-danger" name="eventId" value="@item.EventID" onclick="return confirm('Are you sure you want to archive?')">Archive</button>
                                 </form>
                             </td>
                         </tr>
@@ -81,7 +63,7 @@
             </tbody>
         </table>
         <div class="text-left" style="margin-top: 10px; padding: 13px 0 10px 0;">
-            <a asp-action="ArchiveEventsList" class="btn btn-outline-dark">View Archived</a>
+            <a asp-action="EventList" class="btn btn-outline-dark">Return to Opportunities List</a>
         </div>
     </div>
 </body>
