@@ -59,6 +59,8 @@
     <Compile Remove="Migrations\ApplicationDb\20210403175436_95.Designer.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210403180342_EventDisclaimers.cs" />
     <Compile Remove="Migrations\ApplicationDb\20210403180342_EventDisclaimers.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210407014553_donoremail.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20210407014553_donoremail.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

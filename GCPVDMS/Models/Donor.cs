@@ -8,6 +8,9 @@ namespace GCPVDMS.Models
     public class Donor
     {
         public int donorId { get; set; }
+
+        public string email_address { get; set; }
+
         public string transaction_id { get; set; }
 
         public string transaction_initiation_date { get; set; }

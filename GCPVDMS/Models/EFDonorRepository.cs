@@ -34,6 +34,7 @@ namespace GCPVDMS.Models
                 if (dbEntry != null)
                 {
                     dbEntry.given_name = donor.given_name;
+                    dbEntry.email_address = donor.email_address;
                     dbEntry.surname = donor.surname;
                     dbEntry.transaction_id = donor.transaction_id;
                     dbEntry.transaction_initiation_date = donor.transaction_initiation_date;
