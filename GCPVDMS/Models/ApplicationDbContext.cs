@@ -32,6 +32,8 @@ namespace GCPVDMS.Models
         public DbSet<VolunteerHour> VolunteerHours { get; set; }
 
         public DbSet<Disclaimer> Disclaimers { get; set; }
+
+        public DbSet<Donor> Donors{ get; set; }
         public DbSet<GCPEventDisclaimer> EventDisclaimers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
