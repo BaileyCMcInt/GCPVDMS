@@ -41,10 +41,8 @@ namespace GCPVDMS
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GCPVDMSContextConnection")));
 
             services.AddTransient<IEventRepository, EFEventRepository>();
-            services.AddTransient<IGCPTaskRepository, EFGCPTaskRepository>();
             services.AddTransient<IVolunteerHourRepository, EFVolunteerHourRepository>();
             services.AddTransient<IEventRegistrationRepository, EFEventRegistrationRepository>();
-            services.AddScoped<IDisclaimerRepository, EFDisclaimerRepository>();
             //services.AddTransient<IDriveRepository, EFDriveRepository>(); //added missing package that enables these to interact with connection string
 
             services.AddIdentity<ApplicationUser, IdentityRole>(  opt =>

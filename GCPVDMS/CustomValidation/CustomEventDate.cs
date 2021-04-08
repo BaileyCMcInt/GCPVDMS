@@ -11,7 +11,8 @@ namespace GCPVDMS.CustomValidation
         public override bool IsValid(object value)
         {
             DateTime dateTime = Convert.ToDateTime(value);
-            return dateTime >= DateTime.Now;
+            DateTime yesterday = DateTime.Now.AddDays(-3);
+            return dateTime > yesterday;
         }
     }
 

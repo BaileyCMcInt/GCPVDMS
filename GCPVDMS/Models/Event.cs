@@ -14,9 +14,9 @@ namespace GCPVDMS.Models
         public int EventID { get; set; }
 
 
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+     //   [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        [CustomEventDate(ErrorMessage = "Date must be greater than or equal to Today's Date.")]
+     //   [CustomEventDate(ErrorMessage = "Date must be greater than or equal to Today's Date.")]
         [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please choose a date.")]
         public DateTime EventDate { get; set; }
 
