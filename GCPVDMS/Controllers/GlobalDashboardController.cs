@@ -15,22 +15,18 @@ namespace GCPVDMS.Controllers
     public class GlobalDashboardController : Controller
     {
         private IEventRepository repository;
-        private IGCPTaskRepository taskRepository;
-        private IDisclaimerRepository disclaimerRepository;
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> userManager;
         private ApplicationDbContext context;
 
-        public GlobalDashboardController(IEventRepository repo, IGCPTaskRepository taskRepo, RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx, IDisclaimerRepository disclaimerRepo)
+        public GlobalDashboardController(IEventRepository repo, RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx)
         {
             //this method is passing in all the data to the constructor and assigning it to a variable to be used to access model data
             //throughout the controller
             repository = repo;
-            taskRepository = taskRepo;
             roleManager = roleMgr;
             userManager = userMrg;
             context = ctx;
-            disclaimerRepository = disclaimerRepo;
         }
         [TempData]
         public string StatusMessage { get; set; }

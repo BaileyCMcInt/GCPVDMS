@@ -19,21 +19,17 @@ namespace GCPVDMS.Controllers
         private IVolunteerHourRepository repository;
         private IEventRegistrationRepository registrationRepository;
         private IEventRepository eventRepository;
-        private IDisclaimerRepository disclaimerRepository;
         private UserManager<ApplicationUser> userManager;
         private ApplicationDbContext context;
 
         //passing object repositories into the constructor
-        public VolunteerDonorDashboardController(IVolunteerHourRepository hourRepo, IEventRegistrationRepository regRepo, IEventRepository eventRepo, IDisclaimerRepository disclaimerRepo, IGCPTaskRepository taskRepo, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx)
+        public VolunteerDonorDashboardController(IVolunteerHourRepository hourRepo, IEventRegistrationRepository regRepo, IEventRepository eventRepo, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx)
         {
             repository = hourRepo;
             registrationRepository = regRepo;
             eventRepository = eventRepo;
             userManager = userMrg;
             context = ctx;
-            disclaimerRepository = disclaimerRepo;
-
-
         }
 
         //this is the index/volunteer events tabs. It displays data for the events the volunteer
