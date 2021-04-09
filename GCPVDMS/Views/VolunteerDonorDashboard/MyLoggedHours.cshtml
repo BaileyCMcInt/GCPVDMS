@@ -200,10 +200,31 @@
     <div style="display:none">
         <!--This div is hidden from the view of the user, it only acts as the information that will be displayed in the prontable pdf of the page.-->
         <div id="printableArea">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Jennifer Smith<br />
+                            CEO and Founder<br />
+                            jennifer@givingclosetproject.org<br />
+                            904-226-3931<br />
+                            The Giving Closet Project, Inc.<br />
+                            Tax I.D. #81-2447928
+                        </td>
+                        <td width="640"></td>
+                        <td>
+                            14333 Beach Blvd. Unit 33<br />
+                            Jacksonville, FL 32250<br />
+                            The Giving Closet Project Inc<br />
+                            www.givingclosetproject.org
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <br />
+          
 
-            <p style="text-align:center"><img src="~/images/logo.png" height="200" width="200"></p><!--GCP logo-->
+            <p style="text-align:center"><img src="~/images/logo.png" height="150" width="150"></p><!--GCP logo-->
 
             <br />
 
@@ -221,38 +242,43 @@
                             </tr>
                         </thead>
                         <tbody id="body">
+                            @{double totalHours = 0; }
                             <!----This loop utilizes the ViewModel tagged in this page to retrieve logged hour data for a specific volunteer.-->
                             @foreach (var item in Model.VolunteerHours)//loops through volunteerHour table data
                             {
+
+
                                 @if (SignInManager.IsSignedIn(User))//checks that user is Signed in
                                 {
                                     var user = UserManager.GetUserId(User);//get signed in user's UserID
                                     if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
                                     {
-                            <tr>
-                                @if (item.isApproved == true && item.isDenied == false)
-                                {
-                                    <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
-                                    <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                                    <td class="text-center">@item.NumberOfHours</td>
+                                        <tr>
+                                            @if (item.isApproved == true && item.isDenied == false)
+                                            {
+                                                <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                                                <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                                                <td class="text-center">@item.NumberOfHours</td>
+                                                totalHours += item.NumberOfHours;
+                                                <td style="display: none" class="text-center">Approved</td>
+                                            }
 
-                                    <td style="display: none" class="text-center">Approved</td>
-                                }
-                                @*@if (item.isApproved == false && item.isDenied == false)
-        {
-            <td class="text-center">Pending</td>
-        }*@
-                                @if (item.isDenied == true)
-                                {
-                                    <td style="display: none" class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
-                                    <td style="display: none" class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                                    <td style="display: none" class="text-center">@item.NumberOfHours</td>
-                                    <td style="display: none" class="text-center">Denied</td>
-                                }
-                            </tr>
+                                            @if (item.isDenied == true)
+                                            {
+                                                <td style="display: none" class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                                                <td style="display: none" class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                                                <td style="display: none" class="text-center">@item.NumberOfHours</td>
+                                                <td style="display: none" class="text-center">Denied</td>
+                                            }
+                                        </tr>
+
                                     }
                                 }
+
                             }
+                            <tr>
+                                <td colspan="3" style="text-align:right"><b>Total Hours: @totalHours</b></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

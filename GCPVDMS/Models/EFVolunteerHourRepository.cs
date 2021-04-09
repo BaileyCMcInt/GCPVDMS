@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GCPVDMS.Models
 {
-    //this class is where the logic lives for staring the volunteer hours into the volunteer hour
+    //this class is where the logic lives for storing the volunteer hours into the volunteer hour
     //table. 
     public class EFVolunteerHourRepository : IVolunteerHourRepository
     {

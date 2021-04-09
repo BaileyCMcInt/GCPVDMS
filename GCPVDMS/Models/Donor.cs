@@ -26,5 +26,7 @@ namespace GCPVDMS.Models
         public string surname { get; set; }
         
         public string alt_full_name { get; set; }
+      
     }
 }
+ 
