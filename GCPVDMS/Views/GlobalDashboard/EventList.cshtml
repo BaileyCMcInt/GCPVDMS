@@ -50,7 +50,11 @@
                             <td class="text-center">@item.EventTitle</td>
                             <td class="text-center">@item.Location.LocationName</td>
                             <td class="text-center">@item.POCName</td>
-                            <td class="text-center">@item.NumVolunteersNeeded</td>
+                            @{ 
+                                var totalSpots = @item.NumVolunteersSignedUp + item.NumVolunteersNeeded;
+
+                            }
+                            <td class="text-center">@item.NumVolunteersNeeded / @totalSpots </td>
                             @if (item.isEventActive == true)
                             {
                                 <td class="text-center">Yes</td>
