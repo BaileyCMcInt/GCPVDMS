@@ -22,14 +22,14 @@
         <center><h3 style="background-color: #D4EDDA;">Transaction History</h3></center>
         <br />
         <div style="text-align: center">
-            <input type="button" class="btn btn-outline-dark" value="Print My Transaction History" onclick="window.print()" />
+            <input type="button" class="btn btn-outline-dark" value="Print My Transaction History" onclick="printDiv('printableArea2')" />
         </div>
 
         <div class="text-center">
             <p><h5>Donate to The Giving Closet Project using the button below!</h5>Your funds will help provide students in the Palm Beach and Duval counties with personal hygiene items,<br />clothing, school supplies and the hope for a better future.</p>
             <form action="https://www.paypal.com/donate" method="post" target="_top">
                 <input type="hidden" name="hosted_button_id" value="BHJ58DJ4YQN3G" />
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button"/>
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
                 <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
             </form>
         </div>
@@ -38,7 +38,7 @@
             <thead style="width: 50px">
                 <tr>
                     <th class="text-center">Date</th>
-                    <th class="text-center">Amount</th>
+                    <th class="text-center">Amount (USD)</th>
                     <th class="text-center">Transaction Status</th>
                 </tr>
             </thead>
@@ -50,12 +50,12 @@
                         //var user_email = UserManager.GetUser(User);//get signed in user's UserID
                         //if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
                         var CurrentVolunteer = UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result;
-                        if (CurrentVolunteer.Email == item.email_address) 
+                        if (CurrentVolunteer.Email == item.email_address)
                         {
                             <tr>
-                                    <td class="text-center">@item.transaction_initiation_date</td>
-                                    <td class="text-center">@item.transaction_value</td>
-                                    <td class="text-center">@item.transaction_status</td>
+                                <td class="text-center">@item.transaction_initiation_date</td>
+                                <td class="text-center">$ @item.transaction_value</td>
+                                <td class="text-center">@item.transaction_status</td>
                             </tr>
                         }
                     }
@@ -63,9 +63,108 @@
             </tbody>
         </table>
     </div>
+
     <br />
 
+    <!--PRINT AREA NOT SEEN BY USER NORMALLY-->
     <!--This area is hidden to the viewers and only used when the user selects the Print Transaction History button on this page.-->
+    <div style="display:none">
+        <div id="printableArea2">
+            <!--Header: GCP Info and Address-->
+
+            <p style="text-align:center"><img src="~/images/logo.png" height="150" width="150"></p><!--GCP logo-->
+            <br />
+
+            <h1 style="text-align:center">Donor Transaction History</h1>
+            <div style="text-align: center">
+                <b>Donor Name:
+                    @if (SignInManager.IsSignedIn(User))
+                    {//checks that user is Signed in
+                        var CurrentVolunteer = UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result;
+                        @(CurrentVolunteer.FirstName + " " + CurrentVolunteer.LastName);
+                    }
+                </b>
+            </div>
+            <br />
+            <div>
+                <div>
+                    <table class="table table-bordered table-striped display">
+                        <thead style="width: 50px">
+                            <tr>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Amount (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="body">
+                            @foreach (var item in Model.Donors)
+                            {
+                                @if (SignInManager.IsSignedIn(User))//checks that user is Signed in
+                                {
+                                    //var user_email = UserManager.GetUser(User);//get signed in user's UserID
+                                    //if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
+                                    var CurrentVolunteer = UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result;
+                                    if (CurrentVolunteer.Email == item.email_address)
+                                    {
+                                        <tr>
+                                            @*@if ()
+                                            {
+
+                                            }*@
+                                            <td class="text-center">@item.transaction_initiation_date</td>
+                                            <td class="text-center">$ @item.transaction_value</td>
+                                            <td style="display: none" class="text-center">@item.transaction_status</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            
+            <div>
+                <p style="border-bottom:solid ;width:1200px ;border-width:thin"><b>Contact Information</b></p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Jennifer Smith<br />
+                                CEO and Founder<br />
+                                jennifer@givingclosetproject.org<br />
+                                904-226-3931<br />
+                                The Giving Closet Project, Inc.<br />
+                                <b>Tax I.D. #81-2447928</b>
+                            </td>
+                            <td width="760"></td>
+                            <td>
+                                14333 Beach Blvd. Unit 33<br />
+                                Jacksonville, FL 32250<br />
+                                The Giving Closet Project Inc<br />
+                                www.givingclosetproject.org
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!--This Javascript function is active when the user clicks the Print My Logged Volunteer Hours button.-->
+    <script>
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            window.location.reload(true);
+        }
+    </script>
 
 </body>
 </html>
