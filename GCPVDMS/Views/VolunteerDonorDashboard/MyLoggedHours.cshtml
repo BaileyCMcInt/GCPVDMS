@@ -11,44 +11,6 @@
 
     <script>
 
-        //var minDate, maxDate;
-
-        //// Custom filtering function which will search data in column four between two values
-        //$.fn.dataTable.ext.search.push(
-        //    function (settings, data, dataIndex) {
-        //        var min = minDate.val();
-        //        var max = maxDate.val();
-        //        var date = new Date(data[0]);
-        //        console.log(date);
-        //        if (
-        //            (min === null && max === null) ||
-        //            (min === null && date <= max) ||
-        //            (min <= date && max === null) ||
-        //            (min <= date && date <= max)
-        //        ) {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //);
-
-        //$(document).ready(function () {
-        //    // Create date inputs
-        //    minDate = new DateTime($('#min'), {
-        //        format: 'MMMM Do YYYY'
-        //    });
-        //    maxDate = new DateTime($('#max'), {
-        //        format: 'MMMM Do YYYY'
-        //    });
-
-        //    // DataTables initialisation
-        //    var table = $('#yourTable').DataTable();
-
-        //    // Refilter the table
-        //    $('#min, #max').on('change', function () {
-        //        table.draw();
-        //    });
-        //});
 
        // $(document).ready(function () {
          //   $('#yourTable').DataTable();
@@ -200,29 +162,6 @@
     <div style="display:none">
         <!--This div is hidden from the view of the user, it only acts as the information that will be displayed in the prontable pdf of the page.-->
         <div id="printableArea">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            Jennifer Smith<br />
-                            CEO and Founder<br />
-                            jennifer@givingclosetproject.org<br />
-                            904-226-3931<br />
-                            The Giving Closet Project, Inc.<br />
-                            Tax I.D. #81-2447928
-                        </td>
-                        <td width="640"></td>
-                        <td>
-                            14333 Beach Blvd. Unit 33<br />
-                            Jacksonville, FL 32250<br />
-                            The Giving Closet Project Inc<br />
-                            www.givingclosetproject.org
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-          
 
             <p style="text-align:center"><img src="~/images/logo.png" height="150" width="150"></p><!--GCP logo-->
 
@@ -325,6 +264,33 @@
                     </tr>
                 </table>
             </div>
+            <br />
+            <br />
+            <div>
+                <p style="border-bottom:solid ;width:1200px ;border-width:thin"><b>Contact Information</b></p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Jennifer Smith<br />
+                                CEO and Founder<br />
+                                jennifer@givingclosetproject.org<br />
+                                904-226-3931<br />
+                                The Giving Closet Project, Inc.<br />
+                                <b>Tax I.D. #81-2447928</b>
+                            </td>
+                            <td width="760"></td>
+                            <td>
+                                14333 Beach Blvd. Unit 33<br />
+                                Jacksonville, FL 32250<br />
+                                The Giving Closet Project Inc<br />
+                                www.givingclosetproject.org
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 
