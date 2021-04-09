@@ -43,6 +43,7 @@ namespace GCPVDMS
             services.AddTransient<IEventRepository, EFEventRepository>();
             services.AddTransient<IVolunteerHourRepository, EFVolunteerHourRepository>();
             services.AddTransient<IEventRegistrationRepository, EFEventRegistrationRepository>();
+            services.AddTransient<IDonorRepository, EFDonorRepository>();
             //services.AddTransient<IDriveRepository, EFDriveRepository>(); //added missing package that enables these to interact with connection string
 
             services.AddIdentity<ApplicationUser, IdentityRole>(  opt =>

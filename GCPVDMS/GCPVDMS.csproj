@@ -88,5 +88,6 @@
     <Folder Include="Views\Drive\Admin\" />
     <Folder Include="Views\Drive\Volunteer\" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

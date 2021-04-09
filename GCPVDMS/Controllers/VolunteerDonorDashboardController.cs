@@ -19,17 +19,19 @@ namespace GCPVDMS.Controllers
         private IVolunteerHourRepository repository;
         private IEventRegistrationRepository registrationRepository;
         private IEventRepository eventRepository;
+        private IDonorRepository donorRepository;
         private UserManager<ApplicationUser> userManager;
         private ApplicationDbContext context;
 
         //passing object repositories into the constructor
-        public VolunteerDonorDashboardController(IVolunteerHourRepository hourRepo, IEventRegistrationRepository regRepo, IEventRepository eventRepo, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx)
+        public VolunteerDonorDashboardController(IVolunteerHourRepository hourRepo, IEventRegistrationRepository regRepo, IEventRepository eventRepo, UserManager<ApplicationUser> userMrg, ApplicationDbContext ctx, IDonorRepository donorRepo)
         {
             repository = hourRepo;
             registrationRepository = regRepo;
             eventRepository = eventRepo;
             userManager = userMrg;
             context = ctx;
+            donorRepository = donorRepo;
         }
 
         //this is the index/volunteer events tabs. It displays data for the events the volunteer
@@ -198,7 +200,7 @@ namespace GCPVDMS.Controllers
 
                 //Adding User object tp MyLoggedHours - Shows the Logged in Volunteer Name on the Print Form
                 User = user
-        };
+            };
             //returns viewModel of data to retrieve from the view.
                 return View(viewModel);
  
@@ -239,7 +241,12 @@ namespace GCPVDMS.Controllers
         }
         public IActionResult DonorHome()
         {
-            return View();
+            var donor = new DonorViewModel
+            {
+               Donors = donorRepository.Donors.ToList()
+            };
+
+            return View(donor);
         }
       
 
