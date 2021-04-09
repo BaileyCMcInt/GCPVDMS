@@ -4,6 +4,7 @@
     ViewBag.Title = "The Giving Closet Project's Volunteer Events";
     Layout = "_Layout";
 }
+
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @*Script for JavaScript DataTables*@
@@ -47,7 +48,6 @@
                 {
                     <td class="text-center">@item.NumVolunteersNeeded</td>
                 }
-
                 <td class="text-center">
 
                     <form method="post">
@@ -84,11 +84,11 @@
 </table>
 @if (!SignInManager.IsSignedIn(User))
 {
-<Center>
-    <p>You need a volunteer account in order to volunteer at an event.</p>
-    <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
-    <br />
-    <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
-</Center>
+    <Center>
+        <p>You need a volunteer account in order to volunteer at an event.</p>
+        <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
+        <br />
+        <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
+    </Center>
 }
 
