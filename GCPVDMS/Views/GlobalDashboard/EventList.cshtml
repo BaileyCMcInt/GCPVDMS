@@ -60,20 +60,24 @@
                                 <td class="text-center" style="color:red">No</td>
                             }
                             <td>
+                                <center>
                                 <form asp-action="ArchiveEvent" asp-route-eventId="@item.EventID" method="post">
                                     <input type="hidden" asp-for="@item.EventID" name="EventID" value="@item.EventID" />
                                     <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
                                        asp-route-eventId="@item.EventID">
                                         View
                                     </a>
+                                    
                                     <input type="hidden" name="EventID" value=" " />
                                     <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
                                        asp-route-eventId="@item.EventID">
                                         Edit
                                     </a>
+                                    
                                     <input type="hidden" asp-for="@item.EventID" name="eventId" value="@item.EventID" />
                                     <button type="submit" class="btn btn-outline-danger btn-sm" name="eventId" value="@item.EventID" onclick="return confirm('Are you sure you want to archive?')">Archive</button>
                                 </form>
+                                </center>
                             </td>
                         </tr>
                     }

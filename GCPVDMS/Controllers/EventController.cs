@@ -49,7 +49,7 @@ namespace GCPVDMS.Controllers
                     .Include(i => i.Location)
                     //.Where(x => x.isEventActive == true && x.EventDate > DateTime.Now),
                     .FirstOrDefault(x => x.EventID == eventId),
-                Events = context.Events.Where(x => x.isEventActive == true && x.EventDate > DateTime.Now).ToList(),
+                Events = context.Events.Where(x => x.isEventActive == true && x.EventDate >= DateTime.Now).ToList(),
                 Locations = context.Locations.ToList()
             };
             

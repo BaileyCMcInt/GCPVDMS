@@ -94,15 +94,15 @@
     @if (!SignInManager.IsSignedIn(User))
     {
         <Center>
-            <a id="login" asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-dark btn-sm">Login to account</a>
-            <a id="register" asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-dark btn-sm">Create an account</a>
+            <a id="login" asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-dark">Login to account</a>
+            <a id="register" asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-dark">Create an account</a>
         </Center>
     }
     else
     {
 <Center>
     <a asp-controller="VolunteerDonorDashboard" asp-action="Index" class="btn btn-outline-dark">
-        My Volunteer Dashboard
+        My Dashboard
     </a>
     <a id="logout" asp-area="Identity" asp-page="/Account/Logout" class="btn btn-outline-dark">Logout</a>
 </Center>
