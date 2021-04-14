@@ -19,7 +19,8 @@ namespace GCPVDMS.Models
         public void SaveEvent(CreateEventViewModel viewModel)
         {
             //if this a newly created event and thus the eventID == 0, add a new event to the Events table.
-            //and the tasks to the EventTask table with the newly created eventID. 
+            //add tasks to the EventTask table with the newly created eventID. 
+            //add disclaimers to the EventDisclaimer table with the newly created eventID.
             if (viewModel.Event.EventID == 0)
             {
                 context.Events.Add(viewModel.Event);
@@ -33,7 +34,7 @@ namespace GCPVDMS.Models
                 context.SaveChanges();
 
             }
-            //else this is not a new event, pull the event info and the EventTasks from the context and update accordingly
+            //else this is not a new event, pull the event info, EventTasks, and EventDisclaimers from the context and update accordingly
             else
             {
                 Event dbEntry = context.Events

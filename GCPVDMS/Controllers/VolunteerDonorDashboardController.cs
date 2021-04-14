@@ -52,7 +52,7 @@ namespace GCPVDMS.Controllers
                 //list of event registrations
                 EventRegistrations = context.EventRegistrations.ToList(),
                 //event list view
-                Events = context.Events.Where(x => x.EventDate > DateTime.Now).ToList(),
+                Events = context.Events.Where(x => x.EventDate >= DateTime.Now.AddDays(-2)).ToList(),
                 UserId = userId
 
             };
