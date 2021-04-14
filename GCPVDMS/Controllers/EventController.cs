@@ -49,7 +49,7 @@ namespace GCPVDMS.Controllers
                     .Include(i => i.Location)
                     //.Where(x => x.isEventActive == true && x.EventDate > DateTime.Now),
                     .FirstOrDefault(x => x.EventID == eventId),
-                Events = context.Events.Where(x => x.isEventActive == true && x.EventDate >= DateTime.Now).ToList(),
+                Events = context.Events.Where(x => x.isEventActive == true && x.EventDate >= DateTime.Now.AddDays(-2)).ToList(),
                 Locations = context.Locations.ToList()
             };
             
@@ -96,12 +96,8 @@ namespace GCPVDMS.Controllers
             //Returns viewModel object with EventRegistration data
             return View(viewModel);
         }
-        //Add Description - Method that will increase number signed up by 1 and 
+        //Method that will increase number signed up by 1 and 
         //will add user and event to event registration table.
-        //public ViewResult ConfirmationPage(int eventId) =>
-        //        View("~/Views/Event/ConfirmationPage.cshtml", repository.Events
-        //            .FirstOrDefault(p => p.EventID == eventId));
-
         [HttpPost]
         public IActionResult ConfirmationPage(EventRegistration eventRegistration, int eventId, string Id)
         {

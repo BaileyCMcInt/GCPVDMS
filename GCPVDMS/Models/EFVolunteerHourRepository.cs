@@ -20,7 +20,7 @@ namespace GCPVDMS.Models
         //saves the volunteerhour object into the datbase
         public void SaveVolunteerHour(VolunteerHour @volunteerhour)
         {
-            //first instance of VolunteerHourID starts at 0, then increments by 1
+            //if this is a new instance, then it will be added. else pull the info from the context.
             if (volunteerhour.VolunteerHourID == 0)
             {
                 context.VolunteerHours.Add(@volunteerhour);
