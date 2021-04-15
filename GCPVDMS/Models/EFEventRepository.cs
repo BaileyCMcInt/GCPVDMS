@@ -46,7 +46,7 @@ namespace GCPVDMS.Models
                     dbEntry.StartTime = viewModel.Event.StartTime;
                     dbEntry.EndTime = viewModel.Event.EndTime;
                     dbEntry.EventDescription = viewModel.Event.EventDescription;
-                    dbEntry.NumVolunteersSignedUp = viewModel.Event.NumVolunteersSignedUp;
+                 //   dbEntry.NumVolunteersSignedUp = viewModel.Event.NumVolunteersSignedUp; //!!Do NOT include this or it will make this number 0 upon saving!
                     dbEntry.NumVolunteersNeeded = viewModel.Event.NumVolunteersNeeded;
                     dbEntry.POCName = viewModel.Event.POCName;
                     dbEntry.POCPhone = viewModel.Event.POCPhone;

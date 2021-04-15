@@ -45,45 +45,44 @@
                 {
                     @if (@item.EventTitle != "Offsite Duval" && @item.EventTitle != "Offsite Palm Beach")
                     {
-                        <tr>
-                            <td class="text-center">@item.EventDate.ToShortDateString()</td>
-                            <td class="text-center">@item.EventTitle</td>
-                            <td class="text-center">@item.Location.LocationName</td>
-                            <td class="text-center">@item.POCName</td>
-                            @{ 
-                                var totalSpots = @item.NumVolunteersSignedUp + item.NumVolunteersNeeded;
+                <tr>
+                    <td class="text-center">@item.EventDate.ToShortDateString()</td>
+                    <td class="text-center">@item.EventTitle</td>
+                    <td class="text-center">@item.Location.LocationName</td>
+                    <td class="text-center">@item.POCName</td>
+                    @{
+                        var spotsOpen = item.NumVolunteersNeeded - item.NumVolunteersSignedUp;
+                    }
+                    <td class="text-center">@spotsOpen / @item.NumVolunteersNeeded </td>
+                    @if (item.isEventActive == true)
+                    {
+                        <td class="text-center">Yes</td>
+                    }
+                    else
+                    {
+                        <td class="text-center" style="color:red">No</td>
+                    }
+                    <td>
+                        <center>
+                            <form asp-action="ArchiveEvent" asp-route-eventId="@item.EventID" method="post">
+                                <input type="hidden" asp-for="@item.EventID" name="EventID" value="@item.EventID" />
+                                <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
+                                   asp-route-eventId="@item.EventID">
+                                    View
+                                </a>
 
-                            }
-                            <td class="text-center">@item.NumVolunteersNeeded / @totalSpots </td>
-                            @if (item.isEventActive == true)
-                            {
-                                <td class="text-center">Yes</td>
-                            }
-                            else
-                            {
-                                <td class="text-center" style="color:red">No</td>
-                            }
-                            <td>
-                                <center>
-                                <form asp-action="ArchiveEvent" asp-route-eventId="@item.EventID" method="post">
-                                    <input type="hidden" asp-for="@item.EventID" name="EventID" value="@item.EventID" />
-                                    <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
-                                       asp-route-eventId="@item.EventID">
-                                        View
-                                    </a>
-                                    
-                                    <input type="hidden" name="EventID" value=" " />
-                                    <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
-                                       asp-route-eventId="@item.EventID">
-                                        Edit
-                                    </a>
-                                    
-                                    <input type="hidden" asp-for="@item.EventID" name="eventId" value="@item.EventID" />
-                                    <button type="submit" class="btn btn-outline-danger btn-sm" name="eventId" value="@item.EventID" onclick="return confirm('Are you sure you want to archive?')">Archive</button>
-                                </form>
-                                </center>
-                            </td>
-                        </tr>
+                                <input type="hidden" name="EventID" value=" " />
+                                <a asp-action="EventForm" class="btn btn-outline-dark btn-sm"
+                                   asp-route-eventId="@item.EventID">
+                                    Edit
+                                </a>
+
+                                <input type="hidden" asp-for="@item.EventID" name="eventId" value="@item.EventID" />
+                                <button type="submit" class="btn btn-outline-danger btn-sm" name="eventId" value="@item.EventID" onclick="return confirm('Are you sure you want to archive?')">Archive</button>
+                            </form>
+                        </center>
+                    </td>
+                </tr>
                     }
                 }
             </tbody>

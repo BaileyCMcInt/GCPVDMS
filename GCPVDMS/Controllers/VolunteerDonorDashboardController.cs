@@ -73,8 +73,6 @@ namespace GCPVDMS.Controllers
 
             int numSignedUp = passedEvent.NumVolunteersSignedUp - 1;
             passedEvent.NumVolunteersSignedUp = numSignedUp;
-            int numNeeded = passedEvent.NumVolunteersNeeded + 1;
-            passedEvent.NumVolunteersNeeded = numNeeded;
 
             context.EventRegistrations.Attach(eventReg);
             context.EventRegistrations.Remove(eventReg);
@@ -135,8 +133,6 @@ namespace GCPVDMS.Controllers
             //returns the viewmodel with the user-populated data
             return View(viewModel);
         }
-
-
 
 
         [HttpPost]

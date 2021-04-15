@@ -100,7 +100,7 @@
             <form asp-action="ConfirmationPage" method="post">
                 <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
                 <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
-                @if (Model.Event.NumVolunteersNeeded <= 0)
+                @if (Model.Event.NumVolunteersSignedUp == Model.Event.NumVolunteersNeeded)
                 {
                     <p style="color:red;">Sign-up unavailable. This event is full.</p>
                     <button name="eventId" disabled value="@Model.Event.EventID" class="btn btn-outline-dark">
