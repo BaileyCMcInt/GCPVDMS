@@ -138,8 +138,6 @@ namespace GCPVDMS.Controllers
                 {
                     int newSignUpNum = passedEvent.NumVolunteersSignedUp + 1;
                     passedEvent.NumVolunteersSignedUp = newSignUpNum;
-                    int newSignUpNum2 = passedEvent.NumVolunteersNeeded - 1;
-                    passedEvent.NumVolunteersNeeded = newSignUpNum2;
                     context.SaveChanges();
                     return View("ConfirmationPage", viewModel);
                 }

@@ -22,7 +22,11 @@
                     <br />
                     <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
 
-                    <p class="card-text"><b>Number of Volunteers Needed:</b> @Model.Event.NumVolunteersNeeded</p>
+                    @{ 
+                        var spotsOpen = Model.Event.NumVolunteersNeeded - Model.Event.NumVolunteersSignedUp;
+                    }
+
+                    <p class="card-text"><b>Number of Volunteer Spots Open:</b> @spotsOpen / @Model.Event.NumVolunteersNeeded</p>
 
                     <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
 
