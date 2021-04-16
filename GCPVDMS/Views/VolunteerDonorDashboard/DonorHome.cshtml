@@ -5,13 +5,68 @@
 @model DonorViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
 @*Script for JavaScript DataTables*@
 @section Scripts{
     <script>
+
+
+        // $(document).ready(function () {
+        //   $('#yourTable').DataTable();
+        //});
         $(document).ready(function () {
-            $('#yourTable2').DataTable();
+            //$('#yourtable').DataTable();
+            var table = $('#yourTable2').DataTable();
+
+            //  table;
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#min, #max').change(function () {
+                table.draw();
+                printFormFilter();
+
+            });
         });
+        /* Custom filtering function which will search data in column four between two values */
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = Date.parse($('#min').val()) + 14400000;
+                var max = Date.parse($('#max').val()) + 14400000;
+                console.log("min is " + min);
+                console.log("max is " + max);
+
+                var date = Date.parse(data[0].toString()) || 0; // use data for the date column
+                console.log(date);
+                if ((isNaN(min) && isNaN(max)) || (isNaN(min) && date <= max) || (min <= date && isNaN(max)) || (min <= date && date <= max)) {
+                    console.log("date is valid and = " + date);
+                    return true;
+
+                }
+                return false;
+            }
+        );
+
+        //print form filter function
+        function printFormFilter() {
+            var i;
+            var min = Date.parse($('#min').val()) + 14400000;
+            var max = Date.parse($('#max').val()) + 14400000;
+
+            var printBody = document.getElementById("body").children
+            for (i = 0; i < printBody.length; i++) {
+                console.log("row " + i);
+                var dateValue = Date.parse(printBody[i].children[0].innerHTML);
+                console.log("min is " + min + " " + "max is " + max + " " + "DateVal is " + dateValue);
+
+                //Delete row if date is out of user input range (min, max)
+                if (dateValue < min || dateValue > max) {
+                    printBody[i].style.display = "none";
+                    console.log("row " + i + " " + "is out of range");
+                } else {
+                    printBody[i].style.display = "table-row";
+                    console.log("row " + i + "is in range");
+                }
+            }
+        }
+
     </script>
 }
 <partial name="_DonorDonateTab" /><!--dashboard tabs-->
@@ -24,14 +79,15 @@
         <div style="text-align: center">
             <input type="button" class="btn btn-outline-dark" value="Print My Transaction History" onclick="printDiv('printableArea2')" />
         </div>
-
-        <div class="text-center">
-            <p><h5>Donate to The Giving Closet Project using the button below!</h5>Your funds will help provide students in the Palm Beach and Duval counties with personal hygiene items,<br />clothing, school supplies and the hope for a better future.</p>
-            <form action="https://www.paypal.com/donate" method="post" target="_top">
-                <input type="hidden" name="hosted_button_id" value="BHJ58DJ4YQN3G" />
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-            </form>
+        <br />
+        <div style="text-align:center" class="d-flex justify-content-center">
+            <div class="form-group; border" style="width: 50%">
+                <b>Filter Your Transaction History by Date</b><br />
+                <label>Start Date:</label>
+                <input type="date" id="min" min="2020-01-01" max="2050-01-01" required>
+                <label>End Date:</label>
+                <input type="date" id="max" min="2020-01-01" max="2050-01-01" required>
+            </div>
         </div>
         <br />
         <table id="yourTable2" class="table table-bordered table-striped">
@@ -65,6 +121,17 @@
     </div>
 
     <br />
+    <div class="text-center">
+        <p><h5>Donate to The Giving Closet Project using the button below!</h5>Your funds will help provide students in the Palm Beach and Duval counties with personal hygiene items,<br />clothing, school supplies and the hope for a better future.</p>
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="BHJ58DJ4YQN3G" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+            <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+        </form>
+    </div>
+
+
+
 
     <!--PRINT AREA NOT SEEN BY USER NORMALLY-->
     <!--This area is hidden to the viewers and only used when the user selects the Print Transaction History button on this page.-->
@@ -77,7 +144,8 @@
 
             <h1 style="text-align:center">Donor Transaction History</h1>
             <div style="text-align: center">
-                <b>Donor Name:
+                <b>
+                    Donor Name:
                     @if (SignInManager.IsSignedIn(User))
                     {//checks that user is Signed in
                         var CurrentVolunteer = UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result;
@@ -96,25 +164,30 @@
                             </tr>
                         </thead>
                         <tbody id="body">
-                            @foreach (var item in Model.Donors)
-                            {
-                                @if (SignInManager.IsSignedIn(User))//checks that user is Signed in
+                            @{int count = 0;
+                                @foreach (var item in Model.Donors)//PayPal email checker
                                 {
-                                    //var user_email = UserManager.GetUser(User);//get signed in user's UserID
-                                    //if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
-                                    var CurrentVolunteer = UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result;
-                                    if (CurrentVolunteer.Email == item.email_address)
+                                    @if (SignInManager.IsSignedIn(User))//checks that user is Signed in
                                     {
-                                        <tr>
-                                            @*@if ()
-                                            {
-
-                                            }*@
-                                            <td class="text-center">@item.transaction_initiation_date</td>
-                                            <td class="text-center">$ @item.transaction_value</td>
-                                            <td style="display: none" class="text-center">@item.transaction_status</td>
-                                        </tr>
+                                        //var user_email = UserManager.GetUser(User);//get signed in user's UserID
+                                        //if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
+                                        var CurrentVolunteer = UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result;
+                                        if (CurrentVolunteer.Email == item.email_address)
+                                        {
+                                            count++;//counting the rows where CurrentVolunteer.Email == item.email_address
+                                            <tr>
+                                                <td class="text-center">@item.transaction_initiation_date</td>
+                                                <td class="text-center">$ @item.transaction_value</td>
+                                                <td style="display: none" class="text-center">@item.transaction_status</td>
+                                            </tr>
+                                        }
                                     }
+                                }
+                                if (count == 0)
+                                {
+                                    <script>//Appears if the donor does not have their PayPal email in the GCP account
+                                            alert("To view your Transaction History make sure your PayPal account email is saved in your Giving Closet Project account.");
+                                    </script>
                                 }
                             }
                         </tbody>
@@ -124,7 +197,7 @@
 
             <br />
             <br />
-            
+
             <div>
                 <p style="border-bottom:solid ;width:1200px ;border-width:thin"><b>Contact Information</b></p>
                 <table>
