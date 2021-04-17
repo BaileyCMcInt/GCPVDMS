@@ -130,6 +130,10 @@ namespace GCPVDMS.Controllers
                     Location = context.Locations
                         .FirstOrDefault(a => a.LocationID == eventId),
                     Locations = context.Locations.ToList(),
+                    GCPEventTasks = context.GCPEventTasks.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
+                    GCPTasks = context.GCPTasks.ToList(),
+                    GCPEventDisclaimers = context.EventDisclaimers.Where(i => i.isSelected == true && i.EventID == eventId).ToList(),
+                    Disclaimers = context.Disclaimers.ToList(),
                     UserId = Id,
                     
                 };
