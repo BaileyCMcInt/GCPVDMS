@@ -28,8 +28,8 @@
             <th class="text-center">Time</th>
             <th class="text-center">Title</th>
             <th class="text-center">Location</th>
-            <th class="text-center">Spots available</th>
-            <th class="text-center">Total # of spots</th>
+            <th class="text-center"># of Spots available</th>
+            @*<th class="text-center">Total # of spots</th>*@
             <th class="text-center">Actions</th>
         </tr>
     </thead>
@@ -50,10 +50,10 @@
                
                     var openSpots = @item.NumVolunteersNeeded - @item.NumVolunteersSignedUp;
 
-                <td class="text-center">@openSpots</td>
+                <td class="text-center">@openSpots / @item.NumVolunteersNeeded</td>
             }
 
-            <td class="text-center">@item.NumVolunteersNeeded</td>
+            @*<td class="text-center">@item.NumVolunteersNeeded</td>*@
             <td class="text-center">
 
                 <form method="post">
