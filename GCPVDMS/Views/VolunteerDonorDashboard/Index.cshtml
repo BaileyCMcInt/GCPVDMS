@@ -51,12 +51,12 @@
                                 <td class="text-center">
                                     <form asp-action="CancelMyEvent" asp-route-id="@item.EventRegistrationID" method="post">
                                         <input type="hidden" asp-for="@Model.Event.EventID" value="@item.Event.EventID" />
-                                        <a asp-action="EventInfoPage" class="btn btn-outline-dark"
+                                        <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
                                            asp-route-eventId="@item.EventID">
-                                            View Event Info
+                                            View Info
                                         </a>
                                         <input type="hidden" asp-for="@Model.Event.EventID" name="eventId" value="@item.Event.EventID" />
-                                        <button type="submit" class="btn btn-outline-danger" name="Id" value="@item.EventRegistrationID" onclick="return confirm('Are you sure you want to cancel this event registration?')">Cancel</button>
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" name="Id" value="@item.EventRegistrationID" onclick="return confirm('Are you sure you want to cancel this event registration?')">Cancel</button>
                                     </form>
 
                                 </td>

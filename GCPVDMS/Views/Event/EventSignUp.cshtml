@@ -28,7 +28,7 @@
             <th class="text-center">Time</th>
             <th class="text-center">Title</th>
             <th class="text-center">Location</th>
-            <th class="text-center"># of Spots available</th>
+            <th class="text-center">Total Spots available</th>
             @*<th class="text-center">Total # of spots</th>*@
             <th class="text-center">Actions</th>
         </tr>
@@ -43,46 +43,49 @@
             <td class="text-center">@item.Location.LocationName</td>
             @if (item.NumVolunteersSignedUp == item.NumVolunteersNeeded)
             {
-                <td class="text-center">None</td>
+                <td class="text-center">None, All Spots Filled. </td>
             }
             else
             {
                
                     var openSpots = @item.NumVolunteersNeeded - @item.NumVolunteersSignedUp;
 
-                <td class="text-center">@openSpots / @item.NumVolunteersNeeded</td>
+                <td class="text-center">@openSpots</td>
             }
 
             @*<td class="text-center">@item.NumVolunteersNeeded</td>*@
-            <td class="text-center">
-
-                <form method="post">
-                    <input type="hidden" name="EventID" value=" " />
-                    <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
-                       asp-route-eventId="@item.EventID">
-                        More Info
-                    </a>
-                </form>
-
-                @if (SignInManager.IsSignedIn(User))
-                {
-
-                    var userId = UserManager.GetUserId(User);
-                    <form asp-action="ConfirmationPage" method="post">
-                        <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
-                        <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@item.EventID" />
-                        @if (@item.NumVolunteersNeeded <= 0)
-                        {
-                            <p style="color:red;">Sign-up unavailable. This event is full.</p>
-                        }
-                        else
-                        {
-                            <button name="eventId" value="@item.EventID" class="btn btn-outline-success btn-sm" onclick="return confirm('View More Info if you need to see disclaimers for this event. Otherwise, click OK to confirm.')">
-                                Quick Sign-up
-                            </button>
-                        }
+            <td class="form-inline">
+                <center>
+                    <form method="post">
+                        <input type="hidden" name="EventID" value=" " />
+                        <a asp-action="EventInfoPage" class="btn btn-outline-dark btn-sm"
+                           asp-route-eventId="@item.EventID">
+                            More Info
+                        </a>
                     </form>
-                }
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+
+                        var userId = UserManager.GetUserId(User);
+                        <form asp-action="ConfirmationPage" method="post">
+                            <input type="hidden" asp-for="@Model.EventRegistration.UserId" value="@userId">
+                            <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@item.EventID" />
+                            @if (item.NumVolunteersSignedUp == item.NumVolunteersNeeded)
+                            {
+                                <button name="eventId" value="@item.EventID" class="btn btn-outline-success btn-sm" disabled>
+                                    Quick Sign-up
+                                </button>
+                            }
+                            else
+                            {
+                                <button name="eventId" value="@item.EventID" class="btn btn-outline-success btn-sm" onclick="return confirm('View More Info if you need to see disclaimers for this event. Otherwise, click OK to confirm.')">
+                                    Quick Sign-up
+                                </button>
+                            }
+                        </form>
+                    }
+                </center>
             </td>
         </tr>
         }

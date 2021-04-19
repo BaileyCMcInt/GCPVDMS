@@ -50,11 +50,13 @@
                             <td class="text-center">@item.EventDate.ToShortDateString()</td>
                             <td>
                                 <form method="post">
+                                    <center>
                                     <input type="hidden" name="EventID" value="" />
                                     <a asp-action="DisplayEvent" class="btn btn-outline-dark btn-sm"
                                        asp-route-eventId="@item.EventID">
                                         View
                                     </a>
+                                    </center>
                                 </form>
                             </td>
                         </tr>
@@ -63,7 +65,9 @@
             </tbody>
         </table>
         <div class="text-left" style="margin-top: 10px; padding: 13px 0 10px 0;">
-            <a asp-action="EventList" class="btn btn-outline-dark">Return to Opportunities List</a>
+            <center>
+                <a asp-action="EventList" class="btn btn-outline-dark">Return to Opportunities List</a>
+            </center>
         </div>
     </div>
 </body>
