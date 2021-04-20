@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <br />
-                    <h4>Event Information</h4>
+                    <h4>Opportunity Information</h4>
                     <br />
                     <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
 
@@ -28,7 +28,7 @@
 
                     <p class="card-text"><b>Number of Volunteer Spots Open:</b> @spotsOpen / @Model.Event.NumVolunteersNeeded</p>
 
-                    <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
+                    <p class="card-text"><b>Description:</b> @Model.Event.EventDescription</p>
 
                     <p class="card-text">
                         <b>Tasks:</b>
@@ -47,7 +47,7 @@
                     <br />
                     <h4>Date and Time</h4>
                     <br />
-                    <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
+                    <p class="card-text"><b>Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
 
                     <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
 
@@ -98,7 +98,7 @@
         </div>
         <center>
             <div>
-                <a asp-action="EventList" class="btn btn-outline-dark">Back To Events</a>
+                <a asp-action="EventList" class="btn btn-outline-dark">Back To Opportunities</a>
                 <a asp-action="EventForm" class="btn btn-outline-dark"
                    asp-route-eventId="@Model.Event.EventID">
                     Edit

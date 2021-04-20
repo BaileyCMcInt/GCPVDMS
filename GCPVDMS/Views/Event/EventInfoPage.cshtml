@@ -1,6 +1,6 @@
 ﻿@model SignedUpEventsViewModel
 @{
-    ViewBag.Title = "Event Information";
+    ViewBag.Title = "Opportunity Information";
     Layout = "_Layout";
 }
 @inject SignInManager<ApplicationUser> SignInManager
@@ -28,13 +28,13 @@
                 <div class="row">
                     <div class="col-md-5">
 
-                        <h4> Event Info</h4>
+                        <h4> Opportunity Info</h4>
                         <br />
                         <p class="card-text"><b>Location:</b> @Model.Event.Location.LocationName</p>
                         <p class="card-text">@Model.Event.Location.StreetAddress</p><p class="card-text">@Model.Event.Location.StreetAddress2</p>
                         <p class="card-text">@Model.Event.Location.City, @Model.Event.Location.Zip</p>
 
-                        <p class="card-text"><b>Event Description:</b> @Model.Event.EventDescription</p>
+                        <p class="card-text"><b>Description:</b> @Model.Event.EventDescription</p>
                         <p class="card-text">
                             <b>Tasks:</b>
 
@@ -50,7 +50,7 @@
                     <div class="col-md-4">
                         <h4>Date and Time</h4>
                         <br />
-                        <p class="card-text"><b>Event Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
+                        <p class="card-text"><b>Date:</b> @Model.Event.EventDate.ToShortDateString()</p>
 
                         <p class="card-text"><b>Start Time:</b> @Model.Event.StartTime.ToShortTimeString()</p>
 
@@ -102,23 +102,23 @@
                 <input type="hidden" asp-for="@Model.EventRegistration.EventID" value="@Model.Event.EventID" />
                 @if (Model.Event.NumVolunteersSignedUp == Model.Event.NumVolunteersNeeded)
                 {
-                    <p style="color:red;">Sign-up unavailable. This event is full.</p>
+                    <p>None, All spots filled.</p>
                     <button name="eventId" disabled value="@Model.Event.EventID" class="btn btn-outline-dark">
                         Sign-up
                     </button>
                 }
                 else
                 {
-                    <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark" onclick="return confirm('Are you sure you want to sign up for this event? Click OK to confirm.')">
+                    <button name="eventId" value="@Model.Event.EventID" class="btn btn-outline-dark" onclick="return confirm('Are you sure you want to sign up for this opportunity? Click OK to confirm.')">
                         Sign-up
                     </button>
                 }
-                <button asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">Back to Events</button>
+                <button asp-controller="Event" asp-action="EventSignUp" class="btn btn-outline-dark">Back to Opportunities</button>
             </form>
         }
         else
         {
-            <p>You need a volunteer account in order to volunteer at an event.</p>
+            <p>You need a volunteer account in order to volunteer for an opportunity.</p>
             <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
             <br />
             <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>
@@ -129,5 +129,3 @@
 
 </body>
 </html>
-@*onclick="return confirm('Are you sure you want to sign up?')"
-    I commented this out because I didn't want to mess with it before adding viewmodels*@

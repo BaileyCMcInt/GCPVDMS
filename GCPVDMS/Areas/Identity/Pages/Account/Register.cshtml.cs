@@ -97,7 +97,9 @@ namespace GCPVDMS.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,
+                var user = new ApplicationUser { 
+                    UserName = Input.Email, 
+                    Email = Input.Email,
                     FirstName = Input.FirstName,//this is where we are assigning registration input to the database if input is valid
                     LastName = Input.LastName,
                     isVolunteer = Input.isVolunteer,

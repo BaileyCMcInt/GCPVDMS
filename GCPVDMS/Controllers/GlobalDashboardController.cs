@@ -31,6 +31,7 @@ namespace GCPVDMS.Controllers
         [TempData]
         public string StatusMessage { get; set; }
 
+        [Authorize(Roles = "Global Admin")]
         public IActionResult Index()
         {
             return RedirectToAction("EventList");
@@ -175,7 +176,7 @@ namespace GCPVDMS.Controllers
             //the following are methods related to TASK MODELS
 
             //This method provides the list of tasks in the master task view. 
-            [Authorize(Roles = "Global Admin")]
+        [Authorize(Roles = "Global Admin")]
         [HttpGet]
         public IActionResult MasterTask()
         {
@@ -399,18 +400,18 @@ namespace GCPVDMS.Controllers
 
         //the following methods are related to ROLE MODELS utilized on the ADMIN tab of the dashboard
 
-        //[Authorize(Roles = "Global Admin")]
+        [Authorize(Roles = "Global Admin")]
         public ViewResult RoleIndex() => View(roleManager.Roles);
         public IActionResult RoleCreate() => View();
 
-        //[Authorize(Roles = "Global Admin")]
+        [Authorize(Roles = "Global Admin")]
         private void Errors(IdentityResult result)
         {
             foreach (IdentityError error in result.Errors)
                 ModelState.AddModelError("", error.Description);
         }
 
-        //[Authorize(Roles = "Global Admin")]
+        [Authorize(Roles = "Global Admin")]
         [HttpPost]
         public async Task<IActionResult> RoleCreate([Required]string name)
         {
@@ -443,7 +444,7 @@ namespace GCPVDMS.Controllers
             return View("Index", roleManager.Roles);
         }
 
-        //[Authorize(Roles = "Global Admin")]
+        [Authorize(Roles = "Global Admin")]
         public async Task<IActionResult> RoleUpdate(string id)
         {
             IdentityRole role = await roleManager.FindByIdAsync(id);
@@ -462,7 +463,7 @@ namespace GCPVDMS.Controllers
             });
         }
 
-        //[Authorize(Roles = "Global Admin")]
+        [Authorize(Roles = "Global Admin")]
         [HttpPost]
         public async Task<IActionResult> RoleUpdate(RoleModification model)
         {

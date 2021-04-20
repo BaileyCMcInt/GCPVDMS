@@ -94,7 +94,7 @@
 @if (!SignInManager.IsSignedIn(User))
 {
     <Center>
-        <p>You need a volunteer account in order to volunteer at an event.</p>
+        <p>You must be logged in to an account in order to sign up for an opportunity.</p>
         <a id="login" asp-area="Identity" asp-page="/Account/Login">Login to account</a>
         <br />
         <a id="register" asp-area="Identity" asp-page="/Account/Register">Create an account</a>

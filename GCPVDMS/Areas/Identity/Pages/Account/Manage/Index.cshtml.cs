@@ -93,7 +93,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
             var birthday = user.Birthday;
             var firstTimeLogin = user.FirstTimeLogin;
             var volunteerType = user.VolunteerType;
-            Username = userName;
+            //Username = userName;
             var profilePicture = user.ProfilePicture;
             Input = new InputModel
             {
@@ -128,6 +128,7 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+            var userName = user.UserName;
             var firstName = user.FirstName;
             var lastName = user.LastName;
             var preferredContact = user.PreferredContact;
@@ -190,6 +191,12 @@ namespace GCPVDMS.Areas.Identity.Pages.Account.Manage
                 await _userManager.UpdateAsync(user);
             }
 
+            if (Input.Username != userName)
+            {
+                user.Email = Input.Username;
+                user.UserName = Input.Username;
+                await _userManager.UpdateAsync(user);
+            }
             if (Input.VolunteerType != volunteerType)
             {
                 user.VolunteerType = Input.VolunteerType;

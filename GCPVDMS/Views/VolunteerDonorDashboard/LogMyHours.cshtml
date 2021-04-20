@@ -15,13 +15,13 @@
             <input type="hidden" asp-for="VolunteerHour.VolunteerHourID" />
             <br />
             <div class="form-group">
-                <label asp-for="@Model.Event.EventID">1. Select one event from your list of registered events:</label><br />
+                <label asp-for="@Model.Event.EventID">1. Select from your list of registered opportunities:</label><br />
                 <label><i style="font-size:small">If you are logging hours unassociated with an event, select "Other [County Name]"</i></label><br />
 
                 <div class="form-group">
 
                     <select class="form-control" asp-for="@Model.VolunteerHour.EventID" id="EventDropdown" style="width: 40%" required>
-                        <option value="">Select Event</option>
+                        <option value="">Select Opportunity</option>
                         @foreach (var _event in Model.EventRegistrations)
                         {
                             @if (SignInManager.IsSignedIn(User))

@@ -100,12 +100,26 @@
     }
     else
     {
-<Center>
-    <a asp-controller="VolunteerDonorDashboard" asp-action="Index" class="btn btn-outline-dark">
-        My Dashboard
-    </a>
-    <a id="logout" asp-area="Identity" asp-page="/Account/Logout" class="btn btn-outline-dark">Logout</a>
-</Center>
+        var globalAdmin = "Global Admin";
+        if (!User.IsInRole(globalAdmin))
+        {
+            <Center>
+
+                <a asp-controller="VolunteerDonorDashboard" asp-action="Index" class="btn btn-outline-dark">
+                    My Dashboard
+                </a>
+                <a id="logout" asp-area="Identity" asp-page="/Account/Logout" class="btn btn-outline-dark">Logout</a>
+            </Center>
+        }
+        else
+        {
+            <Center>
+                <a asp-controller="GlobalDashboard" asp-action="Index" class="btn btn-outline-dark">
+                    My Dashboard
+                </a>
+                <a id="logout" asp-area="Identity" asp-page="/Account/Logout" class="btn btn-outline-dark">Logout</a>
+            </Center>
+        }
     }
 </body>
 </html>
