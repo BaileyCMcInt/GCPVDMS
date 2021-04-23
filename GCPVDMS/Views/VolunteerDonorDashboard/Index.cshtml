@@ -44,7 +44,7 @@
                         if (user == item.UserId)//checks that the userId retrieved matches eventRegistration userId
                         {
                             <tr>
-                                <td class="text-center"> @item.Event.EventDate.ToShortDateString() </td><!--So this is really Model.EventRegistration.Event.EventDate. Referencing Viewmodels are basically pointers.-->
+                                <td class="text-center"> @item.Event.EventDate.ToShortDateString() </td><!--Referencing the Model-->
                                 <td class="text-center"> @item.Event.EventTitle </td>
                                 <td class="text-center"> @item.Event.Location.LocationName </td>
                                 <td class="text-center"> @item.Event.StartTime.ToShortTimeString() </td>
@@ -71,14 +71,6 @@
     </div>
 
 <br />
-
-<!--<div style="text-align: center">
-    <a asp-action="MyLoggedHours" class="btn btn-outline-dark">View My Logged Hours</a>-->
-    @*This button redirects the user to the My Logged Hours View page.*@
-    <!--<a asp-action="LogMyHoursCreate" class="btn btn-outline-dark">Log My Hours</a>-->
-    @*This button redirects the user to the Log My Hours View page.*@
-<!--</div>-->
-
 <br />
 
 </body>
