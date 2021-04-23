@@ -101,6 +101,7 @@
                 <tr>
                     <th class="text-center">Date</th>
                     <th class="text-center">Event</th>
+                    <th class="text-center">Work Description</th>
                     <th class="text-center">Hours/Minutes Worked</th>
                     <th class="text-center">Approval Status</th>
                     <th class="text-center">Admin Feedback</th>
@@ -118,6 +119,7 @@
                 <tr>
                     <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
                     <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                    <td class="text-center">@item.volunteerDescription</td>
                     <td class="text-center">@item.NumberOfHours.ToString("0.00")</td>
                     @if (item.isApproved == true && item.isDenied == false)
                     {
@@ -176,6 +178,7 @@
                             <tr>
                                 <th class="text-center">Date</th>
                                 <th class="text-center">Event</th>
+                                <th class="text-center">Work Description</th>
                                 <th class="text-center">Hours Worked</th>
                                 <th style="display: none" class="text-center">Approval Status</th>
                             </tr>
@@ -185,38 +188,43 @@
                             <!----This loop utilizes the ViewModel tagged in this page to retrieve logged hour data for a specific volunteer.-->
                             @foreach (var item in Model.VolunteerHours)//loops through volunteerHour table data
                             {
-
-
                                 @if (SignInManager.IsSignedIn(User))//checks that user is Signed in
                                 {
                                     var user = UserManager.GetUserId(User);//get signed in user's UserID
                                     if (user == item.UserId)//checks for event registration table UserID's that match the signed in user's UserId
                                     {
-                                        <tr>
-                                            @if (item.isApproved == true && item.isDenied == false)
-                                            {
-                                                <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
-                                                <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                                                <td class="text-center">@item.NumberOfHours</td>
-                                                totalHours += item.NumberOfHours;
-                                                <td style="display: none" class="text-center">Approved</td>
-                                            }
+                            <tr>
+                                @if (item.isApproved == true && item.isDenied == false)
+                                {
+                                    <td class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                                    <td class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                                    <td class="text-center">@item.volunteerDescription</td><!--Lists the work description typed in by the user on the request form-->
+                                    <td class="text-center">@item.NumberOfHours</td><!--lists the number of hours the volunteer filled out on the request form-->
+                                    totalHours += item.NumberOfHours;
+                                    <td style="display: none" class="text-center">Approved</td>
+                                }
 
-                                            @if (item.isDenied == true)
-                                            {
-                                                <td style="display: none" class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
-                                                <td style="display: none" class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
-                                                <td style="display: none" class="text-center">@item.NumberOfHours</td>
-                                                <td style="display: none" class="text-center">Denied</td>
-                                            }
-                                        </tr>
+                                @if (item.isDenied == true)
+                                {
+                                    <td style="display: none" class="text-center">@item.Date.ToShortDateString()</td><!--Model.VolunteerHours.Date-->
+                                    <td style="display: none" class="text-center">@item.Event.EventTitle</td><!--Model.Event.EventTitle-->
+                                    <td style="display: none" class="text-center">@item.NumberOfHours</td>
+                                    <td style="display: none" class="text-center">Denied</td>
+                                }
+                            </tr>
 
                                     }
                                 }
-
                             }
+                            <!--Converting the totalHours (double) to hh:mm format-->
+                            @{var timeSpan = TimeSpan.FromHours(totalHours);
+                                double hh = Math.Floor(totalHours);
+                                double tempTime = totalHours - hh;
+                                double mm =  Math.Floor(tempTime * 60);
+                                string totalHoursFinal = hh.ToString() + ":" + mm.ToString();
+                             }
                             <tr>
-                                <td colspan="3" style="text-align:right"><b>Total Hours: @totalHours</b></td>
+                                <td colspan="4" style="text-align:right"><b>Total Hours @totalHoursFinal</b></td>
                             </tr>
                         </tbody>
                     </table>
